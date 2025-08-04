@@ -1,0 +1,32 @@
+{
+	"name": "@nanoweb/test",
+	"version": "1.0.0",
+	"description": "A simple and flexible mock fetch utility for testing HTTP requests in Node.js and browser environments.",
+	"main": "src/index.js",
+	"type": "module",
+	"scripts": {
+		"test": "node --test"
+	},
+	"keywords": [
+		"fetch",
+		"mock",
+		"testing",
+		"http",
+		"utility"
+	],
+	"author": "ЯRаСлав YaRaSlove <support@yaro.page>",
+	"license": "ISC",
+	"packageManager": "pnpm@10.11.0",
+	"dependencies": {},
+	"files": [
+		"src"
+	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/yaro-rasta/nan0test.git"
+	},
+	"homepage": "https://github.com/yaro-rasta/nan0test#readme",
+	"bugs": {
+		"url": "https://github.com/yaro-rasta/nan0test/issues"
+	}
+}
