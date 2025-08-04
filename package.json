@@ -1,7 +1,7 @@
 {
 	"name": "@nanoweb/test",
 	"version": "1.0.0",
-	"description": "A simple and flexible mock fetch utility for testing HTTP requests in Node.js and browser environments.",
+	"description": "A test package with simple utilities for testing in any javascript runtime",
 	"main": "src/index.js",
 	"type": "module",
 	"scripts": {
