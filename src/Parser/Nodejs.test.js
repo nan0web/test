@@ -1,5 +1,6 @@
 import assert from 'node:assert'
 import { describe, it } from 'node:test'
+import DB from "@nan0web/db-fs"
 import { Node, to } from "@nan0web/types"
 import NodejsParser from './Nodejs.js'
 
@@ -85,5 +86,22 @@ describe('NodejsParser', () => {
 
 		const encoded = parser.encode(rootNode)
 		assert.strictEqual(encoded, nodeJsTest)
+	})
+
+	it("should parse file node:test-output.txt", async () => {
+		const db = new DB()
+		const text = await db.loadDocument("test/node:test-output.txt")
+		const parser = new NodejsParser()
+		const root = parser.decode(text)
+		assert.ok(root)
+		assert.equal(root.testsCount, 28)
+		assert.equal(root.suitesCount, 2)
+		assert.equal(root.passCount, 27)
+		assert.equal(root.failCount, 1)
+		assert.equal(root.cancelledCount, 0)
+		assert.equal(root.skippedCount, 0)
+		assert.equal(root.todoCount, 0)
+		assert.equal(root.duration.toFixed(1), 0.3)
+		assert.equal(root.durationMs.toFixed(1), 303.1)
 	})
 })

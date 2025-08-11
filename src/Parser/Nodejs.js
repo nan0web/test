@@ -1,14 +1,19 @@
-import { Parser, Node } from "@nan0web/types"
+import { Parser } from "@nan0web/types"
+import TestNode from "./Node.js"
 
-class NodejsParser extends Parser {
+/**
+ * A parser for Node.js test output in TAP format.
+ * Handles decoding TAP text into a tree structure and encoding it back to text.
+ */
+class NodeTestParser extends Parser {
 	/**
 	 * Decode the Node.js test output text into a tree.
-	 * @param {string} text
-	 * @returns {Node}
+	 * @param {string} text - The TAP-formatted text to decode.
+	 * @returns {TestNode} A tree structure representing the test output.
 	 */
 	decode(text) {
 		const rows = String(text).split(this.eol)
-		const root = new Node()
+		const root = new TestNode()
 		const stack = [{ node: root, indent: -1 }]
 
 		for (let i = 0; i < rows.length; i++) {
@@ -26,7 +31,7 @@ class NodejsParser extends Parser {
 			const parent = stack[stack.length - 1].node
 
 			// Create a new node with payload
-			const node = new Node({ content: payload })
+			const node = new TestNode({ content: payload })
 			parent.children.push(node)
 
 			// Push it onto the stack – it may own children
@@ -38,11 +43,11 @@ class NodejsParser extends Parser {
 
 	/**
 	 * Encode the tree back into Node.js test output text.
-	 * @param {Node} node
-	 * @param {object} options
-	 * @param {number} [options.indent=-1]
-	 * @param {Node} [options.parent=null]
-	 * @returns {string}
+	 * @param {TestNode} node - The node tree to encode.
+	 * @param {object} options - Encoding options.
+	 * @param {number} [options.indent=-1] - The indentation level for the node.
+	 * @param {TestNode} [options.parent=null] - The parent node.
+	 * @returns {string} The TAP-formatted text representation of the tree.
 	 */
 	encode(node, options = {}) {
 		const { indent = -1, parent = null } = options
@@ -58,4 +63,4 @@ class NodejsParser extends Parser {
 	}
 }
 
-export default NodejsParser
+export default NodeTestParser

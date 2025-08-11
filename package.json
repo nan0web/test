@@ -9,6 +9,7 @@
 		"./jsdom": "./src/jsdom.js"
 	},
 	"scripts": {
+		"build": "tsc",
 		"test": "node --test"
 	},
 	"keywords": [
@@ -34,5 +35,12 @@
 	},
 	"dependencies": {
 		"happy-dom": "^18.0.1"
+	},
+	"devDependencies": {
+		"@nan0web/db-fs": "link:../db-fs",
+		"@nan0web/types": "link:../types"
+	},
+	"peerDependencies": {
+		"@nan0web/types": "^1.0.0"
 	}
 }
