@@ -1,9 +1,13 @@
 {
-	"name": "@nanoweb/test",
+	"name": "@nan0web/test",
 	"version": "1.0.0",
-	"description": "A test package with simple utilities for testing in any javascript runtime",
+	"description": "A test package with simple utilities for testing in node.js runtime",
 	"main": "src/index.js",
 	"type": "module",
+	"exports": {
+		".": "./src/index.js",
+		"./jsdom": "./src/jsdom.js"
+	},
 	"scripts": {
 		"test": "node --test"
 	},
@@ -14,10 +18,9 @@
 		"http",
 		"utility"
 	],
-	"author": "ЯRаСлав YaRaSlove <support@yaro.page>",
+	"author": "ЯRаСлав YaRaSLove <support@yaro.page>",
 	"license": "ISC",
 	"packageManager": "pnpm@10.11.0",
-	"dependencies": {},
 	"files": [
 		"src"
 	],
@@ -28,5 +31,8 @@
 	"homepage": "https://github.com/yaro-rasta/nan0test#readme",
 	"bugs": {
 		"url": "https://github.com/yaro-rasta/nan0test/issues"
+	},
+	"dependencies": {
+		"happy-dom": "^18.0.1"
 	}
 }

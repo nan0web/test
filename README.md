@@ -1,4 +1,4 @@
-# @nanoweb/test
+# @nan0web/test
 
 A lightweight utility to mock the `fetch` API for testing purposes. Useful in both Node.js and browser environments.
 
@@ -7,13 +7,13 @@ A lightweight utility to mock the `fetch` API for testing purposes. Useful in bo
 Using pnpm:
 
 ```bash
-pnpm add @nanoweb/test
+pnpm add @nan0web/test
 ```
 
 ## Usage
 
 ```js
-import mockFetch from '@nanoweb/test'
+import mockFetch from '@nan0web/test'
 
 const routes = [
   ['GET /users', { id: 1, name: 'John Doe' }],

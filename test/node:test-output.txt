@@ -1,0 +1,184 @@
+TAP version 13
+# Subtest: mockFetch
+    # Subtest: should return a function
+    ok 1 - should return a function
+      ---
+      duration_ms: 0.712208
+      ...
+    # Subtest: should handle exact route match
+    ok 2 - should handle exact route match
+      ---
+      duration_ms: 0.753125
+      ...
+    # Subtest: should handle method wildcard
+    ok 3 - should handle method wildcard
+      ---
+      duration_ms: 0.3265
+      ...
+    # Subtest: should handle path wildcard
+    ok 4 - should handle path wildcard
+      ---
+      duration_ms: 0.102834
+      ...
+    # Subtest: should match all with * *
+    ok 5 - should match all with * *
+      ---
+      duration_ms: 0.183917
+      ...
+    # Subtest: should match all with *
+    ok 6 - should match all with *
+      ---
+      duration_ms: 0.098584
+      ...
+    # Subtest: should handle custom status code
+    ok 7 - should handle custom status code
+      ---
+      duration_ms: 0.101542
+      ...
+    # Subtest: should return 404 for unmatched route
+    ok 8 - should return 404 for unmatched route
+      ---
+      duration_ms: 0.498292
+      ...
+    # Subtest: should handle function-based response
+    ok 9 - should handle function-based response
+      ---
+      duration_ms: 0.288916
+      ...
+    # Subtest: should handle function-based response returning structured response
+    ok 10 - should handle function-based response returning structured response
+      ---
+      duration_ms: 0.450916
+      ...
+    # Subtest: Route patterns
+        # Subtest: should process route GET /users
+        ok 1 - should process route GET /users
+          ---
+          duration_ms: 0.183042
+          ...
+        # Subtest: should process route POST /users
+        ok 2 - should process route POST /users
+          ---
+          duration_ms: 0.044292
+          ...
+        # Subtest: should process route HEAD /users
+        ok 3 - should process route HEAD /users
+          ---
+          duration_ms: 0.039834
+          ...
+        # Subtest: should process route OPTIONS /users
+        ok 4 - should process route OPTIONS /users
+          ---
+          duration_ms: 0.03875
+          ...
+        # Subtest: should process route DELETE /users
+        ok 5 - should process route DELETE /users
+          ---
+          duration_ms: 0.041084
+          ...
+        # Subtest: should process route POST /users
+        ok 6 - should process route POST /users
+          ---
+          duration_ms: 0.03375
+          ...
+        # Subtest: should process route PUT /users
+        ok 7 - should process route PUT /users
+          ---
+          duration_ms: 0.031
+          ...
+        # Subtest: should process route PATCH /users
+        ok 8 - should process route PATCH /users
+          ---
+          duration_ms: 0.106167
+          ...
+        # Subtest: should process route GET /users/
+        ok 9 - should process route GET /users/
+          ---
+          duration_ms: 0.037167
+          ...
+        # Subtest: should process route GET /users/specific
+        ok 10 - should process route GET /users/specific
+          ---
+          duration_ms: 0.03075
+          ...
+        # Subtest: should process route GET /private/
+        ok 11 - should process route GET /private/
+          ---
+          duration_ms: 0.035084
+          ...
+        # Subtest: should process route GET /private/file
+        ok 12 - should process route GET /private/file
+          ---
+          duration_ms: 0.031042
+          ...
+        # Subtest: should process route GET /
+        ok 13 - should process route GET /
+          ---
+          duration_ms: 0.030667
+          ...
+        # Subtest: should process route GET /anything
+        ok 14 - should process route GET /anything
+          ---
+          duration_ms: 0.044667
+          ...
+        # Subtest: should process route GET no-slash
+        ok 15 - should process route GET no-slash
+          ---
+          duration_ms: 0.034959
+          ...
+        # Subtest: should process route POST /yes
+        ok 16 - should process route POST /yes
+          ---
+          duration_ms: 0.030834
+          ...
+        # Subtest: should process route POST no
+        ok 17 - should process route POST no
+          ---
+          duration_ms: 0.030459
+          ...
+        # Subtest: should throw new Error
+        not ok 18 - should throw new Error
+          ---
+          duration_ms: 0.154458
+          location: '/Users/i/src/nan.web/packages/test/src/mock/fetch.test.js:148:3'
+          failureType: 'testCodeFailure'
+          error: 'What?'
+          code: 'ERR_TEST_FAILURE'
+          stack: |-
+            TestContext.<anonymous> (file:///Users/i/src/nan.web/packages/test/src/mock/fetch.test.js:149:10)
+            Test.runInAsyncScope (node:async_hooks:206:9)
+            Test.run (node:internal/test_runner/test:865:25)
+            Suite.processPendingSubtests (node:internal/test_runner/test:574:18)
+            Test.postRun (node:internal/test_runner/test:964:19)
+            Test.run (node:internal/test_runner/test:907:12)
+            async Suite.processPendingSubtests (node:internal/test_runner/test:574:7)
+          ...
+        1..18
+    not ok 11 - Route patterns
+      ---
+      duration_ms: 1.238458
+      type: 'suite'
+      location: '/Users/i/src/nan.web/packages/test/src/mock/fetch.test.js:107:2'
+      failureType: 'subtestsFailed'
+      error: '1 subtest failed'
+      code: 'ERR_TEST_FAILURE'
+      ...
+    1..11
+not ok 1 - mockFetch
+  ---
+  duration_ms: 5.610792
+  type: 'suite'
+  location: '/Users/i/src/nan.web/packages/test/src/mock/fetch.test.js:5:1'
+  failureType: 'subtestsFailed'
+  error: '1 subtest failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+1..1
+# tests 28
+# suites 2
+# pass 27
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 303.132125
