@@ -4,13 +4,21 @@
 	"description": "A test package with simple utilities for testing in node.js runtime",
 	"main": "src/index.js",
 	"type": "module",
+	"types": "types/index.d.ts",
 	"exports": {
-		".": "./src/index.js",
-		"./jsdom": "./src/jsdom.js"
+		".": {
+			"import": "./src/index.js",
+			"types": "./types/index.d.ts"
+		},
+		"./jsdom": {
+			"import": "./src/jsdom.js",
+			"types": "./types/jsdom.d.ts"
+		}
 	},
 	"scripts": {
 		"build": "tsc",
-		"test": "node --test"
+		"test": "node --test",
+		"test:coverage": "node --test --experimental-test-coverage --test-coverage-include=src/**/*.js"
 	},
 	"keywords": [
 		"fetch",
@@ -37,10 +45,13 @@
 		"happy-dom": "^18.0.1"
 	},
 	"devDependencies": {
-		"@nan0web/db-fs": "link:../db-fs",
-		"@nan0web/types": "link:../types"
+		"@nan0web/db": "workspace:*",
+		"@nan0web/db-fs": "workspace:*",
+		"@nan0web/types": "workspace:*"
 	},
 	"peerDependencies": {
+		"@nan0web/db": "^1.0.0",
+		"@nan0web/db-fs": "^1.0.0",
 		"@nan0web/types": "^1.0.0"
 	}
 }

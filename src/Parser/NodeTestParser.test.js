@@ -2,7 +2,7 @@ import assert from 'node:assert'
 import { describe, it } from 'node:test'
 import DB from "@nan0web/db-fs"
 import { Node, to } from "@nan0web/types"
-import NodejsParser from './Nodejs.js'
+import NodeTestParser from './NodeTestParser.js'
 
 const nodeJsTest = [
 	"TAP version 13",
@@ -14,10 +14,10 @@ const nodeJsTest = [
 	"1..1",
 ].join("\n")
 
-describe('NodejsParser', () => {
+describe('NodeTestParser', () => {
 	it('should decode a simple TAP output correctly', () => {
 		const text = 'TAP version 13\nok 1 - first test\nnot ok 2 - second test\n1..2'
-		const parser = new NodejsParser()
+		const parser = new NodeTestParser()
 		const root = parser.decode(text)
 
 		assert.strictEqual(root.children.length, 4)
@@ -28,7 +28,7 @@ describe('NodejsParser', () => {
 	})
 
 	it('should encode a simple tree back to TAP output', () => {
-		const parser = new NodejsParser()
+		const parser = new NodeTestParser()
 		const root = new Node({
 			children: [
 				new Node({ content: 'TAP version 13' }),
@@ -44,7 +44,7 @@ describe('NodejsParser', () => {
 	})
 
 	it('should decode subtests correctly', () => {
-		const parser = new NodejsParser({ tab: '    ' }) // 4 spaces for this test
+		const parser = new NodeTestParser({ tab: '    ' }) // 4 spaces for this test
 		const root = parser.decode(nodeJsTest)
 
 		assert.strictEqual(root.children.length, 3)
@@ -60,7 +60,7 @@ describe('NodejsParser', () => {
 	})
 
 	it('should encode subtests correctly', () => {
-		const parser = new NodejsParser({ tab: '    ' })
+		const parser = new NodeTestParser({ tab: '    ' })
 		const root = parser.decode(nodeJsTest)
 		const rootNode = new Node({
 			children: [
@@ -91,7 +91,7 @@ describe('NodejsParser', () => {
 	it("should parse file node:test-output.txt", async () => {
 		const db = new DB()
 		const text = await db.loadDocument("test/node:test-output.txt")
-		const parser = new NodejsParser()
+		const parser = new NodeTestParser()
 		const root = parser.decode(text)
 		assert.ok(root)
 		assert.equal(root.testsCount, 28)

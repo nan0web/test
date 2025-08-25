@@ -1,5 +1,5 @@
 import { Parser } from "@nan0web/types"
-import TestNode from "./Node.js"
+import TestNode from "./TestNode.js"
 
 /**
  * A parser for Node.js test output in TAP format.

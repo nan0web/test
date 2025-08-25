@@ -1,6 +1,6 @@
 import { describe, it } from 'node:test'
 import { strictEqual } from 'node:assert'
-import TestNode from './Node.js'
+import TestNode from './TestNode.js'
 
 describe('TestNode', () => {
 	it('should correctly parse TAP version', () => {

@@ -1,3 +1,4 @@
-chat/
-node_modules/
-me.md
+/chat/
+/dist/
+/node_modules/
+/me.md

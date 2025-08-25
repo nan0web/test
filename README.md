@@ -1,54 +1,81 @@
 # @nan0web/test
 
-A lightweight utility to mock the `fetch` API for testing purposes. Useful in both Node.js and browser environments.
+A test package with simple utilities for testing in node.js runtime.
 
-## Installation
-
-Using pnpm:
-
+## Install
 ```bash
-pnpm add @nan0web/test
+npm install @nan0web/test
 ```
 
 ## Usage
 
+Example usage of mockFetch and MemoryDB
 ```js
-import mockFetch from '@nan0web/test'
+import { mockFetch, MemoryDB } from '@nan0web/test'
 
-const routes = [
-  ['GET /users', { id: 1, name: 'John Doe' }],
-  ['POST /users', [201, { id: 2, name: 'Jane Smith' }]],
-  ['GET /items/*', (method, url) => ({ path: url, method })],
-]
+// ✅ Create a mock fetch function
+const fetch = mockFetch([
+	['GET /users', { id: 1, name: 'John Doe' }],
+	['POST /users', [201, { id: 2, name: 'Jane Smith' }]],
+])
 
-const fetch = mockFetch(routes)
-
-const response = await fetch('/users')
+// ✅ Use the mock fetch
+const response = await fetch("/users")
 const data = await response.json()
-// data => { id: 1, name: 'John Doe' }
+console.log(data) // { id: 1, name: 'John Doe' }
+
+// ✅ Create a mock DB
+const db = new MemoryDB({
+	predefined: [
+		['file1.txt', 'content1'],
+		['file2.txt', 'content2'],
+	]
+})
+
+// ✅ Use the mock DB
+await db.connect()
+const content = await db.loadDocument('file1.txt')
+console.log(content) // 'content1'
 ```
+## API
 
-### Route Patterns
+### `mockFetch(routes)`
+Creates a mock fetch function based on the provided routes.
 
-- Exact match: `GET /users`
-- Method wildcard: `* /users`
-- Path wildcard: `GET /users/*`
-- Path directory: `GET /users/`
-- Match all get: `GET /`
-- Match all get: `GET *`
-- Match all: `* *`, or `* /`, or `*`
+* **Parameters**
+  * `routes` – Route patterns with their corresponding responses.
 
-The response can either be:
-- An object that will be returned as JSON with status 200
-- An array with two items: status code and response data
-- A function that returns either:
-  - A resolved object or Promise
-  - An object with an `ok`, `status`, and `data` property
+* **Returns**
+  * `function` – An async function that mimics the fetch API.
+
+#### Route Patterns
+* `exact match` – matches the exact route.
+* `method wildcard` – matches any method with the specified path.
+* `path wildcard` – matches the specified method with any path starting with the given prefix.
+* `catch all` – matches any route.
+
+### `MemoryDB(options)`
+MemoryDB class for testing as mock DB.
+
+* **Parameters**
+  * `options` – Options for the MemoryDB instance.
+
+### `DocsParser()`
+Extracts documentation from test files.
+
+## Testing
+
+Run the bundled tests with:
+```bash
+npm test
+```
+The test suite covers default behaviour, placeholder substitution and fallback
+logic.
 
 ## Contributing
 
-You are welcome to contribute, details in [CONTRIBUTING.md](./CONTRIBUTING.md)
+Ready to contribute [check here](./CONTRIBUTING.md)
 
 ## License
 
-[ISC](./LICENSE)
+ISC – see the [LICENSE](./LICENSE) file.

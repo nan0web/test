@@ -1,4 +1,4 @@
-import { Node } from "@nan0web/types";
+import { Node } from "@nan0web/types"
 
 /**
  * TestNode extends the base Node class to provide TAP-specific parsing functionality.
