@@ -90,7 +90,7 @@ describe('NodeTestParser', () => {
 
 	it("should parse file node:test-output.txt", async () => {
 		const db = new DB()
-		const text = await db.loadDocument("test/node:test-output.txt")
+		const text = await db.loadDocument("src/Parser/NodeTestParser.test.txt")
 		const parser = new NodeTestParser()
 		const root = parser.decode(text)
 		assert.ok(root)
@@ -103,5 +103,17 @@ describe('NodeTestParser', () => {
 		assert.equal(root.todoCount, 0)
 		assert.equal(root.duration.toFixed(1), 0.3)
 		assert.equal(root.durationMs.toFixed(1), 303.1)
+	})
+	
+	it('should handle empty lines in TAP output', () => {
+		const text = 'TAP version 13\n\nok 1 - first test\n\nnot ok 2 - second test\n\n1..2\n'
+		const parser = new NodeTestParser()
+		const root = parser.decode(text)
+
+		assert.strictEqual(root.children.length, 4)
+		assert.strictEqual(root.children[0].content, 'TAP version 13')
+		assert.strictEqual(root.children[1].content, 'ok 1 - first test')
+		assert.strictEqual(root.children[2].content, 'not ok 2 - second test')
+		assert.strictEqual(root.children[3].content, '1..2')
 	})
 })

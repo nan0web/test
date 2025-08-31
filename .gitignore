@@ -1,3 +1,5 @@
+/.coverage/
+/.datasets/
 /chat/
 /dist/
 /node_modules/

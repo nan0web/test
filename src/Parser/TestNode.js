@@ -102,7 +102,12 @@ class TestNode extends Node {
 	 * @type {number}
 	 */
 	get durationMs() {
-		return Number(this.findPrefix("# duration_ms ") || 0)
+		const ms = this.findPrefix("# duration_ms ")
+		if (!ms) return 0
+		if ("string" === typeof ms) {
+			return Number(parseFloat(ms.replace(/[^\d+\.]/g, "")))
+		}
+		return Number(ms)
 	}
 
 	/**

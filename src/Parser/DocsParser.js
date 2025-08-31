@@ -8,7 +8,8 @@ class DocsParser extends Parser {
 	]
 	#insideComment = false
 	#insideDocs = false
-	/** @type {Array<{ row: string, indent: number }>} */
+	#insideRawDocs = false
+	/** @type {Array<{ row: string, indent: number, raw: boolean }>} */
 	#rows = []
 	/**
 	 * @param {object} input
@@ -35,20 +36,46 @@ class DocsParser extends Parser {
 		this.tab = Parser.findTab(text) || this.tab
 		this.#insideComment = false
 		this.#insideDocs = false
+		this.#insideRawDocs = false
 		this.#rows = []
 		const result = []
-		const node = super.decode(text)
+		super.decode(text) // result is not needed, everything is collected by this.#rows
 		let insideFn = false
+		let insideComment = false // local comment
 		let parentIndent = 0
-		this.#rows.map(({ row, indent }, i) => {
+		this.#rows.map(({ row, indent, raw }, i) => {
 			let prefix = insideFn ? this.tab.repeat(Math.max(0, indent - parentIndent)) : ""
 			/** @type {string | false} */
 			let value = row.trim()
-			if (row.startsWith(" * ")) {
-				value = row.slice(3)
+			if (raw) {
+				const inRow = this.#rows.slice(0, i).reverse().reduce((acc, item, i, arr) => {
+					if (" * @docs raw" === item.row && "/**" === arr[i + 1].row) {
+						return i
+					}
+					return Math.max(acc, -1)
+				}, -1)
+				if (inRow < 0 && ["/**", " * @docs raw"].includes(row)) {
+					value = false
+				}
+				else if (inRow >= 0 && "*/" === row) {
+					value = false
+				}
+				else {
+					value = row
+						.replaceAll("*\\\/", "*/")
+						.replaceAll("\t*\\\/", "\t*/")
+						.replaceAll(" *\\\/", " */")
+				}
+			}
+			else if (row.startsWith(" * ")) {
+				value = insideComment ? row : row.slice(3)
 			}
 			else if ([" *", " */"].includes(row)) {
 				value = ""
+				if (" */" === row && insideComment) {
+					value = row
+					insideComment = false
+				}
 			}
 			else if (["it('", 'it("', "it(`"].some(s => row.startsWith(s))) {
 				value = row.slice(4, row.indexOf(row[3], 4)) + "\n```js"
@@ -70,6 +97,7 @@ class DocsParser extends Parser {
 			}
 			else if (insideFn && value.startsWith("/**")) {
 				const next = this.#rows[i + 1] || ""
+				insideComment = false
 				if (next.row.startsWith(" * ```")) {
 					const prev = String(result[result.length - 1] || "")
 					if (prev.endsWith("\n```js")) {
@@ -78,11 +106,20 @@ class DocsParser extends Parser {
 						insideFn = false
 					}
 				}
+				else {
+					value = row
+					prefix = ""
+					insideComment = true
+				}
 			}
 			result.push(false === value ? value : prefix + value)
 		})
 		this.tab = tab
-		const content = result.filter(r => false !== r).join("\n").replaceAll("\n```js\n```", "\n").replace(/\n\`\`\`js$/, "\n")
+		const content = result
+			.filter(r => false !== r).join("\n")
+			.replaceAll("\n```js\n```", "\n")
+			.replaceAll("\n\n\n", "\n\n")
+			.replace(/\n\`\`\`js$/, "\n")
 		return new Node({ content })
 	}
 	/**
@@ -101,17 +138,33 @@ class DocsParser extends Parser {
 			this.#insideComment = true
 			++indent
 		}
-		if (value.endsWith("*/") && this.#insideComment) {
+		if (value.endsWith("*/") && !this.#insideRawDocs && this.#insideComment) {
 			this.#insideComment = false
 			--indent
 		}
-		if (this.#insideDocs) {
-			this.#rows.push({ row, indent })
+		if (this.#insideRawDocs) {
+			this.#rows.push({ row, indent, raw: true })
 		}
-		if (this.stops.some(s => value.startsWith(s))) {
+		else if (this.#insideDocs) {
+			this.#rows.push({ row, indent, raw: false })
+		}
+		if (value.endsWith("*/") && this.#insideRawDocs) {
+			this.#insideRawDocs = false
+		}
+
+		if (!this.#insideRawDocs && this.stops.some(s => value.startsWith(s))) {
 			this.#insideDocs = false
 		}
-		if (value.startsWith("* @docs")) {
+		if (value.startsWith("* @docs raw")) {
+			if (this.#rows.length > 1) {
+				if ("/**" === this.#rows[this.#rows.length - 2].row) {
+					this.#rows[this.#rows.length - 2].raw = true
+					this.#rows[this.#rows.length - 1].raw = true
+				}
+			}
+			this.#insideRawDocs = true
+		}
+		else if (value.startsWith("* @docs")) {
 			this.#insideDocs = true
 		}
 		return indent
