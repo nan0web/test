@@ -63,6 +63,7 @@
 		"@nan0web/db-fs": "workspace:*",
 		"@nan0web/llimo": "workspace:*",
 		"@nan0web/markdown": "workspace:*",
+		"@nan0web/release": "workspace:*",
 		"@nan0web/types": "workspace:*",
 		"@nan0web/ui-cli": "workspace:*"
 	},
