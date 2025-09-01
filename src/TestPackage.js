@@ -255,11 +255,12 @@ export default class TestPackage {
 		name = "npm info " + this.name
 		yield { name, value: "" }
 		if (!cache) {
-			const result = await this.spawn("npm", ["info", this.name], { cwd })
+			const result = await this.spawn("npm", ["info", this.name, "--json"], { cwd })
 			if (0 !== result.code) {
 				rrs.optional.npmPublished = 0
 			} else {
-				rrs.npmInfo = result.text.trim().split("\n")[0]
+				const json = JSON.parse(result.text.trim())
+				rrs.npmInfo = json.version
 			}
 		}
 		yield { name, value: rrs.optional.npmPublished ? " 🟢" : " 🟡" }
@@ -349,9 +350,9 @@ export default class TestPackage {
 			if (cols.includes("features")) row.push(features.join(" "))
 			if (cols.includes("npm")) {
 				if (rrs.npmInfo) {
-					row.push(rrs.npmInfo.split("|")[0].trim().split('@').pop()?.trim())
+					row.push(rrs.npmInfo)
 				} else {
-					row.push(rrs.npmInfo || "—")
+					row.push("—")
 				}
 			}
 			table.push(["", ...row, ""].join(" |"))

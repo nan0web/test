@@ -65,7 +65,8 @@
 		"@nan0web/markdown": "workspace:*",
 		"@nan0web/release": "workspace:*",
 		"@nan0web/types": "workspace:*",
-		"@nan0web/ui-cli": "workspace:*"
+		"@nan0web/ui-cli": "workspace:*",
+		"husky": "^9.1.7"
 	},
 	"peerDependencies": {
 		"@nan0web/db": "^1.0.0",

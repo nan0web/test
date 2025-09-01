@@ -33,6 +33,9 @@ describe('TestPackage', () => {
 		const spawn = (cmd, args) => {
 			if (cmd === "git") return { code: 0, text: "origin	https://example.com/repo.git (fetch)" }
 			if (cmd === "pnpm" || cmd === "npm") {
+				if ("info" === args[0]) {
+					return { code: 0, text: '{"version":"1.0.0"}' }
+				}
 				if ("test:coverage" === args[0]) {
 					return {
 						code: 0, text: [
