@@ -13,6 +13,7 @@ export default class TestPackage {
         build: string;
         clean: string;
         "clean:modules": string;
+        playground: string;
         test: string;
         "test:docs": string;
         "test:release": string;
@@ -23,8 +24,10 @@ export default class TestPackage {
         prepush: string;
         prepare: string;
     };
+    static NPM_FILES: string[];
     static DEV_DEPENDENCIES: {
         "@nan0web/test": string;
+        husky: string;
     };
     static GIT_IGNORED: string[];
     /**
@@ -73,6 +76,7 @@ export default class TestPackage {
         build: string;
         clean: string;
         "clean:modules": string;
+        playground: string;
         test: string;
         "test:docs": string;
         "test:release": string;
@@ -85,6 +89,7 @@ export default class TestPackage {
     };
     get DEV_DEPENDENCIES(): {
         "@nan0web/test": string;
+        husky: string;
     };
     get GIT_IGNORED(): string[];
     /**

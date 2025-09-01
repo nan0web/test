@@ -2,6 +2,7 @@ import process from "node:process"
 import FS from "@nan0web/db-fs"
 import { Command, CommandMessage } from "@nan0web/co"
 import { Enum } from "@nan0web/types"
+import ReactTestPackage from "../ReactTestPackage.js"
 import TestPackage from "../TestPackage.js"
 import RRS from "../RRS.js"
 
@@ -142,7 +143,8 @@ export default class StatusCommand extends Command {
 			if (baseURL.startsWith("git+")) baseURL = baseURL.slice(4)
 			if (baseURL.endsWith(".git")) baseURL = baseURL.slice(0, -4) + "/"
 		}
-		const pkg = new TestPackage({
+		const Class = name.split("-").includes("react") ? ReactTestPackage : TestPackage
+		const pkg = new Class({
 			cwd: process.cwd(),
 			db,
 			name,

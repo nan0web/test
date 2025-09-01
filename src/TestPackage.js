@@ -30,18 +30,26 @@ export default class TestPackage {
 		"build": "tsc",
 		"clean": "rm -rf .cache/ && rm -rf dist/",
 		"clean:modules": "rm -rf node_modules",
+		"playground": "node playground/main.js",
 		"test": 'node --test "src/**/*.test.js"',
 		"test:docs": "node --test src/README.md.js",
 		"test:release": 'node --test "releases/**/*.test.js"',
 		"test:coverage": 'node --experimental-test-coverage --test-coverage-include="src/**/*.js" --test-coverage-exclude="src/**/*.test.js" --test "src/**/*.test.js"',
 		"test:coverage:collect": "nan0test coverage",
-		"test:status": "nan0status",
+		"test:status": "nan0test status",
 		"precommit": "npm test",
 		"prepush": "npm test",
 		"prepare": "husky"
 	}
+	static NPM_FILES = [
+		"src/",
+		"types/",
+		"package.json",
+		"README.md"
+	]
 	static DEV_DEPENDENCIES = {
-		"@nan0web/test": "workspace:*"
+		"@nan0web/test": "workspace:*",
+		"husky": "^9.1.7"
 	}
 	static GIT_IGNORED = [
 		"/.coverage/",
