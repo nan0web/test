@@ -1,36 +1,51 @@
 import { describe, it, before, beforeEach } from 'node:test'
-import assert from 'node:assert'
-import FS from "@nan0web/db-fs"
-import { NoConsole } from '@nan0web/log'
-import DocsParser from './Parser/DocsParser.js'
-import DatasetParser from "./Parser/DatasetParser.js"
-import MemoryDB from './mock/MemoryDB.js'
-import mockFetch from './mock/fetch.js'
-import runSpawn from './exec/runSpawn.js'
+import assert from 'node:assert/strict'
+import DB from '@nan0web/db-fs'
+import { NoConsole } from "@nan0web/log"
+import { DocsParser, DatasetParser } from "@nan0web/test"
+import {
+	mockFetch,
+	MemoryDB,
+	TestPackage,
+	RRS,
+	runSpawn,
+} from './index.js'
 
-const fs = new FS()
-let pkg = {}
+const fs = new DB()
+let pkg
+
+// Load package.json once before tests
+before(async () => {
+	const doc = await fs.loadDocument('package.json', {})
+	pkg = doc || {}
+})
+
 let console = new NoConsole()
 
-const preload = async () => {
-	pkg = await fs.loadDocument("package.json", pkg)
-}
+beforeEach(() => {
+	console = new NoConsole()
+})
 
 /**
  * Core test suite that also serves as the source for README generation.
+ *
+ * The block comments inside each `it` block are extracted to build
+ * the final `README.md`. Keeping the comments here ensures the
+ * documentation stays close to the code.
  */
 function testRender() {
-	before(preload)
-	beforeEach(() => {
-		console = new NoConsole()
-	})
 	/**
 	 * @docs
 	 * # @nan0web/test
 	 *
-	 * A test package with simple utilities for testing in node.js runtime.
-	 *
 	 * <!-- %PACKAGE_STATUS% -->
+	 *
+	 * A test package with simple utilities for testing in node.js runtime.
+	 * Designed for [nan0web philosophy](https://github.com/nan0web/monorepo/blob/main/system.md#%D0%BD%D0%B0%D0%BF%D0%B8%D1%81%D0%B0%D0%BD%D0%BD%D1%8F-%D1%81%D1%86%D0%B5%D0%BD%D0%B0%D1%80%D1%96%D1%97%D0%B2),
+	 * where zero dependencies mean maximum freedom and minimal assumptions.
+	 *
+	 * This package helps build ProvenDocs and structured datasets from test examples,
+	 * especially useful for LLM fine-tuning.
 	 *
 	 * ## Installation
 	 */
@@ -64,198 +79,250 @@ function testRender() {
 		 */
 		assert.equal(pkg.name, "@nan0web/test")
 	})
+
 	/**
 	 * @docs
-	 * ## API
+	 * ## Core Concepts
+	 *
+	 * This package is designed with zero external dependencies and maximum clarity:
+	 * - ✅ Fully typed with **JSDoc** and `.d.ts` files
+	 * - 🔁 Includes mocked utilities for real testing scenarios
+	 * - 🧠 Built for cognitive clarity: each function has a clear purpose
+	 * - 🌱 Enables lightweight testing without side effects
+	 *
+	 * ## Usage: Mocked Utilities
 	 *
 	 * ### `mockFetch(routes)`
-	 *
-	 * Creates a mock fetch function based on the provided routes.
+	 * Utility to mock the global `fetch` object for tests.
 	 *
 	 * * **Parameters**
-	 *   * `routes` – Route patterns with their corresponding responses.
+	 *   * `routes` – an Array of `[pattern, response]` key-value pairs.
+	 *     - `pattern` is a string matching format `"METHOD PATH"` (e.g. `"GET /users"`).
+	 *     - `response` is either a value or an array `[status, body]`.
 	 *
 	 * * **Returns**
-	 *   * `function` – An async function that mimics the fetch API.
+	 *   * `function` – mimic of the standard `fetch(url, options)` API.
 	 *
-	 * #### Route Patterns
+	 * * **Path Matching Rules**
+	 *   - exact match: `"GET /users"` matches only that
+	 *   - method wildcard: `"* /users"` matches any method for that path
+	 *   - path wildcard: `"GET /users/*"` matches `/users/123`
+	 *   - catch-all: `"* *"` or `"*"` matches everything
 	 *
-	 * - `exact match` – matches the exact route.
-	 * - `method wildcard` – matches any method with the specified path.
-	 * - `path wildcard` – matches the specified method with any path starting with the given prefix.
-	 * - `catch all` – matches any route.
-	 *
+	 *   If the response is a `function`, it's called with `(method, url, options)` and its result is used:
+	 *   - if it returns an object with `.ok` and `.json()`, that becomes the mock
+	 *   - else, we treat it as `[status, data]` where status is 200 by default
 	 */
-	it("How to use mockFetch to make laconic tests for fetch() function?", async () => {
-		//import { mockFetch } from '@nan0web/test'
-
-		// ✅ Create a mock fetch function
-		const fetch = mockFetch([
+	it("How to mock fetch API?", async () => {
+		//import { mockFetch } from "@nan0web/test"
+		/** @type {Array<[string, any | any[] | Function]>} */
+		const routes = [
 			['GET /users', { id: 1, name: 'John Doe' }],
 			['POST /users', [201, { id: 2, name: 'Jane Smith' }]],
-		])
+		]
+		const fetch = mockFetch(routes)
+		const res = await fetch('/users')
+		const data = await res.json()
 
-		// ✅ Use the mock fetch
-		const response = await fetch("/users")
-		const data = await response.json()
-		console.log(data) // { id: 1, name: 'John Doe' }
+		console.info(data) // ← { id: 1, name: 'John Doe' }
 		assert.deepStrictEqual(console.output(), [
-			["log", { id: 1, name: 'John Doe' }],
+			["info", { id: 1, name: 'John Doe' }],
 		])
 	})
+
 	/**
 	 * @docs
 	 * ### `MemoryDB(options)`
-	 *
-	 * MemoryDB class for testing as mock DB.
+	 * Utility to simulate a file system for tests.
 	 *
 	 * * **Parameters**
-	 *   * `options` – Options for the MemoryDB instance.
-	 *
+	 *   * `options` – Object of params including:
+	 *     - `predefined` – Map of pre-defined file contents (e.g., `{ 'users.json': '[{ id: 1 }]' }`)
 	 */
-	it("How to use MemoryDB to imitate any of DB (nan0web/db) extensions?", async () => {
-		//import { MemoryDB } from '@nan0web/test'
-		// ✅ Create a mock DB
+	it("How to mock file system using MemoryDB?", async () => {
+		//import { MemoryDB } from "@nan0web/test"
+
 		const db = new MemoryDB({
-			predefined: [
+			predefined: new Map([
 				['file1.txt', 'content1'],
 				['file2.txt', 'content2'],
-			]
+			]),
 		})
 
-		// ✅ Use the mock DB
 		await db.connect()
 		const content = await db.loadDocument('file1.txt')
-		console.log(content) // 'content1'
+
+		console.info(content) // 'content1'
 		assert.deepStrictEqual(console.output(), [
-			["log", 'content1']
+			["info", 'content1'],
 		])
 	})
 
 	/**
 	 * @docs
-	 * ### `runSpawn(cmd, args, opts)`
-	 *
-	 * Executes a command in a child process and collects its output.
+	 * ### `runSpawn(cmd, args, options)`
+	 * Utility to mock and execute child processes (for CLI tools).
 	 *
 	 * * **Parameters**
-	 *   * `cmd` – The command to execute.
-	 *   * `args` – Optional. Command-line arguments. Default is empty array.
-	 *   * `opts` – Optional. Process spawning options. Includes optional onData handler. Default is empty object.
+	 *   * `cmd` – command to run (e.g., `"git"`)
+	 *   * `args` – array of arguments
+	 *   * `opts` – optional spawn options with `onData` handler
 	 *
 	 * * **Returns**
-	 *   * `{ code: number; text: string }` – Exit code and concatenated stdout output.
-	 *
+	 *   * `{ code: number, text: string }`
 	 */
-	it("How to use runSpawn as a short version of node spawn?", async () => {
+	it("How to use runSpawn as a CLI test tool?", async () => {
 		//import { runSpawn } from "@nan0web/test"
-		const { code, text } = await runSpawn('echo', ['hello world']) // ← { code: 0, text: "hello world" }
-		assert.strictEqual(code, 0)
-		assert.ok(text.includes('hello world'))
+
+		const { code, text } = await runSpawn('echo', ['hello world'])
+
+		console.info(code) // 0
+		console.info(text.includes('hello world')) // true
+
+		assert.deepStrictEqual(console.output(), [
+			["info", 0],
+			["info", true],
+		])
 	})
+
 	/**
 	 * @docs
-	 * ### `DocsParser()`
+	 * ### `TestPackage(options)`
+	 * Class to automate package verification based on nan0web standards.
 	 *
-	 * Extracts documentation from test files as a provendoc where every example of code covered with a test.
-	 * Such tests are useful for datasets generation for LLM fine-tune on specific application or platform source code.
-	 *
+	 * * **Parameters**
+	 *   * `options` – package metadata and file system db instance
 	 */
-	it("How to use DocsParser to extract and generate proven documentation in markdown format?", () => {
-		/**
-		 * @docs raw
-		import { describe, it, before } from 'node:test'
-		import { DocsParser } from "@nan0web/test"
-		import assert from 'node:assert'
-		import FS from "@nan0web/db-fs"
-		const fs = new FS()
-		let pkg = {}
-		/**
-		 * Defining a function to use it for describe() and for provendoc generation
-		 *\/
-		const testRender = () => {
-			before(async () => {
-				pkg = await fs.loadDocument("package.json", pkg)
-			})
+	it("How to validate a package using TestPackage.run(rrs)?", async () => {
+		//import { TestPackage, RRS } from "@nan0web/test"
+		const db = new MemoryDB()
+
+		db.set("system.md", "# system.md")
+		db.set("tsconfig.json", "{}")
+		db.set("README.md", "# README.md")
+		db.set("LICENSE", "ISC")
+
+		const pkg = new TestPackage({
+			db,
+			cwd: ".",
+			name: "@nan0web/test",
+			baseURL: "https://github.com/nan0web/test"
+		})
+
+		const rrs = new RRS()
+		const statuses = []
+
+		for await (const s of pkg.run(rrs)) {
+			statuses.push(s.name + ':' + s.value)
+		}
+
+		console.info(statuses.join('\n'))
+		assert.ok(statuses.includes('load system.md: 🟢'))
+	})
+
+	/**
+	 * @docs
+	 * ### `DocsParser`
+	 * Parser to extract documentation from tests and generate markdown (ProvenDoc).
+	 *
+	 * It reads js tests with comments like:
+	 * ```js
+	 * it("How to do something?", () => {
+	 *   ...
+	 * })
+	 * ```
+	 * and converts them into structured `.md` documents.
+	 */
+	it("How to generate documentation using DocsParser?", async () => {
+		//import { DocsParser } from "@nan0web/test"
+
+		const parser = new DocsParser()
+		const md = parser.decode(() => {
 			/**
 			 * @docs
-			 * # my-package-name
-			 *
-			 * My package description.
-			 *
-			 * This document is available in other languages:
-			 * - [Ukrainian 🇺🇦](./docs/uk/README.md)
-			 *\/
-			it("## Install", () => {
+			 * # Title
+			 * Content
+			 */
+			it('How to do X?', () => {
 				/**
-				 * ```bash
-				 * npm install my-package-name
+				 * ```js
+				 * doX()
 				 * ```
-				 *\/
-				assert.equal(pkg.name, "my-package-name")
-			})
-		}
-		describe('README.md testing', testRender)
-		describe("Rendering README.md", async () => {
-			let text = ""
-			const format = new Intl.NumberFormat("en-US").format
-			const parser = new DocsParser()
-			text = String(parser.decode(testRender))
-			await fs.saveDocument("README.md", text)
-
-			it(`document is rendered in README.md [${format(Buffer.byteLength(text))}b]`, async () => {
-				const text = await fs.loadDocument("README.md")
-				assert.ok(text.includes("my-package-name"))
+				 */
+				assert.ok(true)
 			})
 		})
-		*/
-		assert.ok(true)
+
+		console.info(md) // ← markdown with content from @docs
+		assert.ok(String(console.output()[0][1]).includes('# Title'))
 	})
 
 	/**
 	 * @docs
+	 * ### `DatasetParser`
+	 * Parser that converts markdown docs (such as README.md) into structured `.jsonl` datasets.
 	 *
-	 * ## Testing
-	 *
-	 * The test suite covers default behaviour, placeholder substitution and fallback
-	 * logic.
+	 * Each How-to block becomes one test case:
+	 * ```json
+	 * {"instruction": "How to do X?", "output": "```js\n doX()\n```", ...}
+	 * ```
 	 */
-	it("How to run tests of cloned package with npm?", () => {
-		/**
-		 * ```bash
-		 * npm test
-		 * ```
-		 */
-		assert.ok(String(pkg.scripts?.test).startsWith("node --test"))
+	it("How to generate dataset from markdown documentation?", () => {
+		//import { DatasetParser } from "@nan0web/test"
+		const md = '# Title\n\nHow to do X?\n```js\ndoX()\n```'
+		const dataset = DatasetParser.parse(md, '@nan0web/test')
+
+		console.info(dataset[0].instruction) // ← "How to do X?"
+		assert.deepStrictEqual(console.output()[0][1], "How to do X?")
 	})
+
 	/**
 	 * @docs
+	 * ## Playground
+	 *
+	 * This package doesn't use heavy mocking or virtual environments — it simulates them with lightweight wrappers.
+	 * You can play in its sandbox as follows:
 	 */
-	it("How to run tests of cloned package with pnpm?", () => {
+	it("How to run CLI sandbox?", () => {
 		/**
 		 * ```bash
-		 * pnpm test
+		 * git clone https://github.com/nan0web/test.git
+		 * cd test
+		 * npm install
+		 * npm run playground
 		 * ```
 		 */
-		assert.ok(String(pkg.scripts?.test).startsWith("node --test"))
+		assert.ok(String(pkg.scripts?.playground).includes("node playground"))
 	})
+
 	/**
 	 * @docs
+	 * ## API Components
 	 */
-	it("How to run tests of cloned package with yarn?", () => {
-		/**
-		 * ```bash
-		 * yarn test
-		 * ```
-		 */
-		assert.ok(String(pkg.scripts?.test).startsWith("node --test"))
+	it("has multiple test components that can be imported separately", () => {
+		//import { mockFetch, MemoryDB, DocsParser, DatasetParser, runSpawn } from "@nan0web/test"
+
+		assert.ok(typeof mockFetch === 'function')
+		assert.ok(MemoryDB.prototype.constructor)
+		assert.ok(DocsParser.prototype.decode)
+		assert.ok(DatasetParser.parse)
+		assert.ok(typeof runSpawn === 'function')
+	})
+
+	/**
+	 * @docs
+	 * ## Java•Script types & Autocomplete
+	 * Package is fully typed with jsdoc and d.ts.
+	 */
+	it("How many d.ts files should cover the source?", () => {
+		assert.equal(pkg.types, "types/index.d.ts")
 	})
 
 	/**
 	 * @docs
 	 * ## Contributing
 	 */
-	it('How to contribute? — check here [CONTRIBUTING.md](./CONTRIBUTING.md)', async () => {
+	it("How to contribute? - [check here]($pkgURL/blob/main/CONTRIBUTING.md)", async () => {
 		/** @docs */
 		const text = await fs.loadDocument("CONTRIBUTING.md")
 		const str = String(text)
@@ -266,26 +333,26 @@ function testRender() {
 	 * @docs
 	 * ## License
 	 */
-	it('How to license your product with this package? – see the [LICENSE](./LICENSE) file.', async () => {
+	it("ISC – [LICENSE]($pkgURL/blob/main/LICENSE)", async () => {
 		/** @docs */
 		const text = await fs.loadDocument('LICENSE')
 		assert.ok(String(text).includes('ISC'))
 	})
 }
 
-describe('README.md', testRender)
+describe('README.md testing', testRender)
 
 describe("Rendering README.md", async () => {
 	let text = ""
 	const format = new Intl.NumberFormat("en-US").format
-	before(async () => {
-		await preload()
-		const parser = new DocsParser()
-		text = String(parser.decode(testRender))
-		await fs.saveDocument("README.md", text)
-		const dataset = DatasetParser.parse(text, pkg.name)
-		await fs.saveDocument(".datasets/README.dataset.jsonl", dataset)
-	})
+
+	const parser = new DocsParser()
+	text = String(parser.decode(testRender))
+	await fs.saveDocument("README.md", text)
+
+	const dataset = DatasetParser.parse(text, pkg.name)
+	await fs.saveDocument(".datasets/README.dataset.jsonl", dataset)
+
 	it(`document is rendered in README.md [${format(Buffer.byteLength(text))}b]`, async () => {
 		const text = await fs.loadDocument("README.md")
 		assert.ok(text.includes("## License"))

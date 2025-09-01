@@ -21,13 +21,18 @@
 	"scripts": {
 		"build": "tsc",
 		"clean": "rm -rf .cache/ && rm -rf dist/",
-		"prerelease": "npm run build && npm run test:docs && npm run test:coverage && npm run test:status && npm run test:release",
+		"clean:modules": "rm -rf node_modules",
 		"test": "node --test \"src/**/*.test.js\"",
 		"test:docs": "node --test src/README.md.js",
 		"test:coverage": "node --experimental-test-coverage --test-coverage-include=\"src/**/*.js\" --test-coverage-exclude=\"src/**/*.test.js\" --test \"src/**/*.test.js\"",
 		"test:coverage:collect": "nan0test coverage",
 		"test:release": "node --test \"releases/**/*.test.js\"",
-		"test:status": "node bin/status.js --hide-name"
+		"test:status": "nan0test status --hide-name",
+		"playground": "node playground/main.js",
+		"release": "nan0release publish",
+		"precommit": "npm test",
+		"prepush": "npm test",
+		"prepare": "husky"
 	},
 	"keywords": [
 		"fetch",
@@ -44,11 +49,11 @@
 	],
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/yaro-rasta/nan0test.git"
+		"url": "https://github.com/nan0web/test.git"
 	},
-	"homepage": "https://github.com/yaro-rasta/nan0test#readme",
+	"homepage": "https://github.com/nan0web/test#readme",
 	"bugs": {
-		"url": "https://github.com/yaro-rasta/nan0test/issues"
+		"url": "https://github.com/nan0web/test/issues"
 	},
 	"dependencies": {
 		"happy-dom": "^18.0.1"
@@ -56,8 +61,10 @@
 	"devDependencies": {
 		"@nan0web/db": "workspace:*",
 		"@nan0web/db-fs": "workspace:*",
+		"@nan0web/llimo": "workspace:*",
 		"@nan0web/markdown": "workspace:*",
-		"@nan0web/types": "workspace:*"
+		"@nan0web/types": "workspace:*",
+		"@nan0web/ui-cli": "workspace:*"
 	},
 	"peerDependencies": {
 		"@nan0web/db": "^1.0.0",

@@ -33,7 +33,7 @@ async function main(argv = []) {
 		logger.debug(cmd)
 		logger.debug(JSON.stringify(msg, null, 2))
 
-		await cmd.run(msg)
+		await cmd.run(msg.subCommandMessage)
 	} else {
 		logger.debug("Input command message:")
 		logger.debug(JSON.stringify(msg, null, 2))

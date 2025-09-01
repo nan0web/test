@@ -31,12 +31,13 @@ export default class TestPackage {
 		"clean": "rm -rf .cache/ && rm -rf dist/",
 		"clean:modules": "rm -rf node_modules",
 		"playground": "node playground/main.js",
+		"release": "nan0release publish",
 		"test": 'node --test "src/**/*.test.js"',
 		"test:docs": "node --test src/README.md.js",
 		"test:release": 'node --test "releases/**/*.test.js"',
 		"test:coverage": 'node --experimental-test-coverage --test-coverage-include="src/**/*.js" --test-coverage-exclude="src/**/*.test.js" --test "src/**/*.test.js"',
 		"test:coverage:collect": "nan0test coverage",
-		"test:status": "nan0test status",
+		"test:status": "nan0test status --hide-name",
 		"precommit": "npm test",
 		"prepush": "npm test",
 		"prepare": "husky"
@@ -48,6 +49,7 @@ export default class TestPackage {
 		"README.md"
 	]
 	static DEV_DEPENDENCIES = {
+		"@nan0web/release": "workspace:*",
 		"@nan0web/test": "workspace:*",
 		"husky": "^9.1.7"
 	}
@@ -119,9 +121,11 @@ export default class TestPackage {
 	get GIT_IGNORED() {
 		return /** @type {typeof TestPackage} */ (this.constructor).GIT_IGNORED
 	}
+	get NPM_FILES() {
+		return /** @type {typeof TestPackage} */ (this.constructor).NPM_FILES
+	}
 
 	/**
-	 *
 	 * @param {RRS} rrs
 	 * @param {*} cache
 	 * @returns {AsyncGenerator<{ name: string, value: any }>}
@@ -248,14 +252,14 @@ export default class TestPackage {
 			}
 		}
 		yield { name, value: rrs.optional.readmeTest ? " 🟢" : " 🟡" }
-		name = "npm info @nan0web/" + this.name
+		name = "npm info " + this.name
 		yield { name, value: "" }
 		if (!cache) {
-			const result = await this.spawn("npm", ["info", "@nan0web/" + this.name], { cwd })
+			const result = await this.spawn("npm", ["info", this.name], { cwd })
 			if (0 !== result.code) {
 				rrs.optional.npmPublished = 0
 			} else {
-				rrs.npmInfo = result.text
+				rrs.npmInfo = result.text.trim().split("\n")[0]
 			}
 		}
 		yield { name, value: rrs.optional.npmPublished ? " 🟢" : " 🟡" }
@@ -343,7 +347,13 @@ export default class TestPackage {
 			}
 			if (cols.includes("coverage")) row.push(rrs.coverage())
 			if (cols.includes("features")) row.push(features.join(" "))
-			if (cols.includes("npm")) row.push(rrs.npmInfo || "—")
+			if (cols.includes("npm")) {
+				if (rrs.npmInfo) {
+					row.push(rrs.npmInfo.split("|")[0].trim().split('@').pop()?.trim())
+				} else {
+					row.push(rrs.npmInfo || "—")
+				}
+			}
 			table.push(["", ...row, ""].join(" |"))
 		}
 		return table.join("\n")

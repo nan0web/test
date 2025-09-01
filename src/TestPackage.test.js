@@ -81,8 +81,8 @@ describe('TestPackage', () => {
 			{ name: 'load README.md', value: ' 🟢' },
 			{ name: 'load docs/uk/README.md', value: '' },
 			{ name: 'load docs/uk/README.md', value: ' 🟢' },
-			{ name: 'npm info @nan0web/test-package', value: '' },
-			{ name: 'npm info @nan0web/test-package', value: ' 🟢' },
+			{ name: 'npm info test-package', value: '' },
+			{ name: 'npm info test-package', value: ' 🟢' },
 			{ name: 'releases', value: '' },
 			{ name: 'releases', value: ' 🟡' },
 		]

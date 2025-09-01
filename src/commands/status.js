@@ -136,7 +136,7 @@ export default class StatusCommand extends Command {
 		const pkgJson = await db.loadDocument("package.json", {})
 		const { name, repository } = pkgJson
 
-		let baseURL = `https://github.com/nan0web/${name}/`
+		let baseURL = `https://github.com/${name.replace("@", "")}/`
 
 		if (repository) {
 			baseURL = typeof repository === "string" ? repository : repository.url
@@ -157,12 +157,11 @@ export default class StatusCommand extends Command {
 
 		for await (const msg of pkg.run(rrs)) {
 			progress.push(String(msg.value).trim())
-			this.logger.cursorUp(2, true)
-			this.logger.info(progress.filter(Boolean).join(" "))
-			this.logger.info(msg.name)
+			this.logger.cursorUp(1, true)
+			this.logger.info(this.logger.cut(progress.filter(Boolean).join(" ") + " > " + msg.name))
 		}
 		progress.push("= " + rrs.icon(""))
-		this.logger.cursorUp(2, true)
+		this.logger.cursorUp(1, true)
 		this.logger.info(progress.filter(Boolean).join(" "))
 
 		const print = (text, value) => {
@@ -193,7 +192,11 @@ export default class StatusCommand extends Command {
 		const md = await db.loadDocument("README.md")
 		if (md.includes("<!-- %PACKAGE_STATUS% -->")) {
 			const table = pkg.render(rrs, { head: true, body: true, cols, features })
-			await db.saveDocument("README.md", md.replaceAll("<!-- %PACKAGE_STATUS% -->", table))
+			const text = md
+				.replaceAll("<!-- %PACKAGE_STATUS% -->", table)
+				.replaceAll("$pkgURL/", pkg.baseURL)
+				.replaceAll("$pkgURL", pkg.baseURL)
+			await db.saveDocument("README.md", text)
 		}
 
 		if (msg.opts.todo) {
