@@ -54,6 +54,7 @@ function mockFetch(routes) {
 			if (match) {
 				let [status, data] = Array.isArray(response) ? response : [200, response]
 				let ok = status >= 200 && status < 300
+				const headers = new Map()
 				if ("function" === typeof data) {
 					const resolved = await data(method, url, options)
 					if (undefined !== resolved.ok && "function" === typeof resolved.json) {
@@ -70,17 +71,32 @@ function mockFetch(routes) {
 						data = resolved.data
 					}
 				}
+				if (method === "HEAD" && data) {
+					const arr = typeof data === "object" ? Object.entries(data) : data
+					for (const [key, value] of arr) {
+						headers.set(key, value)
+					}
+					data = ""
+				}
 				return {
 					ok,
 					status,
+					headers: {
+						get: (header) => headers.get(header),
+					},
 					json: async () => data,
+					text: async () => JSON.stringify(data),
 				}
 			}
 		}
 		return {
 			ok: false,
 			status: 404,
-			json: async () => ({ error: 'Not found' })
+			headers: {
+				get: () => undefined,
+			},
+			json: async () => ({ error: 'Not found' }),
+			text: async () => '{"error": "Not found"}',
 		}
 	}
 }
