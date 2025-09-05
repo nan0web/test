@@ -81,9 +81,7 @@ function mockFetch(routes) {
 				return {
 					ok,
 					status,
-					headers: {
-						get: (header) => headers.get(header),
-					},
+					headers,
 					json: async () => data,
 					text: async () => JSON.stringify(data),
 				}
