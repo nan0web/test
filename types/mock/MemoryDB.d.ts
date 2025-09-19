@@ -20,7 +20,6 @@ declare class MemoryDB extends DB {
      * const content = await db.loadDocument("file1.txt")
      * ```
      * @param {object} input
-     * @param {Array | Map} [input.predefined]
      * @param {string} [input.root="."]
      * @param {string} [input.cwd="."]
      * @param {boolean} [input.connected=false]
@@ -30,7 +29,6 @@ declare class MemoryDB extends DB {
      * { root?: string | undefined; cwd?: string | undefined; connected?: boolean | undefined; data?: Map<string, any> | undefined; meta?: Map<string, DocumentStat> | undefined; dbs?: DB[] | undefined; }'
      */
     constructor(input?: {
-        predefined?: any[] | Map<any, any> | undefined;
         root?: string | undefined;
         cwd?: string | undefined;
         connected?: boolean | undefined;
@@ -38,19 +36,20 @@ declare class MemoryDB extends DB {
         meta?: Map<string, DocumentStat> | undefined;
         dbs?: DB[] | undefined;
     });
-    /** @type {Map<string, any>} */
-    predefined: Map<string, any>;
     /** @type {Array<{ uri: string, level: string }>} */
     accessLogs: Array<{
         uri: string;
         level: string;
     }>;
     /**
-     * @param {string} uri
-     * @returns {Promise<DocumentEntry[]>}
+     * Relative path resolver for file systems.
+     * Must be implemented by platform specific code
+     * @throws Not implemented in base class
+     * @param {string} from Base directory path
+     * @param {string} to Target directory path
+     * @returns {string} Relative path
      */
-    listDir(uri: string): Promise<DocumentEntry[]>;
+    relative(from: string, to: string): string;
 }
 import DB from "@nan0web/db";
-import { DocumentEntry } from "@nan0web/db";
 import { DocumentStat } from "@nan0web/db";

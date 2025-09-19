@@ -68,14 +68,14 @@ describe('MemoryDB', () => {
 
 	it("should properly extract db", async () => {
 		const db = new MemoryDB({
-			predefined: new Map([
+			predefined: [
 				["app/test/config.json", { theme: "dark" }],
 				["app/test/main.json", { $content: [] }],
 				["app/test/data.json", { test: "data" }],
-			])
+			]
 		})
 		await db.connect()
-		const module = db.extract('/app/test/')
+		const module = db.extract('app/test/')
 
 		const config = await module.fetch("config.json")
 		const main = await module.fetch("main.json")

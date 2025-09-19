@@ -2,10 +2,9 @@ import DB, { DocumentEntry, DocumentStat } from "@nan0web/db"
 
 /**
  * MemoryDB class for testing as mock DB.
+ * @deprecated Use basic @nan0web/db because it has already all memory functions.
  */
 class MemoryDB extends DB {
-	/** @type {Map<string, any>} */
-	predefined = new Map()
 	/** @type {Array<{ uri: string, level: string }>} */
 	accessLogs = []
 	/**
@@ -25,7 +24,6 @@ class MemoryDB extends DB {
 	 * const content = await db.loadDocument("file1.txt")
 	 * ```
 	 * @param {object} input
-	 * @param {Array | Map} [input.predefined]
 	 * @param {string} [input.root="."]
 	 * @param {string} [input.cwd="."]
 	 * @param {boolean} [input.connected=false]
@@ -36,41 +34,7 @@ class MemoryDB extends DB {
 	 */
 	constructor(input = {}) {
 		super(input)
-		const {
-			predefined = new Map()
-		} = input
 		this.accessLogs = []
-		this.predefined = new Map(predefined)
-	}
-
-	/**
-	 * @returns {Promise<void>}
-	 */
-	async connect() {
-		await super.connect()
-		for (const [key, value] of this.predefined.entries()) {
-			this.data.set(key, value)
-			this.meta.set(key, new DocumentStat({
-				size: Buffer.byteLength(JSON.stringify(value)),
-				mtimeMs: Date.now(),
-				isFile: true,
-			}))
-		}
-		for (const [key] of this.meta.entries()) {
-			const dir = (this.resolveSync(key, "..") || ".") + "/"
-			if (!this.meta.has(dir)) {
-				const children = Array.from(this.meta.entries()).filter(
-					([m, stat]) => stat.isFile && (m.startsWith(dir + "/") || "." === dir)
-				)
-				let size = 0
-				let mtimeMs = 0
-				children.forEach(([, stat]) => {
-					size = Math.max(stat.size, size)
-					mtimeMs = Math.max(stat.mtimeMs, mtimeMs)
-				})
-				this.meta.set(dir, new DocumentStat({ size, mtimeMs, isDirectory: true }))
-			}
-		}
 	}
 
 	/**

@@ -1,12 +1,21 @@
 /**
+ * @typedef {Object} MockFetchResponse
+ * @property {boolean} ok
+ * @property {number} status
+ * @property {Map} headers
+ * @property {() => Promise<any>} json
+ * @property {() => Promise<string>} text
+ */
+/**
  * Creates a mock fetch function based on the provided routes.
  * @param {Array<[string, (Object|Array|Function)]>} routes - Route patterns with their corresponding responses.
- * @returns {Function} An async function that mimics the fetch API.
+ * @returns {(url: string, options: object) => Promise<MockFetchResponse>} An async function that mimics the fetch API.
  *
  * @example
  * const routes = [
  *   ['GET /users', { id: 1, name: 'John Doe' }],
  *   ['POST /users', [201, { id: 2, name: 'Jane Smith' }]],
+ *   ['POST /users', [201, { id: 2, name: 'Jane Smith' }, ["Accept", "application/json"]]],
  * ];
  * const fetch = mockFetch(routes);
  * const response = await fetch('/users');
@@ -14,10 +23,15 @@
  */
 function mockFetch(routes) {
 	return async (url, options = {}) => {
+		const corsHeaders = [
+			['Access-Control-Allow-Origin', '*'],
+			['Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,HEAD'],
+			['Access-Control-Allow-Headers', options.headers?.['Content-Type'] || '*']
+		]
 		const method = options.method || 'GET'
 		const path = url.replace(/^(?:\/\/|[^/])*(\/.*)/, '$1')
 		const route = method + ' ' + path
-		for (const [pattern, response] of routes) {
+		for (const [pattern, response, head = []] of routes) {
 			const [m, u] = pattern.split(" ")
 			let match = pattern === route
 			if (!match) {
@@ -54,7 +68,7 @@ function mockFetch(routes) {
 			if (match) {
 				let [status, data] = Array.isArray(response) ? response : [200, response]
 				let ok = status >= 200 && status < 300
-				const headers = new Map()
+				const headers = new Map([...corsHeaders, ...head])
 				if ("function" === typeof data) {
 					const resolved = await data(method, url, options)
 					if (undefined !== resolved.ok && "function" === typeof resolved.json) {
