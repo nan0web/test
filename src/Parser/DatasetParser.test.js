@@ -38,22 +38,22 @@ assert.ok(fn)
 		assert.strictEqual(dataset.length, 2)
 		assert.deepStrictEqual(dataset[0], {
 			instruction: 'How to install with npm?',
-			output: '```bash\nnpm install package-name\n```',
+			output: '```bash\nnpm install package-name\n```\n',
 			context: ['h1:Package Name', 'h2:Installation'],
-			input: '## Installation\n\nInstall the package locally.\n',
+			input: '## Installation\n\nInstall the package locally.\n\n',
 			tags: ['Package Name', 'Installation'],
 			proven: 'assert-in-package-name'
 		})
 		assert.deepStrictEqual(dataset[1], {
 			instruction: 'How to use createFn?',
-			output: '```js\nconst fn = createFn({ option: true })\nassert.ok(fn)\n```',
+			output: '```js\nconst fn = createFn({ option: true })\nassert.ok(fn)\n```\n',
 			context: ['h1:Package Name', 'h2:API', 'h3:`createFn(options)`'],
-			input: '### \`createFn(options)\`\n\nCreates a function with given options.\n\n* **Parameters**\n\n  * `options` – Configuration options.\n',
+			input: '### \`createFn(options)\`\n\nCreates a function with given options.\n\n* **Parameters**\n  * `options` – Configuration options.\n\n',
 			tags: ['Package Name', 'API', 'createFn(options)'],
 			proven: 'assert-in-package-name'
 		})
 	})
-	
+
 	it('should return empty array for markdown without instructions', () => {
 		const text = `
 # Title

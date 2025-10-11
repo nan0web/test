@@ -1,6 +1,7 @@
 export default MemoryDB;
 /**
  * MemoryDB class for testing as mock DB.
+ * @deprecated Use basic @nan0web/db because it has already all memory functions.
  */
 declare class MemoryDB extends DB {
     /**

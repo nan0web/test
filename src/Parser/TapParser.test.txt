@@ -1,0 +1,875 @@
+Error in the js-debug bootloader, please report to https://aka.ms/js-dbg-issue: This Environment was initialized without a V8::Inspector
+TAP version 13
+# Debugger listening on ws://127.0.0.1:61144/565a52b7-3c54-4793-b5fe-bbc431dfc5be
+# For help, see: https://nodejs.org/en/docs/inspector
+# Debugger attached.
+# Subtest: ExtendedMarkdown parser
+ok 1 - ExtendedMarkdown parser # SKIP
+  ---
+  duration_ms: 0.739458
+  type: 'suite'
+  ...
+# Waiting for the debugger to disconnect...
+# Debugger listening on ws://127.0.0.1:61145/177f828f-2625-4ac3-aa6b-b7961a327514
+# For help, see: https://nodejs.org/en/docs/inspector
+# Debugger attached.
+# Subtest: MDBlockquote should create instance
+ok 2 - MDBlockquote should create instance
+  ---
+  duration_ms: 1.77
+  type: 'test'
+  ...
+# Waiting for the debugger to disconnect...
+# Debugger listening on ws://127.0.0.1:61147/20b8e4fa-ba17-4b00-904b-94915c33f6fe
+# For help, see: https://nodejs.org/en/docs/inspector
+# Debugger attached.
+# Subtest: MDCodeBlock
+    # Subtest: should create with default language empty
+    ok 1 - should create with default language empty
+      ---
+      duration_ms: 0.915
+      type: 'test'
+      ...
+    # Subtest: should create with language
+    ok 2 - should create with language
+      ---
+      duration_ms: 0.250416
+      type: 'test'
+      ...
+    # Subtest: should stringify proper code block
+    ok 3 - should stringify proper code block
+      ---
+      duration_ms: 0.485709
+      type: 'test'
+      ...
+    1..3
+ok 3 - MDCodeBlock
+  ---
+  duration_ms: 2.878833
+  type: 'suite'
+  ...
+# Waiting for the debugger to disconnect...
+# Debugger listening on ws://127.0.0.1:61146/42615c49-548a-4b74-9c22-64fdc15362c6
+# For help, see: https://nodejs.org/en/docs/inspector
+# Debugger attached.
+# Subtest: MDCodeInline
+    # Subtest: should create instance
+    ok 1 - should create instance
+      ---
+      duration_ms: 3.331333
+      type: 'test'
+      ...
+    # Subtest: should parse from text
+    ok 2 - should parse from text
+      ---
+      duration_ms: 48.3635
+      type: 'test'
+      ...
+    # Subtest: should return false when no match
+    ok 3 - should return false when no match
+      ---
+      duration_ms: 48.755833
+      type: 'test'
+      ...
+    # Subtest: should stringify properly
+    ok 4 - should stringify properly
+      ---
+      duration_ms: 0.13325
+      type: 'test'
+      ...
+    1..4
+ok 4 - MDCodeInline
+  ---
+  duration_ms: 106.598
+  type: 'suite'
+  ...
+# Waiting for the debugger to disconnect...
+# Debugger listening on ws://127.0.0.1:61143/b4aba17e-3cfc-4f9b-aa64-a5eebd021884
+# For help, see: https://nodejs.org/en/docs/inspector
+# Debugger attached.
+# No key found in config row
+# Subtest: MDConfig
+    # Subtest: parse
+        # Subtest: Parse correct config
+        ok 1 - Parse correct config
+          ---
+          duration_ms: 4.771084
+          type: 'test'
+          ...
+        # Subtest: Parse correct config with empty key
+        ok 2 - Parse correct config with empty key
+          ---
+          duration_ms: 3.163708
+          type: 'test'
+          ...
+        1..2
+    ok 1 - parse
+      ---
+      duration_ms: 9.26875
+      type: 'suite'
+      ...
+    1..1
+ok 5 - MDConfig
+  ---
+  duration_ms: 9.759542
+  type: 'suite'
+  ...
+# Waiting for the debugger to disconnect...
+# Debugger listening on ws://127.0.0.1:61148/15116edd-498c-450e-9593-7ed7c35caa4f
+# For help, see: https://nodejs.org/en/docs/inspector
+# Debugger attached.
+# Subtest: MDElement should create with default props
+ok 6 - MDElement should create with default props
+  ---
+  duration_ms: 1.269625
+  type: 'test'
+  ...
+# Subtest: MDElement should create with given props
+ok 7 - MDElement should create with given props
+  ---
+  duration_ms: 0.540125
+  type: 'test'
+  ...
+# Subtest: MDElement toHTML should return formatted string
+ok 8 - MDElement toHTML should return formatted string
+  ---
+  duration_ms: 0.294292
+  type: 'test'
+  ...
+# Waiting for the debugger to disconnect...
+# Debugger listening on ws://127.0.0.1:61149/0286ac1e-6223-48fc-9747-4b9fe9ac7fde
+# For help, see: https://nodejs.org/en/docs/inspector
+# Debugger attached.
+# Subtest: MDHeading
+    # Subtest: MDHeading should create with default level 1
+    ok 1 - MDHeading should create with default level 1
+      ---
+      duration_ms: 0.427458
+      type: 'test'
+      ...
+    # Subtest: MDHeading should create with given content
+    ok 2 - MDHeading should create with given content
+      ---
+      duration_ms: 0.075167
+      type: 'test'
+      ...
+    1..2
+ok 9 - MDHeading
+  ---
+  duration_ms: 1.046583
+  type: 'suite'
+  ...
+# Waiting for the debugger to disconnect...
+# Debugger listening on ws://127.0.0.1:61164/d6dfdf85-f57e-49c2-8fd0-47087cf47d21
+# For help, see: https://nodejs.org/en/docs/inspector
+# Debugger attached.
+# Subtest: MDHorizontalRule should create instance
+ok 10 - MDHorizontalRule should create instance
+  ---
+  duration_ms: 1.696791
+  type: 'test'
+  ...
+# Waiting for the debugger to disconnect...
+# Debugger listening on ws://127.0.0.1:61167/276e94d4-24fe-48d3-9de2-a8f7f4f41e00
+# For help, see: https://nodejs.org/en/docs/inspector
+# Debugger attached.
+# Subtest: MDImage should create with default src empty
+ok 11 - MDImage should create with default src empty
+  ---
+  duration_ms: 1.160458
+  type: 'test'
+  ...
+# Subtest: MDImage should create with src
+ok 12 - MDImage should create with src
+  ---
+  duration_ms: 0.224792
+  type: 'test'
+  ...
+# Waiting for the debugger to disconnect...
+# Debugger listening on ws://127.0.0.1:61165/dbb64bd5-88e4-4773-9b27-77ce94ae8b36
+# For help, see: https://nodejs.org/en/docs/inspector
+# Debugger attached.
+# Subtest: MDLink should create with default href empty
+ok 13 - MDLink should create with default href empty
+  ---
+  duration_ms: 1.439792
+  type: 'test'
+  ...
+# Subtest: MDLink should create with href
+ok 14 - MDLink should create with href
+  ---
+  duration_ms: 0.100375
+  type: 'test'
+  ...
+# Waiting for the debugger to disconnect...
+# Debugger listening on ws://127.0.0.1:61166/73a2f500-6eb6-467d-b2dc-4904b4e59dab
+# For help, see: https://nodejs.org/en/docs/inspector
+# Debugger attached.
+# Subtest: MDList
+    # Subtest: should create unordered list by default
+    ok 1 - should create unordered list by default
+      ---
+      duration_ms: 0.701542
+      type: 'test'
+      ...
+    # Subtest: should create ordered list
+    ok 2 - should create ordered list
+      ---
+      duration_ms: 0.215666
+      type: 'test'
+      ...
+    # Subtest: should add items into list
+    ok 3 - should add items into list
+      ---
+      duration_ms: 0.710333
+      type: 'test'
+      ...
+    1..3
+ok 15 - MDList
+  ---
+  duration_ms: 2.737375
+  type: 'suite'
+  ...
+# Waiting for the debugger to disconnect...
+# Debugger listening on ws://127.0.0.1:61168/426a33ce-ca5b-4384-8eb5-49d48ae39df3
+# For help, see: https://nodejs.org/en/docs/inspector
+# Debugger attached.
+# Subtest: MDListItem should create instance
+ok 16 - MDListItem should create instance
+  ---
+  duration_ms: 1.037458
+  type: 'test'
+  ...
+# Waiting for the debugger to disconnect...
+# Debugger listening on ws://127.0.0.1:61169/cb28f7d3-56e0-4723-a119-8e79a8a6aea2
+# For help, see: https://nodejs.org/en/docs/inspector
+# Debugger attached.
+# Subtest: MDParagraph
+    # Subtest: should create instance
+    ok 1 - should create instance
+      ---
+      duration_ms: 1.914333
+      type: 'test'
+      ...
+    # Subtest: should properly parse inline code within paragraph
+    ok 2 - should properly parse inline code within paragraph
+      ---
+      duration_ms: 1.196459
+      type: 'test'
+      ...
+    # Subtest: should properly stringify inline code within paragraphs
+    ok 3 - should properly stringify inline code within paragraphs
+      ---
+      duration_ms: 0.441
+      type: 'test'
+      ...
+    # Subtest: should properly parse and stringify complex inline elements
+    ok 4 - should properly parse and stringify complex inline elements
+      ---
+      duration_ms: 0.482584
+      type: 'test'
+      ...
+    1..4
+ok 17 - MDParagraph
+  ---
+  duration_ms: 6.320458
+  type: 'suite'
+  ...
+# Waiting for the debugger to disconnect...
+# Debugger listening on ws://127.0.0.1:61170/bc5f758e-6cad-4867-b8af-9f836fb4f0b7
+# For help, see: https://nodejs.org/en/docs/inspector
+# Debugger attached.
+# Subtest: MDSpace should create instance with default newline content
+ok 18 - MDSpace should create instance with default newline content
+  ---
+  duration_ms: 1.7235
+  type: 'test'
+  ...
+# Subtest: MDSpace should allow custom empty space content
+ok 19 - MDSpace should allow custom empty space content
+  ---
+  duration_ms: 0.213542
+  type: 'test'
+  ...
+# Waiting for the debugger to disconnect...
+# Debugger listening on ws://127.0.0.1:61178/1adadf10-88ad-45bd-940e-ab3208a38bf0
+# For help, see: https://nodejs.org/en/docs/inspector
+# Debugger attached.
+# Subtest: MDTable should create instance
+ok 20 - MDTable should create instance
+  ---
+  duration_ms: 1.289375
+  type: 'test'
+  ...
+# Subtest: MDTable should parse valid markdown table
+ok 21 - MDTable should parse valid markdown table
+  ---
+  duration_ms: 0.361083
+  type: 'test'
+  ...
+# Subtest: MDTable should return false for non-table text
+ok 22 - MDTable should return false for non-table text
+  ---
+  duration_ms: 0.198542
+  type: 'test'
+  ...
+# Subtest: MDTable should return false for table missing starting or ending pipes
+ok 23 - MDTable should return false for table missing starting or ending pipes
+  ---
+  duration_ms: 0.165709
+  type: 'test'
+  ...
+# Waiting for the debugger to disconnect...
+# Debugger listening on ws://127.0.0.1:61179/7603e55d-d2be-423f-8e3c-a46d5216a7f9
+# For help, see: https://nodejs.org/en/docs/inspector
+# Debugger attached.
+# Subtest: MDTableCell should create instance
+ok 24 - MDTableCell should create instance
+  ---
+  duration_ms: 0.701583
+  type: 'test'
+  ...
+# Waiting for the debugger to disconnect...
+# Debugger listening on ws://127.0.0.1:61180/44503e24-1020-460c-9932-3bcf4c7f4761
+# For help, see: https://nodejs.org/en/docs/inspector
+# Debugger attached.
+# Subtest: MDTableRow should create instance
+ok 25 - MDTableRow should create instance
+  ---
+  duration_ms: 1.555
+  type: 'test'
+  ...
+# Waiting for the debugger to disconnect...
+# Debugger listening on ws://127.0.0.1:61181/feec2f6d-0d13-4966-ad12-175f7278a7d3
+# For help, see: https://nodejs.org/en/docs/inspector
+# Debugger attached.
+# Subtest: MDTaskList should create instance
+ok 26 - MDTaskList should create instance
+  ---
+  duration_ms: 0.663959
+  type: 'test'
+  ...
+# Waiting for the debugger to disconnect...
+# Debugger listening on ws://127.0.0.1:61182/81c1b2e2-a29b-4892-a255-97367f860997
+# For help, see: https://nodejs.org/en/docs/inspector
+# Debugger attached.
+# Subtest: Markdown
+    # Subtest: should parse headings
+    ok 1 - should parse headings
+      ---
+      duration_ms: 2.325792
+      type: 'test'
+      ...
+    # Subtest: should parse paragraphs
+    ok 2 - should parse paragraphs
+      ---
+      duration_ms: 1.866167
+      type: 'test'
+      ...
+    # Subtest: should parse ordered list
+    ok 3 - should parse ordered list
+      ---
+      duration_ms: 0.293625
+      type: 'test'
+      ...
+    # Subtest: should parse unordered list
+    ok 4 - should parse unordered list
+      ---
+      duration_ms: 0.282625
+      type: 'test'
+      ...
+    # Subtest: should parse code block
+    not ok 5 - should parse code block
+      ---
+      duration_ms: 0.827792
+      type: 'test'
+      location: '/Users/i/src/nan.web/packages/markdown/src/Markdown.test.js:61:2'
+      failureType: 'testCodeFailure'
+      error: |-
+        Expected values to be strictly equal:
+
+        4 !== 3
+
+      code: 'ERR_ASSERTION'
+      name: 'AssertionError'
+      expected: 3
+      actual: 4
+      operator: 'strictEqual'
+      stack: |-
+        TestContext.<anonymous> (file:///Users/i/src/nan.web/packages/markdown/src/Markdown.test.js:65:10)
+        Test.runInAsyncScope (node:async_hooks:214:14)
+        Test.run (node:internal/test_runner/test:1047:25)
+        Suite.processPendingSubtests (node:internal/test_runner/test:744:18)
+        Test.postRun (node:internal/test_runner/test:1173:19)
+        Test.run (node:internal/test_runner/test:1101:12)
+        async Suite.processPendingSubtests (node:internal/test_runner/test:744:7)
+      ...
+    # Subtest: should parse blockquote
+    ok 6 - should parse blockquote
+      ---
+      duration_ms: 0.127584
+      type: 'test'
+      ...
+    # Subtest: should parse horizontal rule
+    ok 7 - should parse horizontal rule
+      ---
+      duration_ms: 0.090833
+      type: 'test'
+      ...
+    # Subtest: should see paragraphs with spaces
+    ok 8 - should see paragraphs with spaces
+      ---
+      duration_ms: 1.383209
+      type: 'test'
+      ...
+    # Subtest: should stringify to html
+    ok 9 - should stringify to html
+      ---
+      duration_ms: 0.8375
+      type: 'test'
+      ...
+    # Subtest: should allow interceptor in stringify
+    ok 10 - should allow interceptor in stringify
+      ---
+      duration_ms: 0.500875
+      type: 'test'
+      ...
+    # Subtest: should allow interceptor in async stringify
+    ok 11 - should allow interceptor in async stringify
+      ---
+      duration_ms: 0.172166
+      type: 'test'
+      ...
+    # Subtest: should properly parse new lines
+    ok 12 - should properly parse new lines
+      ---
+      duration_ms: 0.353209
+      type: 'test'
+      ...
+    # Subtest: should properly parse inline code
+    not ok 13 - should properly parse inline code
+      ---
+      duration_ms: 12.492334
+      type: 'test'
+      location: '/Users/i/src/nan.web/packages/markdown/src/Markdown.test.js:155:2'
+      failureType: 'testCodeFailure'
+      error: |-
+        The expression evaluated to a falsy value:
+
+          assert.ok(elements[2] instanceof MDSpace)
+
+      code: 'ERR_ASSERTION'
+      name: 'AssertionError'
+      expected: true
+      actual: false
+      operator: '=='
+      stack: |-
+        TestContext.<anonymous> (file:///Users/i/src/nan.web/packages/markdown/src/Markdown.test.js:171:10)
+        Test.runInAsyncScope (node:async_hooks:214:14)
+        Test.run (node:internal/test_runner/test:1047:25)
+        Suite.processPendingSubtests (node:internal/test_runner/test:744:18)
+        Test.postRun (node:internal/test_runner/test:1173:19)
+        Test.run (node:internal/test_runner/test:1101:12)
+        async Suite.processPendingSubtests (node:internal/test_runner/test:744:7)
+      ...
+    # Subtest: should properly stringify inline code within paragraphs
+    ok 14 - should properly stringify inline code within paragraphs
+      ---
+      duration_ms: 0.439417
+      type: 'test'
+      ...
+    # Subtest: should properly parse and stringify complex inline elements
+    ok 15 - should properly parse and stringify complex inline elements
+      ---
+      duration_ms: 0.26975
+      type: 'test'
+      ...
+    1..15
+not ok 27 - Markdown
+  ---
+  duration_ms: 24.317042
+  type: 'suite'
+  location: '/Users/i/src/nan.web/packages/markdown/src/Markdown.test.js:17:1'
+  failureType: 'subtestsFailed'
+  error: '2 subtests failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# Waiting for the debugger to disconnect...
+# Debugger listening on ws://127.0.0.1:61183/254337af-4aa9-4a25-8d20-e01fc26eb684
+# For help, see: https://nodejs.org/en/docs/inspector
+# Debugger attached.
+# Subtest: Markdown in .md
+    # Subtest: should parse markdown code ```.md properly
+    not ok 1 - should parse markdown code ```.md properly # TODO
+      ---
+      duration_ms: 2.50375
+      type: 'test'
+      location: '/Users/i/src/nan.web/packages/markdown/src/context/markdown-in-md-code.test.js:9:5'
+      failureType: 'testCodeFailure'
+      error: '7 == 2'
+      code: 'ERR_ASSERTION'
+      name: 'AssertionError'
+      expected: 2
+      actual: 7
+      operator: '=='
+      stack: |-
+        TestContext.<anonymous> (file:///Users/i/src/nan.web/packages/markdown/src/context/markdown-in-md-code.test.js:13:10)
+        async Test.run (node:internal/test_runner/test:1054:7)
+        async Promise.all (index 0)
+        async Suite.run (node:internal/test_runner/test:1442:7)
+        async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+      ...
+    1..1
+ok 28 - Markdown in .md
+  ---
+  duration_ms: 2.931666
+  type: 'suite'
+  ...
+# Waiting for the debugger to disconnect...
+# Debugger listening on ws://127.0.0.1:61184/f69eca02-c775-471c-a201-9ec28140d0b3
+# For help, see: https://nodejs.org/en/docs/inspector
+# Debugger attached.
+# Subtest: markdown-with-html.md
+    # Subtest: should load and render the document identically (ignoring insignificant whitespace)
+    not ok 1 - should load and render the document identically (ignoring insignificant whitespace) # SKIP
+      ---
+      duration_ms: 5.055375
+      type: 'test'
+      location: '/Users/i/src/nan.web/packages/markdown/src/context/markdown-with-html.test.js:25:5'
+      failureType: 'testCodeFailure'
+      error: |-
+        Expected values to be strictly equal:
+        + actual - expected
+        ... Skipped lines
+
+          '<style>\n' +
+            '.ac { background: linear-gradient(33deg, #0003, #0093); padding: 1rem 2rem }\n' +
+            'pre { background: linear-gradient(66deg, #fff9, #ff03); border: 2px solid #ff09; }\n' +
+            '@media (prefers-color-scheme: dark) {\n' +
+            '\tpre { background: linear-gradient(66deg, #0009, #9003); border: 2px solid #9009; }\n' +
+        ...
+            '## PM as a code\n' +
+        +   '  Project management as a code is real if you believe and do this way.\n' +
+        -   'Project management as a code is real if you believe and do this way.\n' +
+            '## CLI application\n' +
+            '### 1. Git-Native & Version-Controlled Workflow [git-native.test.js]\n' +
+            '- Treats project management like code: everything is versioned, auditable, reversible.\n' +
+            '- No external tools or databases needed — just Git.\n' +
+            '- Natural for developers; lowers barrier to entry for dev-centric teams.\n' +
+        +   '  <div class="ac">\n' +
+        -   '<div class="ac">\n' +
+            '#### Acceptance Criteria\n' +
+            '- MUST verify that `git status` does not show any `releases/0/0/v0.0.0/*` files;\n' +
+            '- MUST create all required files according to the structure:\n' +
+            '```text\n' +
+            'release.md                      ← Release notes (tasks, sections)\n' +
+        ...
+            '- MUST confirm with `git status` which files are ignored and which are tracked.\n' +
+        +   '  </div>\n' +
+        -   '</div>\n' +
+            '---\n' +
+            '### 2. Test-Driven Project Progress [testable.test.js]\n' +
+            '- Tasks become testable units → Pass/fail defines completion.\n' +
+            '- Automates status tracking via CI/CD: "Done" = test passes.\n' +
+            '- Enables **automated QA gates in releases** — powerful for regulated environments.\n' +
+        +   '  <div class="ac">\n' +
+        -   '<div class="ac">\n' +
+            '#### Acceptance Criteria\n' +
+            '- MUST write `release.md` inside the test folder `releases/0/0/v0.0.0/release.md` using proper formatting;\n' +
+            '- MUST initialize the release with `nan0release init v0.0.0`;\n' +
+            '- MUST check the generated tests and compare them against expected templates;\n' +
+            '- MUST prepare tests generated from complete releases notes markdown file with command `nan0release prepare v0.0.0`\n' +
+        ...
+            '- MUST execute `nan0release seal v0.0.0`\n' +
+        +   '  </div>\n' +
+        -   '</div>\n' +
+            '---\n' +
+            '### 3. Transparent & Predictable Progress Tracking [status-auto-updated.test.js]\n' +
+            '- Real-time progress %, ETA, and velocity derived from commit history.\n' +
+            '- Immediate visibility through stats (pending/pass/fail).\n' +
+            '- Eliminates manual updates in Jira/Trello → reduces noise and inaccuracies.\n' +
+        +   '  <div class="ac">\n' +
+        -   '<div class="ac">\n' +
+            '#### Acceptance Criteria\n' +
+            '- MUST validate updates occur upon commits (these may be simulated or run within an isolated temporary `.git` environment); ensure CI/CD generates reports which are both testable and consumable by UIs.\n' +
+        +   '  </div>\n' +
+        -   '</div>\n' +
+            '---\n' +
+            '### 4. Integrated Team Communication [chat.test.js]\n' +
+            '- Structured chat per release and task embedded directly in file system.\n' +
+            '- Chronologically ordered, searchable, and version-controlled conversations.\n' +
+            '- `.cache` supports user-specific read/unread states without requiring a central server.\n' +
+        +   '  <div class="ac">\n' +
+        -   '<div class="ac">\n' +
+            '#### Acceptance Criteria\n' +
+            '- MUST test by verifying created files after running the following commands:\n' +
+            '- `nan0release chat write "msg"`\n' +
+            '- `nan0release chat write ux.logo "help needed"`\n' +
+            '- `nan0release chat read`\n' +
+        ...
+            '- MUST test both output and resulting file content.\n' +
+        +   '  </div>\n' +
+        -   '</div>\n' +
+            '---\n' +
+            '### 5. Self-Documenting Releases [docs.test.js]\n' +
+            '- Structured, machine-readable release notes, always current.\n' +
+            '- Markdown enhanced with YAML frontmatter enables metadata (assignees, dates, etc.).\n' +
+            '- Facilitates automatic generation of changelogs, roadmaps, dashboards.\n' +
+        +   '  <div class="ac">\n' +
+        -   '<div class="ac">\n' +
+            '#### Acceptance Criteria\n' +
+            '- MUST validate success and failure outcomes of `nan0release validate` when processing valid and invalid release note formats. It must exit with status code 1 on a failure.\n' +
+        +   '  </div>\n' +
+        -   '</div>\n' +
+            '---\n' +
+            '### 6. Extensible & Composable & Office-First & Decentralized by Design [ci-cd.test.js]\n' +
+            '- Assets such as designs, configurations, and logs stored within the release for full context.\n' +
+            '- Supports custom scripts, hooks, templates (e.g., `pre-release.js`, `post-release.sh`).\n' +
+            '- Seamlessly integrates into CI/CD pipelines.\n' +
+            '- Works offline and independently of external services.\n' +
+            '- No vendor lock-in — all data remains in the repository.\n' +
+        +   '  <div class="ac">\n' +
+        -   '<div class="ac">\n' +
+            '#### Acceptance Criteria\n' +
+            '- MUST confirm context preservation by adding test files to assets and validating output of `git status`.\n' +
+        +   '  </div>'
+        -   '</div>'
+
+      code: 'ERR_ASSERTION'
+      name: 'AssertionError'
+      expected: |-
+        <style>
+        .ac { background: linear-gradient(33deg, #0003, #0093); padding: 1rem 2rem }
+        pre { background: linear-gradient(66deg, #fff9, #ff03); border: 2px solid #ff09; }
+        @media (prefers-color-scheme: dark) {
+        	pre { background: linear-gradient(66deg, #0009, #9003); border: 2px solid #9009; }
+        }
+        </style>
+        # v1.0.0 - 2025-08-18
+        ## PM as a code
+        Project management as a code is real if you believe and do this way.
+        ## CLI application
+        ### 1. Git-Native & Version-Controlled Workflow [git-native.test.js]
+        - Treats project management like code: everything is versioned, auditable, reversible.
+        - No external tools or databases needed — just Git.
+        - Natural for developers; lowers barrier to entry for dev-centric teams.
+        <div class="ac">
+        #### Acceptance Criteria
+        - MUST verify that `git status` does not show any `releases/0/0/v0.0.0/*` files;
+        - MUST create all required files according to the structure:
+        ```text
+        release.md                      ← Release notes (tasks, sections)
+        release.js                      ← Team, roles, config (class Release)
+        release.test.js                 ← Main test suite (CI entrypoint)
+        test/
+          {username}/                   ← Optional scope
+            tasks.test.js               ← User-specific tests
+        chat/                           ← Release-wide chat
+          2025/08/18/
+            162000420.{username}.md     ← Message (timestamp + user)
+        task/
+          ux.logo/                      ← Task by slug
+            config.json                 ← { assignee, priority, dependsOn }
+            approved/
+              ceo.json                  ← Approval record (GPG-signed)
+            chat/
+              2025/08/18/
+                162000420.{username}.md ← Task-specific message
+        assets/                         ← Designs, docs, deliverables
+        retro.md                        ← Final reflection (sealed)
+        .cache/                         ← gitignored: read state, session
+        ```
+        - MUST confirm with `git status` which files are ignored and which are tracked.
+        </div>
+        ---
+        ### 2. Test-Driven Project Progress [testable.test.js]
+        - Tasks become testable units → Pass/fail defines completion.
+        - Automates status tracking via CI/CD: "Done" = test passes.
+        - Enables **automated QA gates in releases** — powerful for regulated environments.
+        <div class="ac">
+        #### Acceptance Criteria
+        - MUST write `release.md` inside the test folder `releases/0/0/v0.0.0/release.md` using proper formatting;
+        - MUST initialize the release with `nan0release init v0.0.0`;
+        - MUST check the generated tests and compare them against expected templates;
+        - MUST prepare tests generated from complete releases notes markdown file with command `nan0release prepare v0.0.0`
+        - MUST begin the workflow: all tests start in `todo`, transition states by modifying files and executing tests, validate each state (`todo`, `in progress`, `complete`, `approved`), verify release status and confirm `git tag` commands are executed once all tasks complete.
+        - MUST execute `nan0release [status] v0.0.0`
+        - MUST execute `nan0release todo v0.0.0`
+        - MUST execute `nan0release validate v0.0.0`
+        - MUST execute `nan0release seal v0.0.0`
+        </div>
+        ---
+        ### 3. Transparent & Predictable Progress Tracking [status-auto-updated.test.js]
+        - Real-time progress %, ETA, and velocity derived from commit history.
+        - Immediate visibility through stats (pending/pass/fail).
+        - Eliminates manual updates in Jira/Trello → reduces noise and inaccuracies.
+        <div class="ac">
+        #### Acceptance Criteria
+        - MUST validate updates occur upon commits (these may be simulated or run within an isolated temporary `.git` environment); ensure CI/CD generates reports which are both testable and consumable by UIs.
+        </div>
+        ---
+        ### 4. Integrated Team Communication [chat.test.js]
+        - Structured chat per release and task embedded directly in file system.
+        - Chronologically ordered, searchable, and version-controlled conversations.
+        - `.cache` supports user-specific read/unread states without requiring a central server.
+        <div class="ac">
+        #### Acceptance Criteria
+        - MUST test by verifying created files after running the following commands:
+        - `nan0release chat write "msg"`
+        - `nan0release chat write ux.logo "help needed"`
+        - `nan0release chat read`
+        - `nan0release chat find "help"`
+        - `nan0release chat --sender member@example.com`
+        - `nan0release chat unread`
+        - MUST test both output and resulting file content.
+        </div>
+        ---
+        ### 5. Self-Documenting Releases [docs.test.js]
+        - Structured, machine-readable release notes, always current.
+        - Markdown enhanced with YAML frontmatter enables metadata (assignees, dates, etc.).
+        - Facilitates automatic generation of changelogs, roadmaps, dashboards.
+        <div class="ac">
+        #### Acceptance Criteria
+        - MUST validate success and failure outcomes of `nan0release validate` when processing valid and invalid release note formats. It must exit with status code 1 on a failure.
+        </div>
+        ---
+        ### 6. Extensible & Composable & Office-First & Decentralized by Design [ci-cd.test.js]
+        - Assets such as designs, configurations, and logs stored within the release for full context.
+        - Supports custom scripts, hooks, templates (e.g., `pre-release.js`, `post-release.sh`).
+        - Seamlessly integrates into CI/CD pipelines.
+        - Works offline and independently of external services.
+        - No vendor lock-in — all data remains in the repository.
+        <div class="ac">
+        #### Acceptance Criteria
+        - MUST confirm context preservation by adding test files to assets and validating output of `git status`.
+        </div>
+      actual: |-
+        <style>
+        .ac { background: linear-gradient(33deg, #0003, #0093); padding: 1rem 2rem }
+        pre { background: linear-gradient(66deg, #fff9, #ff03); border: 2px solid #ff09; }
+        @media (prefers-color-scheme: dark) {
+        	pre { background: linear-gradient(66deg, #0009, #9003); border: 2px solid #9009; }
+        }
+        </style>
+        # v1.0.0 - 2025-08-18
+        ## PM as a code
+          Project management as a code is real if you believe and do this way.
+        ## CLI application
+        ### 1. Git-Native & Version-Controlled Workflow [git-native.test.js]
+        - Treats project management like code: everything is versioned, auditable, reversible.
+        - No external tools or databases needed — just Git.
+        - Natural for developers; lowers barrier to entry for dev-centric teams.
+          <div class="ac">
+        #### Acceptance Criteria
+        - MUST verify that `git status` does not show any `releases/0/0/v0.0.0/*` files;
+        - MUST create all required files according to the structure:
+        ```text
+        release.md                      ← Release notes (tasks, sections)
+        release.js                      ← Team, roles, config (class Release)
+        release.test.js                 ← Main test suite (CI entrypoint)
+        test/
+          {username}/                   ← Optional scope
+            tasks.test.js               ← User-specific tests
+        chat/                           ← Release-wide chat
+          2025/08/18/
+            162000420.{username}.md     ← Message (timestamp + user)
+        task/
+          ux.logo/                      ← Task by slug
+            config.json                 ← { assignee, priority, dependsOn }
+            approved/
+              ceo.json                  ← Approval record (GPG-signed)
+            chat/
+              2025/08/18/
+                162000420.{username}.md ← Task-specific message
+        assets/                         ← Designs, docs, deliverables
+        retro.md                        ← Final reflection (sealed)
+        .cache/                         ← gitignored: read state, session
+        ```
+        - MUST confirm with `git status` which files are ignored and which are tracked.
+          </div>
+        ---
+        ### 2. Test-Driven Project Progress [testable.test.js]
+        - Tasks become testable units → Pass/fail defines completion.
+        - Automates status tracking via CI/CD: "Done" = test passes.
+        - Enables **automated QA gates in releases** — powerful for regulated environments.
+          <div class="ac">
+        #### Acceptance Criteria
+        - MUST write `release.md` inside the test folder `releases/0/0/v0.0.0/release.md` using proper formatting;
+        - MUST initialize the release with `nan0release init v0.0.0`;
+        - MUST check the generated tests and compare them against expected templates;
+        - MUST prepare tests generated from complete releases notes markdown file with command `nan0release prepare v0.0.0`
+        - MUST begin the workflow: all tests start in `todo`, transition states by modifying files and executing tests, validate each state (`todo`, `in progress`, `complete`, `approved`), verify release status and confirm `git tag` commands are executed once all tasks complete.
+        - MUST execute `nan0release [status] v0.0.0`
+        - MUST execute `nan0release todo v0.0.0`
+        - MUST execute `nan0release validate v0.0.0`
+        - MUST execute `nan0release seal v0.0.0`
+          </div>
+        ---
+        ### 3. Transparent & Predictable Progress Tracking [status-auto-updated.test.js]
+        - Real-time progress %, ETA, and velocity derived from commit history.
+        - Immediate visibility through stats (pending/pass/fail).
+        - Eliminates manual updates in Jira/Trello → reduces noise and inaccuracies.
+          <div class="ac">
+        #### Acceptance Criteria
+        - MUST validate updates occur upon commits (these may be simulated or run within an isolated temporary `.git` environment); ensure CI/CD generates reports which are both testable and consumable by UIs.
+          </div>
+        ---
+        ### 4. Integrated Team Communication [chat.test.js]
+        - Structured chat per release and task embedded directly in file system.
+        - Chronologically ordered, searchable, and version-controlled conversations.
+        - `.cache` supports user-specific read/unread states without requiring a central server.
+          <div class="ac">
+        #### Acceptance Criteria
+        - MUST test by verifying created files after running the following commands:
+        - `nan0release chat write "msg"`
+        - `nan0release chat write ux.logo "help needed"`
+        - `nan0release chat read`
+        - `nan0release chat find "help"`
+        - `nan0release chat --sender member@example.com`
+        - `nan0release chat unread`
+        - MUST test both output and resulting file content.
+          </div>
+        ---
+        ### 5. Self-Documenting Releases [docs.test.js]
+        - Structured, machine-readable release notes, always current.
+        - Markdown enhanced with YAML frontmatter enables metadata (assignees, dates, etc.).
+        - Facilitates automatic generation of changelogs, roadmaps, dashboards.
+          <div class="ac">
+        #### Acceptance Criteria
+        - MUST validate success and failure outcomes of `nan0release validate` when processing valid and invalid release note formats. It must exit with status code 1 on a failure.
+          </div>
+        ---
+        ### 6. Extensible & Composable & Office-First & Decentralized by Design [ci-cd.test.js]
+        - Assets such as designs, configurations, and logs stored within the release for full context.
+        - Supports custom scripts, hooks, templates (e.g., `pre-release.js`, `post-release.sh`).
+        - Seamlessly integrates into CI/CD pipelines.
+        - Works offline and independently of external services.
+        - No vendor lock-in — all data remains in the repository.
+          <div class="ac">
+        #### Acceptance Criteria
+        - MUST confirm context preservation by adding test files to assets and validating output of `git status`.
+          </div>
+      operator: 'strictEqual'
+      stack: |-
+        TestContext.<anonymous> (file:///Users/i/src/nan.web/packages/markdown/src/context/markdown-with-html.test.js:34:10)
+        async Test.run (node:internal/test_runner/test:1054:7)
+        async Promise.all (index 0)
+        async Suite.run (node:internal/test_runner/test:1442:7)
+        async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+      ...
+    1..1
+ok 29 - markdown-with-html.md
+  ---
+  duration_ms: 5.489875
+  type: 'suite'
+  ...
+# Waiting for the debugger to disconnect...
+1..29
+# tests 54
+# suites 11
+# pass 50
+# fail 2
+# cancelled 0
+# skipped 1
+# todo 1
+# duration_ms 2501.072416

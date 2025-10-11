@@ -22,11 +22,11 @@ describe("TestNode", () => {
 		const node = new TestNode({
 			content: '# Subtest: main test',
 			children: [
-				{ 
-					content: '# Subtest: sub test', 
+				{
+					content: '# Subtest: sub test',
 					children: [
 						{ content: 'ok 1 - sub test passed' }
-					] 
+					]
 				},
 				{ content: 'ok 1 - main test passed' }
 			]
@@ -48,7 +48,7 @@ describe("TestNode", () => {
 
 		assert.strictEqual(node.passCount, 25)
 		assert.strictEqual(node.failCount, 2)
-		assert.strictEqual(node.skippedCount, 1)
+		assert.strictEqual(node.skipCount, 1)
 	})
 
 	it("Represent test output as hierarchical node structure", () => {
@@ -81,9 +81,9 @@ describe("TestNode", () => {
 	it("Maintain relationship between parent and child tests", () => {
 		const parent = new TestNode({ content: 'parent' })
 		const child = new TestNode({ content: 'child' })
-		
+
 		parent.children.push(child)
-		
+
 		assert.strictEqual(parent.children[0], child)
 		assert.ok(child instanceof TestNode)
 	})

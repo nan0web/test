@@ -1,0 +1,239 @@
+
+> @nan0web/ui-react-bootstrap@0.1.0 test:jsx /Users/i/src/nan.web/packages/ui-react-bootstrap
+> vitest run
+
+
+ RUN  v3.2.4 /Users/i/src/nan.web/packages/ui-react-bootstrap
+
+ ❯ src/main.test.jsx (9 tests | 2 failed | 6 skipped) 6ms
+   ↓ Testing output > should print todo with error
+   ↓ Testing output > should print todo with fail
+   ↓ Testing output > should print todo with success
+   ↓ Testing output > should print skip with error
+   ↓ Testing output > should print skip with fail
+   ↓ Testing output > should print skip with success
+   × Testing output > should print error 3ms
+     → error
+   × Testing output > should print fail 3ms
+     → expected 1 to be +0 // Object.is equality
+   ✓ Testing output > should print success 0ms
+ ❯ src/components/molecules/Card.test.jsx (4 tests | 4 failed) 30ms
+   × Card > renders Card with children 15ms
+     → cleanup is not defined
+   × Card > renders Card without custom styles in bootstrap mode 5ms
+     → cleanup is not defined
+   × Card > renders Card with custom style in fallback mode 5ms
+     → cleanup is not defined
+   × Card > Card renders nested components 4ms
+     → cleanup is not defined
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 5 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  playground/Playground.test.jsx [ playground/Playground.test.jsx ]
+Error: Failed to resolve import "@nan0web/core" from "src/apps/currency-calculator/App.js". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /Users/i/src/nan.web/packages/ui-react-bootstrap/src/apps/currency-calculator/App.js:1:36
+  1  |  import AppCore, { AppResult } from "@nan0web/core"
+     |                                      ^
+  2  |  import DB from "@nan0web/db"
+  3  |  import CalculateMessage from "./commands/CalculateMessage.js"
+ ❯ TransformPluginContext._formatLog ../../node_modules/.pnpm/vite@7.1.7_@types+node@24.3.0_jiti@1.21.7_lightningcss@1.30.1_sass@1.93.2_terser@5.43.1_yaml@2.8.1/node_modules/vite/dist/node/chunks/dep-Bm2ujbhY.js:31185:43
+ ❯ TransformPluginContext.error ../../node_modules/.pnpm/vite@7.1.7_@types+node@24.3.0_jiti@1.21.7_lightningcss@1.30.1_sass@1.93.2_terser@5.43.1_yaml@2.8.1/node_modules/vite/dist/node/chunks/dep-Bm2ujbhY.js:31182:14
+ ❯ normalizeUrl ../../node_modules/.pnpm/vite@7.1.7_@types+node@24.3.0_jiti@1.21.7_lightningcss@1.30.1_sass@1.93.2_terser@5.43.1_yaml@2.8.1/node_modules/vite/dist/node/chunks/dep-Bm2ujbhY.js:29665:18
+ ❯ ../../node_modules/.pnpm/vite@7.1.7_@types+node@24.3.0_jiti@1.21.7_lightningcss@1.30.1_sass@1.93.2_terser@5.43.1_yaml@2.8.1/node_modules/vite/dist/node/chunks/dep-Bm2ujbhY.js:29723:32
+ ❯ TransformPluginContext.transform ../../node_modules/.pnpm/vite@7.1.7_@types+node@24.3.0_jiti@1.21.7_lightningcss@1.30.1_sass@1.93.2_terser@5.43.1_yaml@2.8.1/node_modules/vite/dist/node/chunks/dep-Bm2ujbhY.js:29691:4
+ ❯ EnvironmentPluginContainer.transform ../../node_modules/.pnpm/vite@7.1.7_@types+node@24.3.0_jiti@1.21.7_lightningcss@1.30.1_sass@1.93.2_terser@5.43.1_yaml@2.8.1/node_modules/vite/dist/node/chunks/dep-Bm2ujbhY.js:30984:14
+ ❯ loadAndTransform ../../node_modules/.pnpm/vite@7.1.7_@types+node@24.3.0_jiti@1.21.7_lightningcss@1.30.1_sass@1.93.2_terser@5.43.1_yaml@2.8.1/node_modules/vite/dist/node/chunks/dep-Bm2ujbhY.js:26116:26
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/11]⎯
+
+ FAIL  src/components/atoms/Button.test.jsx [ src/components/atoms/Button.test.jsx ]
+Error: [vitest] There was an error when mocking a module. If you are using "vi.mock" factory, make sure there are no top level variables inside, since this call is hoisted to top of the file. Read more: https://vitest.dev/api/vi.html#vi-mock
+ ❯ src/components/atoms/Button.test.jsx:4:1
+      2| import { render, screen } from '@testing-library/react'
+      3| import Button from './Button.jsx'
+      4| import { useUI } from '../../index.jsx'
+       | ^
+      5| import * as UIReact from '../../index.jsx'
+      6|
+
+Caused by: Error: Failed to resolve import "@nan0web/core" from "src/apps/currency-calculator/App.js". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /Users/i/src/nan.web/packages/ui-react-bootstrap/src/apps/currency-calculator/App.js:1:36
+  1  |  import AppCore, { AppResult } from "@nan0web/core"
+     |                                      ^
+  2  |  import DB from "@nan0web/db"
+  3  |  import CalculateMessage from "./commands/CalculateMessage.js"
+ ❯ TransformPluginContext._formatLog ../../node_modules/.pnpm/vite@7.1.7_@types+node@24.3.0_jiti@1.21.7_lightningcss@1.30.1_sass@1.93.2_terser@5.43.1_yaml@2.8.1/node_modules/vite/dist/node/chunks/dep-Bm2ujbhY.js:31185:43
+ ❯ TransformPluginContext.error ../../node_modules/.pnpm/vite@7.1.7_@types+node@24.3.0_jiti@1.21.7_lightningcss@1.30.1_sass@1.93.2_terser@5.43.1_yaml@2.8.1/node_modules/vite/dist/node/chunks/dep-Bm2ujbhY.js:31182:14
+ ❯ normalizeUrl ../../node_modules/.pnpm/vite@7.1.7_@types+node@24.3.0_jiti@1.21.7_lightningcss@1.30.1_sass@1.93.2_terser@5.43.1_yaml@2.8.1/node_modules/vite/dist/node/chunks/dep-Bm2ujbhY.js:29665:18
+ ❯ ../../node_modules/.pnpm/vite@7.1.7_@types+node@24.3.0_jiti@1.21.7_lightningcss@1.30.1_sass@1.93.2_terser@5.43.1_yaml@2.8.1/node_modules/vite/dist/node/chunks/dep-Bm2ujbhY.js:29723:32
+ ❯ TransformPluginContext.transform ../../node_modules/.pnpm/vite@7.1.7_@types+node@24.3.0_jiti@1.21.7_lightningcss@1.30.1_sass@1.93.2_terser@5.43.1_yaml@2.8.1/node_modules/vite/dist/node/chunks/dep-Bm2ujbhY.js:29691:4
+ ❯ EnvironmentPluginContainer.transform ../../node_modules/.pnpm/vite@7.1.7_@types+node@24.3.0_jiti@1.21.7_lightningcss@1.30.1_sass@1.93.2_terser@5.43.1_yaml@2.8.1/node_modules/vite/dist/node/chunks/dep-Bm2ujbhY.js:30984:14
+ ❯ loadAndTransform ../../node_modules/.pnpm/vite@7.1.7_@types+node@24.3.0_jiti@1.21.7_lightningcss@1.30.1_sass@1.93.2_terser@5.43.1_yaml@2.8.1/node_modules/vite/dist/node/chunks/dep-Bm2ujbhY.js:26116:26
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/11]⎯
+
+ FAIL  src/components/atoms/Input.test.jsx [ src/components/atoms/Input.test.jsx ]
+Error: [vitest] There was an error when mocking a module. If you are using "vi.mock" factory, make sure there are no top level variables inside, since this call is hoisted to top of the file. Read more: https://vitest.dev/api/vi.html#vi-mock
+ ❯ src/components/atoms/Input.test.jsx:4:1
+      2| import { render, screen } from '@testing-library/react'
+      3| import Input from './Input.jsx'
+      4| import { useUI } from '../../index.jsx'
+       | ^
+      5|
+      6| // Mock useUI while preserving other exports
+
+Caused by: Error: Failed to resolve import "@nan0web/core" from "src/apps/currency-calculator/App.js". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /Users/i/src/nan.web/packages/ui-react-bootstrap/src/apps/currency-calculator/App.js:1:36
+  1  |  import AppCore, { AppResult } from "@nan0web/core"
+     |                                      ^
+  2  |  import DB from "@nan0web/db"
+  3  |  import CalculateMessage from "./commands/CalculateMessage.js"
+ ❯ TransformPluginContext._formatLog ../../node_modules/.pnpm/vite@7.1.7_@types+node@24.3.0_jiti@1.21.7_lightningcss@1.30.1_sass@1.93.2_terser@5.43.1_yaml@2.8.1/node_modules/vite/dist/node/chunks/dep-Bm2ujbhY.js:31185:43
+ ❯ TransformPluginContext.error ../../node_modules/.pnpm/vite@7.1.7_@types+node@24.3.0_jiti@1.21.7_lightningcss@1.30.1_sass@1.93.2_terser@5.43.1_yaml@2.8.1/node_modules/vite/dist/node/chunks/dep-Bm2ujbhY.js:31182:14
+ ❯ normalizeUrl ../../node_modules/.pnpm/vite@7.1.7_@types+node@24.3.0_jiti@1.21.7_lightningcss@1.30.1_sass@1.93.2_terser@5.43.1_yaml@2.8.1/node_modules/vite/dist/node/chunks/dep-Bm2ujbhY.js:29665:18
+ ❯ ../../node_modules/.pnpm/vite@7.1.7_@types+node@24.3.0_jiti@1.21.7_lightningcss@1.30.1_sass@1.93.2_terser@5.43.1_yaml@2.8.1/node_modules/vite/dist/node/chunks/dep-Bm2ujbhY.js:29723:32
+ ❯ TransformPluginContext.transform ../../node_modules/.pnpm/vite@7.1.7_@types+node@24.3.0_jiti@1.21.7_lightningcss@1.30.1_sass@1.93.2_terser@5.43.1_yaml@2.8.1/node_modules/vite/dist/node/chunks/dep-Bm2ujbhY.js:29691:4
+ ❯ EnvironmentPluginContainer.transform ../../node_modules/.pnpm/vite@7.1.7_@types+node@24.3.0_jiti@1.21.7_lightningcss@1.30.1_sass@1.93.2_terser@5.43.1_yaml@2.8.1/node_modules/vite/dist/node/chunks/dep-Bm2ujbhY.js:30984:14
+ ❯ loadAndTransform ../../node_modules/.pnpm/vite@7.1.7_@types+node@24.3.0_jiti@1.21.7_lightningcss@1.30.1_sass@1.93.2_terser@5.43.1_yaml@2.8.1/node_modules/vite/dist/node/chunks/dep-Bm2ujbhY.js:26116:26
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/11]⎯
+
+ FAIL  src/components/atoms/Typography.test.jsx [ src/components/atoms/Typography.test.jsx ]
+Error: [vitest] There was an error when mocking a module. If you are using "vi.mock" factory, make sure there are no top level variables inside, since this call is hoisted to top of the file. Read more: https://vitest.dev/api/vi.html#vi-mock
+ ❯ src/components/atoms/Typography.test.jsx:4:1
+      2| import { render, screen, cleanup } from '@testing-library/react'
+      3| import Typography from './Typography.jsx'
+      4| import { useUI } from '../../index.jsx'
+       | ^
+      5|
+      6| // Mock useUI
+
+Caused by: Error: Failed to resolve import "@nan0web/core" from "src/apps/currency-calculator/App.js". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /Users/i/src/nan.web/packages/ui-react-bootstrap/src/apps/currency-calculator/App.js:1:36
+  1  |  import AppCore, { AppResult } from "@nan0web/core"
+     |                                      ^
+  2  |  import DB from "@nan0web/db"
+  3  |  import CalculateMessage from "./commands/CalculateMessage.js"
+ ❯ TransformPluginContext._formatLog ../../node_modules/.pnpm/vite@7.1.7_@types+node@24.3.0_jiti@1.21.7_lightningcss@1.30.1_sass@1.93.2_terser@5.43.1_yaml@2.8.1/node_modules/vite/dist/node/chunks/dep-Bm2ujbhY.js:31185:43
+ ❯ TransformPluginContext.error ../../node_modules/.pnpm/vite@7.1.7_@types+node@24.3.0_jiti@1.21.7_lightningcss@1.30.1_sass@1.93.2_terser@5.43.1_yaml@2.8.1/node_modules/vite/dist/node/chunks/dep-Bm2ujbhY.js:31182:14
+ ❯ normalizeUrl ../../node_modules/.pnpm/vite@7.1.7_@types+node@24.3.0_jiti@1.21.7_lightningcss@1.30.1_sass@1.93.2_terser@5.43.1_yaml@2.8.1/node_modules/vite/dist/node/chunks/dep-Bm2ujbhY.js:29665:18
+ ❯ ../../node_modules/.pnpm/vite@7.1.7_@types+node@24.3.0_jiti@1.21.7_lightningcss@1.30.1_sass@1.93.2_terser@5.43.1_yaml@2.8.1/node_modules/vite/dist/node/chunks/dep-Bm2ujbhY.js:29723:32
+ ❯ TransformPluginContext.transform ../../node_modules/.pnpm/vite@7.1.7_@types+node@24.3.0_jiti@1.21.7_lightningcss@1.30.1_sass@1.93.2_terser@5.43.1_yaml@2.8.1/node_modules/vite/dist/node/chunks/dep-Bm2ujbhY.js:29691:4
+ ❯ EnvironmentPluginContainer.transform ../../node_modules/.pnpm/vite@7.1.7_@types+node@24.3.0_jiti@1.21.7_lightningcss@1.30.1_sass@1.93.2_terser@5.43.1_yaml@2.8.1/node_modules/vite/dist/node/chunks/dep-Bm2ujbhY.js:30984:14
+ ❯ loadAndTransform ../../node_modules/.pnpm/vite@7.1.7_@types+node@24.3.0_jiti@1.21.7_lightningcss@1.30.1_sass@1.93.2_terser@5.43.1_yaml@2.8.1/node_modules/vite/dist/node/chunks/dep-Bm2ujbhY.js:26116:26
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/11]⎯
+
+ FAIL  src/components/organisms/Modal.test.jsx [ src/components/organisms/Modal.test.jsx ]
+Error: Failed to resolve import "@testing-library/user-event" from "src/components/organisms/Modal.test.jsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /Users/i/src/nan.web/packages/ui-react-bootstrap/src/components/organisms/Modal.test.jsx:4:0
+  2  |  const __vi_import_1__ = await import("@testing-library/react");
+  3  |  const __vi_import_2__ = await import("react");
+  4  |  const __vi_import_3__ = await import("@testing-library/user-event");
+     |                                       ^
+  5  |  const __vi_import_4__ = await import("./Modal.jsx");
+  6  |
+ ❯ TransformPluginContext._formatLog ../../node_modules/.pnpm/vite@7.1.7_@types+node@24.3.0_jiti@1.21.7_lightningcss@1.30.1_sass@1.93.2_terser@5.43.1_yaml@2.8.1/node_modules/vite/dist/node/chunks/dep-Bm2ujbhY.js:31185:43
+ ❯ TransformPluginContext.error ../../node_modules/.pnpm/vite@7.1.7_@types+node@24.3.0_jiti@1.21.7_lightningcss@1.30.1_sass@1.93.2_terser@5.43.1_yaml@2.8.1/node_modules/vite/dist/node/chunks/dep-Bm2ujbhY.js:31182:14
+ ❯ normalizeUrl ../../node_modules/.pnpm/vite@7.1.7_@types+node@24.3.0_jiti@1.21.7_lightningcss@1.30.1_sass@1.93.2_terser@5.43.1_yaml@2.8.1/node_modules/vite/dist/node/chunks/dep-Bm2ujbhY.js:29665:18
+ ❯ ../../node_modules/.pnpm/vite@7.1.7_@types+node@24.3.0_jiti@1.21.7_lightningcss@1.30.1_sass@1.93.2_terser@5.43.1_yaml@2.8.1/node_modules/vite/dist/node/chunks/dep-Bm2ujbhY.js:29723:32
+ ❯ TransformPluginContext.transform ../../node_modules/.pnpm/vite@7.1.7_@types+node@24.3.0_jiti@1.21.7_lightningcss@1.30.1_sass@1.93.2_terser@5.43.1_yaml@2.8.1/node_modules/vite/dist/node/chunks/dep-Bm2ujbhY.js:29691:4
+ ❯ EnvironmentPluginContainer.transform ../../node_modules/.pnpm/vite@7.1.7_@types+node@24.3.0_jiti@1.21.7_lightningcss@1.30.1_sass@1.93.2_terser@5.43.1_yaml@2.8.1/node_modules/vite/dist/node/chunks/dep-Bm2ujbhY.js:30984:14
+ ❯ loadAndTransform ../../node_modules/.pnpm/vite@7.1.7_@types+node@24.3.0_jiti@1.21.7_lightningcss@1.30.1_sass@1.93.2_terser@5.43.1_yaml@2.8.1/node_modules/vite/dist/node/chunks/dep-Bm2ujbhY.js:26116:26
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/11]⎯
+
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 6 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/main.test.jsx > Testing output > should print error
+Error: error
+ ❯ src/main.test.jsx:29:9
+     27|
+     28|  it('should print error', () => {
+     29|   throw new Error("error")
+       |         ^
+     30|  })
+     31|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/11]⎯
+
+ FAIL  src/main.test.jsx > Testing output > should print fail
+AssertionError: expected 1 to be +0 // Object.is equality
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- 0[39m
+[31m+ 1[39m
+
+ ❯ src/main.test.jsx:33:13
+     31|
+     32|  it('should print fail', () => {
+     33|   expect(1).toBe(0)
+       |             ^
+     34|  })
+     35|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/11]⎯
+
+ FAIL  src/components/molecules/Card.test.jsx > Card > renders Card with children
+ReferenceError: cleanup is not defined
+ ❯ src/components/molecules/Card.test.jsx:16:5
+     14|     const card = content.closest('.card')
+     15|     expect(card).toBeInTheDocument()
+     16|     cleanup()
+       |     ^
+     17|   })
+     18|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/11]⎯
+
+ FAIL  src/components/molecules/Card.test.jsx > Card > renders Card without custom styles in bootstrap mode
+ReferenceError: cleanup is not defined
+ ❯ src/components/molecules/Card.test.jsx:27:5
+     25|     expect(card).toBeInTheDocument()
+     26|     expect(card).not.toHaveStyle('padding: 1.5rem')
+     27|     cleanup()
+       |     ^
+     28|   })
+     29|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/11]⎯
+
+ FAIL  src/components/molecules/Card.test.jsx > Card > renders Card with custom style in fallback mode
+ReferenceError: cleanup is not defined
+ ❯ src/components/molecules/Card.test.jsx:36:5
+     34|     const card = content.closest('.card')
+     35|     expect(card).toHaveStyle('border: 2px solid green')
+     36|     cleanup()
+       |     ^
+     37|   })
+     38|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/11]⎯
+
+ FAIL  src/components/molecules/Card.test.jsx > Card > Card renders nested components
+ReferenceError: cleanup is not defined
+ ❯ src/components/molecules/Card.test.jsx:46:5
+     44|     )
+     45|     expect(screen.getByText('Nested text')).toBeInTheDocument()
+     46|     cleanup()
+       |     ^
+     47|   })
+     48| })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/11]⎯
+
+
+ Test Files  7 failed (7)
+      Tests  6 failed | 1 passed | 3 skipped | 3 todo (13)
+   Start at  20:14:32
+   Duration  1.41s (transform 489ms, setup 1.27s, collect 565ms, tests 36ms, environment 1.79s, prepare 685ms)
+
+ ELIFECYCLE  Command failed with exit code 1.

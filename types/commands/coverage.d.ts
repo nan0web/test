@@ -52,7 +52,7 @@ declare class CoverageCommandOptions {
      */
     static from(input: any): CoverageCommandOptions;
     constructor(input: any);
-    help: string;
+    help: boolean;
 }
 import { Command } from "@nan0web/co";
 export {};

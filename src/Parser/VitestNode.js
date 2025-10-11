@@ -1,33 +1,23 @@
-import { Node } from "@nan0web/types"
+import TestNode from "./TestNode.js"
 
 /**
  * TestNode extends the base Node class to provide TAP-specific parsing functionality.
  * It adds getters for common TAP metadata like version, test counts, and duration.
  */
-export default class TestNode extends Node {
+export default class VitestNode extends TestNode {
 	static HEADER = {
-		version: "TAP version ",
+		version: "RUN ",
 	}
-	static FOOTER = {
-		tests: "# tests ",
-		suites: "# suites ",
-		pass: "# pass ",
-		fail: "# fail ",
-		cancelled: "# cancelled ",
-		skipped: "# skipped ",
-		todo: "# todo ",
-		duration: "# duration_ms ",
-	}
-	/** @type {TestNode[]} */
+	/** @type {VitestNode[]} */
 	children = []
 
 	/**
 	 * Create a new TestNode instance.
 	 * @param {object} input - The input object to initialize the node.
-	 * @param {TestNode[]} [input.children=[]] - Array of child nodes.
+	 * @param {VitestNode[]} [input.children=[]] - Array of child nodes.
 	 * @param {string} [input.content=""] - Content of the node.
 	 * @param {number} [input.indent=0] - Content of the node.
-	 * @param {TestNode} [input.parent=null] - Parent node.
+	 * @param {VitestNode} [input.parent=null] - Parent node.
 	 */
 	constructor(input = {}) {
 		super(input)
@@ -35,27 +25,16 @@ export default class TestNode extends Node {
 			children = [],
 			parent = null
 		} = input
-		this.children = children.map(c => TestNode.from(c))
+		this.children = children.map(c => VitestNode.from(c))
 		this.parent = parent
 	}
 
 	get HEADER() {
-		return /** @type {typeof TestNode} */ (this.constructor).HEADER
+		return /** @type {typeof VitestNode} */ (this.constructor).HEADER
 	}
 
 	get FOOTER() {
-		return /** @type {typeof TestNode} */ (this.constructor).FOOTER
-	}
-
-	/**
-	 * Find a child node whose content starts with the given prefix and return the
-	 * remaining part of the content after the prefix.
-	 * @param {string} prefix - The prefix to search for in child node contents.
-	 * @returns {string} The substring after the prefix, or an empty string if not found.
-	 */
-	findPrefix(prefix) {
-		const v = this.find(c => c.content.startsWith(prefix))
-		return v ? v.content.slice(prefix.length) : ""
+		return /** @type {typeof VitestNode} */ (this.constructor).FOOTER
 	}
 
 	/**
@@ -63,11 +42,11 @@ export default class TestNode extends Node {
 	 *
 	 * @param {(v:any)=>boolean} filter
 	 * @param {boolean} [recursively=false]
-	 * @returns {TestNode | null}
+	 * @returns {VitestNode | null}
 	 */
 	find(filter, recursively) {
 		const result = super.find(filter, recursively)
-		return result ? TestNode.from(result) : null
+		return result ? VitestNode.from(result) : null
 	}
 
 	/**
@@ -172,52 +151,51 @@ export default class TestNode extends Node {
 
 	/** @returns {boolean} */
 	get isFooter() {
-		if (this.children.length > 0) return false
-		return Object.values(this.FOOTER).some(pre => this.content.startsWith(pre))
+		return false
 	}
 
 	/**
 	 * Adds element to the container.
 	 * @param {any} element
-	 * @returns {TestNode}
+	 * @returns {VitestNode}
 	 */
 	add(element) {
-		const node = TestNode.from(super.add(element))
+		const node = VitestNode.from(super.add(element))
 		element._updateLevel()
 		return node
 	}
 	/**
 	 * Flattens the tree into an array.
 	 *
-	 * @returns {TestNode[]}
+	 * @returns {VitestNode[]}
 	 */
 	flat() {
-		return super.flat().map(n => TestNode.from(n))
+		return super.flat().map(n => VitestNode.from(n))
 	}
 	/**
-	 * @returns {TestNode[]}
+	 * @returns {VitestNode[]}
 	 */
 	toArray() {
-		return super.toArray().map(n => TestNode.from(n))
+		return super.toArray().map(n => VitestNode.from(n))
 	}
 	/**
 	 * Filters children.
 	 *
-	 * @param {(v: TestNode) => boolean} [filter=()=>true]
+	 * @param {(v: VitestNode) => boolean} [filter=()=>true]
 	 * @param {boolean} [recursively=false]
-	 * @returns {TestNode[]}
+	 * @returns {VitestNode[]}
 	 */
 	filter(filter, recursively) {
-		return super.filter(filter, recursively).map(n => TestNode.from(n))
+		return super.filter(filter, recursively).map(n => VitestNode.from(n))
 	}
 
 	/**
 	 * Create a TestNode from input data.
 	 * @param {object} input - The input data to create a TestNode from.
-	 * @returns {TestNode} The created TestNode instance.
+	 * @returns {VitestNode} The created TestNode instance.
 	 */
 	static from(input) {
-		if (input instanceof TestNode) return input
-		return new TestNode(input)
+		if (input instanceof VitestNode) return input
+		return new VitestNode(input)
 	}
 }

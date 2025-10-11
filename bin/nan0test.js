@@ -2,8 +2,9 @@
 
 import process from "node:process"
 import { Command } from "@nan0web/co"
-import StatusCommand from "../src/commands/status.js"
 import CoverageCommand from "../src/commands/coverage.js"
+import ParseCommand from "../src/commands/parse.js"
+import StatusCommand from "../src/commands/status.js"
 import Logger from "@nan0web/log"
 
 // === Main Command Setup ===
@@ -17,6 +18,7 @@ const mainCommand = new Command({
 	subcommands: [
 		new StatusCommand({ logger }),
 		new CoverageCommand({ logger }),
+		new ParseCommand({ logger }),
 	],
 })
 

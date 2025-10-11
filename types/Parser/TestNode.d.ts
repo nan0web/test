@@ -1,9 +1,21 @@
-export default TestNode;
 /**
  * TestNode extends the base Node class to provide TAP-specific parsing functionality.
  * It adds getters for common TAP metadata like version, test counts, and duration.
  */
-declare class TestNode extends Node {
+export default class TestNode extends Node {
+    static HEADER: {
+        version: string;
+    };
+    static FOOTER: {
+        tests: string;
+        suites: string;
+        pass: string;
+        fail: string;
+        cancelled: string;
+        skipped: string;
+        todo: string;
+        duration: string;
+    };
     /**
      * Create a TestNode from input data.
      * @param {object} input - The input data to create a TestNode from.
@@ -15,13 +27,31 @@ declare class TestNode extends Node {
      * @param {object} input - The input object to initialize the node.
      * @param {TestNode[]} [input.children=[]] - Array of child nodes.
      * @param {string} [input.content=""] - Content of the node.
+     * @param {number} [input.indent=0] - Content of the node.
+     * @param {TestNode} [input.parent=null] - Parent node.
      */
     constructor(input?: {
         children?: TestNode[] | undefined;
         content?: string | undefined;
+        indent?: number | undefined;
+        parent?: TestNode | undefined;
     });
     /** @type {TestNode[]} */
     children: TestNode[];
+    parent: any;
+    get HEADER(): {
+        version: string;
+    };
+    get FOOTER(): {
+        tests: string;
+        suites: string;
+        pass: string;
+        fail: string;
+        cancelled: string;
+        skipped: string;
+        todo: string;
+        duration: string;
+    };
     /**
      * Find a child node whose content starts with the given prefix and return the
      * remaining part of the content after the prefix.
@@ -29,6 +59,14 @@ declare class TestNode extends Node {
      * @returns {string} The substring after the prefix, or an empty string if not found.
      */
     findPrefix(prefix: string): string;
+    /**
+     * Finds an element by filter.
+     *
+     * @param {(v:any)=>boolean} filter
+     * @param {boolean} [recursively=false]
+     * @returns {TestNode | null}
+     */
+    find(filter: (v: any) => boolean, recursively?: boolean | undefined): TestNode | null;
     /**
      * Get the TAP version from the test output.
      * @type {number}
@@ -63,7 +101,7 @@ declare class TestNode extends Node {
      * Get the number of skipped tests from the test output.
      * @type {number}
      */
-    get skippedCount(): number;
+    get skipCount(): number;
     /**
      * Get the number of todo tests from the test output.
      * @type {number}
@@ -79,5 +117,37 @@ declare class TestNode extends Node {
      * @type {number}
      */
     get duration(): number;
+    /** @returns {boolean} */
+    get isFail(): boolean;
+    /** @returns {boolean} */
+    get isSkip(): boolean;
+    /** @returns {boolean} */
+    get isTodo(): boolean;
+    /** @returns {boolean} */
+    get isFooter(): boolean;
+    /**
+     * Adds element to the container.
+     * @param {any} element
+     * @returns {TestNode}
+     */
+    add(element: any): TestNode;
+    /**
+     * Flattens the tree into an array.
+     *
+     * @returns {TestNode[]}
+     */
+    flat(): TestNode[];
+    /**
+     * @returns {TestNode[]}
+     */
+    toArray(): TestNode[];
+    /**
+     * Filters children.
+     *
+     * @param {(v: TestNode) => boolean} [filter=()=>true]
+     * @param {boolean} [recursively=false]
+     * @returns {TestNode[]}
+     */
+    filter(filter?: ((v: TestNode) => boolean) | undefined, recursively?: boolean | undefined): TestNode[];
 }
 import { Node } from "@nan0web/types";

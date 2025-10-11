@@ -10,7 +10,7 @@ class CoverageCommandOptions {
 		const {
 			help
 		} = input
-		this.help = String(help)
+		this.help = Boolean(help)
 	}
 	/**
 	 * @param {*} input

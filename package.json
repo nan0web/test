@@ -16,13 +16,17 @@
 		"./jsdom": {
 			"import": "./src/jsdom.js",
 			"types": "./types/jsdom.d.ts"
+		},
+		"./parsers": {
+			"import": "./src/Parser/index.js",
+			"types": "./types/Parser/index.d.ts"
 		}
 	},
 	"scripts": {
 		"build": "tsc",
 		"clean": "rm -rf .cache/ && rm -rf dist/",
 		"clean:modules": "rm -rf node_modules",
-		"test": "node --test \"src/**/*.test.js\"",
+		"test": "node --test \"src/**/*.test.js\" | nan0test parse --fail",
 		"test:docs": "node --test src/README.md.js",
 		"test:coverage": "node --experimental-test-coverage --test-coverage-include=\"src/**/*.js\" --test-coverage-exclude=\"src/**/*.test.js\" --test \"src/**/*.test.js\"",
 		"test:coverage:collect": "nan0test coverage",
@@ -61,6 +65,7 @@
 	"devDependencies": {
 		"@nan0web/db": "workspace:*",
 		"@nan0web/db-fs": "workspace:*",
+		"@nan0web/http-node": "workspace:*",
 		"@nan0web/llimo": "workspace:*",
 		"@nan0web/markdown": "workspace:*",
 		"@nan0web/release": "workspace:*",
@@ -71,6 +76,7 @@
 	"peerDependencies": {
 		"@nan0web/db": "^1.0.0",
 		"@nan0web/db-fs": "^1.0.0",
+		"@nan0web/http-node": "^1.0.0",
 		"@nan0web/markdown": "^1.0.0",
 		"@nan0web/types": "^1.0.0"
 	}

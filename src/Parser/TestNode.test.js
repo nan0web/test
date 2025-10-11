@@ -32,7 +32,7 @@ describe('TestNode', () => {
 		assert.strictEqual(node.passCount, 27)
 		assert.strictEqual(node.failCount, 1)
 		assert.strictEqual(node.cancelledCount, 0)
-		assert.strictEqual(node.skippedCount, 0)
+		assert.strictEqual(node.skipCount, 0)
 		assert.strictEqual(node.todoCount, 0)
 		assert.strictEqual(node.durationMs, 303.132125)
 		assert.strictEqual(node.duration, 0.303132125)
