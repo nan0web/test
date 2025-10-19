@@ -6,7 +6,7 @@ import runSpawn from "../exec/runSpawn.js"
 
 class CoverageCommandOptions {
 	help
-	constructor(input) {
+	constructor(input = {}) {
 		const {
 			help
 		} = input
@@ -27,10 +27,18 @@ class CoverageCommandOptions {
  */
 export class CoverageCommandMessage extends CommandMessage {
 	/** @type {CoverageCommandOptions} */
-	opts
+	_opts = new CoverageCommandOptions()
 	constructor(input) {
 		super(input)
-		this.opts = CoverageCommandOptions.from(input.opts ?? {})
+		this.opts = input.opts ?? {}
+	}
+	/** @returns {CoverageCommandOptions} */
+	get opts() {
+		return this._opts
+	}
+	/** @param {CoverageCommandOptions} value */
+	set opts(value) {
+		this._opts = CoverageCommandOptions.from(value)
 	}
 }
 

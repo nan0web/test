@@ -1,3 +1,4 @@
+/** @typedef {{ code: number; text: string, error: string }} SpawnResult */
 /**
  * Spawns a child process and returns a promise that resolves when the process closes.
  *
@@ -7,15 +8,17 @@
  * @param {(chunk: Buffer) => void} [opts.onData] - Callback for handling data from stdout. Default is no-op.
  * @param {string} [opts.cwd] - Current working directory.
  *
- * @returns {Promise<{ code: number; text: string }>} A promise resolving with process exit code and stdout content.
+ * @returns {Promise<SpawnResult>} A promise resolving with process exit code and stdout content.
  *
  * @example
  * const { code, text } = await runSpawn('git', ['remote', 'get-url', 'origin']);
  */
-export default function runSpawn(cmd: string, args?: string[] | undefined, opts?: {
+export default function runSpawn(cmd: string, args?: string[], opts?: {
     onData?: ((chunk: Buffer) => void) | undefined;
     cwd?: string | undefined;
-} | undefined): Promise<{
+}): Promise<SpawnResult>;
+export type SpawnResult = {
     code: number;
     text: string;
-}>;
+    error: string;
+};

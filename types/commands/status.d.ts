@@ -4,7 +4,11 @@
 export class StatusCommandMessage extends CommandMessage {
     constructor(input?: {});
     /** @type {StatusCommandOptions} */
-    opts: StatusCommandOptions;
+    _opts: StatusCommandOptions;
+    /** @param {StatusCommandOptions} value */
+    set opts(value: StatusCommandOptions);
+    /** @returns {StatusCommandOptions} */
+    get opts(): StatusCommandOptions;
 }
 /**
  * @extends {Command}

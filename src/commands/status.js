@@ -79,17 +79,25 @@ class StatusCommandOptions {
  */
 export class StatusCommandMessage extends CommandMessage {
 	/** @type {StatusCommandOptions} */
-	opts
+	_opts = new StatusCommandOptions()
 	constructor(input = {}) {
 		const {
 			body,
 			name,
-			args = [],
+			argv = [],
 			opts = {},
 			children = [],
 		} = input
-		super({ body, name, args, opts, children })
-		this.opts = StatusCommandOptions.from(opts)
+		super({ body, name, argv, opts, children })
+		this.opts = opts
+	}
+	/** @returns {StatusCommandOptions} */
+	get opts() {
+		return this._opts
+	}
+	/** @param {StatusCommandOptions} value */
+	set opts(value) {
+		this._opts = StatusCommandOptions.from(value)
 	}
 	/**
 	 * @param {any} msg

@@ -1,6 +1,8 @@
 # @nan0web/test
 
-<!-- %PACKAGE_STATUS% -->
+|[Status](https://github.com/nan0web/monorepo/blob/main/system.md#написання-сценаріїв)|Documentation|Test coverage|Features|Npm version|
+|---|---|---|---|---|
+ |🟢 `97.4%` |🧪 [English 🏴󠁧󠁢󠁥󠁮󠁧󠁿](https://github.com/nan0web/test/blob/main/README.md)<br />[Українською 🇺🇦](https://github.com/nan0web/test/blob/main/docs/uk/README.md) |🟡 `84.9%` |✅ d.ts 📜 system.md 🕹️ playground |1.0.0 |
 
 A test package with simple utilities for testing in node.js runtime.
 Designed for [nan0web philosophy](https://github.com/nan0web/monorepo/blob/main/system.md#%D0%BD%D0%B0%D0%BF%D0%B8%D1%81%D0%B0%D0%BD%D0%BD%D1%8F-%D1%81%D1%86%D0%B5%D0%BD%D0%B0%D1%80%D1%96%D1%97%D0%B2),
@@ -34,50 +36,13 @@ This package is designed with zero external dependencies and maximum clarity:
 - 🧠 Built for cognitive clarity: each function has a clear purpose
 - 🌱 Enables lightweight testing without side effects
 
-## Usage: Mocked Utilities
-
-### `mockFetch(routes)`
-Utility to mock the global `fetch` object for tests.
+### `MemoryDB(options)`
+Utility to simulate a file system for tests.
 
 * **Parameters**
-  * `routes` – an Array of `[pattern, response]` key-value pairs.
-    - `pattern` is a string matching format `"METHOD PATH"` (e.g. `"GET /users"`).
-    - `response` is either a value or an array `[status, body]`.
+  * `options` – Object of params including:
+    - `predefined` – Map of pre-defined file contents (e.g., `{ 'users.json': '[{ id: 1 }]' }`)
 
-* **Returns**
-  * `function` – mimic of the standard `fetch(url, options)` API.
-
-* **Path Matching Rules**
-  - exact match: `"GET /users"` matches only that
-  - method wildcard: `"* /users"` matches any method for that path
-  - path wildcard: `"GET /users/*"` matches `/users/123`
-  - catch-all: `"* *"` or `"*"` matches everything
-
-  If the response is a `function`, it's called with `(method, url, options)` and its result is used:
-  - if it returns an object with `.ok` and `.json()`, that becomes the mock
-  - else, we treat it as `[status, data]` where status is 200 by default
-
-How to mock fetch API?
-```js
-import { mockFetch } from "@nan0web/test"
-/** @type {Array<[string, any | any[] | Function]>} */
-const routes = [
-	['GET /users', { id: 1, name: 'John Doe' }],
-	['POST /users', [201, { id: 2, name: 'Jane Smith' }]],
-]
-const fetch = mockFetch(routes)
-const res = await fetch('/users')
-const data = await res.json()
-
-console.info(data) // ← { id: 1, name: 'John Doe' }
-```
- * ### `MemoryDB(options)`
- * Utility to simulate a file system for tests.
-
- * * **Parameters**
- *   * `options` – Object of params including:
- *     - `predefined` – Map of pre-defined file contents (e.g., `{ 'users.json': '[{ id: 1 }]' }`)
- */
 How to mock file system using MemoryDB?
 ```js
 import { MemoryDB } from "@nan0web/test"
@@ -207,7 +172,7 @@ npm run playground
 
 has multiple test components that can be imported separately
 ```js
-import { mockFetch, MemoryDB, DocsParser, DatasetParser, runSpawn } from "@nan0web/test"
+import { MemoryDB, DocsParser, DatasetParser, runSpawn } from "@nan0web/test"
 
 ```
 ## Java•Script types & Autocomplete
@@ -217,8 +182,8 @@ How many d.ts files should cover the source?
 
 ## Contributing
 
-How to contribute? - [check here]($pkgURL/blob/main/CONTRIBUTING.md)
+How to contribute? - [check here](https://github.com/nan0web/test/blob/main/CONTRIBUTING.md)
 
 ## License
 
-ISC – [LICENSE]($pkgURL/blob/main/LICENSE)
+How to license? - [LICENSE](https://github.com/nan0web/test/blob/main/LICENSE)

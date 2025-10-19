@@ -59,17 +59,25 @@ class ParseCommandOptions {
  */
 export class ParseCommandMessage extends CommandMessage {
 	/** @type {ParseCommandOptions} */
-	opts
+	_opts = new ParseCommandOptions()
 	constructor(input = {}) {
 		const {
 			body,
 			name,
-			args = [],
+			argv = [],
 			opts = {},
 			children = [],
 		} = input
-		super({ body, name, args, opts, children })
-		this.opts = ParseCommandOptions.from(opts)
+		super({ body, name, argv, opts, children })
+		this.opts = opts
+	}
+	/** @returns {ParseCommandOptions} */
+	get opts() {
+		return this._opts
+	}
+	/** @param {ParseCommandOptions} value */
+	set opts(value) {
+		this._opts = ParseCommandOptions.from(value)
 	}
 	/**
 	 * @param {any} msg

@@ -4,7 +4,11 @@
 export class CoverageCommandMessage extends CommandMessage {
     constructor(input: any);
     /** @type {CoverageCommandOptions} */
-    opts: CoverageCommandOptions;
+    _opts: CoverageCommandOptions;
+    /** @param {CoverageCommandOptions} value */
+    set opts(value: CoverageCommandOptions);
+    /** @returns {CoverageCommandOptions} */
+    get opts(): CoverageCommandOptions;
 }
 /**
  * @extends {Command}
@@ -41,7 +45,7 @@ export default class CoverageCommand extends Command {
         line: number;
         branch: number;
         funcs: number;
-        uncovered;
+        uncovered: any;
     }>;
 }
 import { CommandMessage } from "@nan0web/co";
@@ -51,7 +55,7 @@ declare class CoverageCommandOptions {
      * @returns {CoverageCommandOptions}
      */
     static from(input: any): CoverageCommandOptions;
-    constructor(input: any);
+    constructor(input?: {});
     help: boolean;
 }
 import { Command } from "@nan0web/co";

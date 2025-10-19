@@ -94,7 +94,7 @@ declare class RRS {
         npmInfo?: string | undefined;
         docs?: string[] | undefined;
         max?: number | undefined;
-    } | undefined);
+    });
     /**
      * Required criteria for baseline readiness.
      * @type {RRSRequired}
@@ -139,12 +139,12 @@ declare class RRS {
      * @param {string} [format="`"]
      * @returns {string}
      */
-    icon(format?: string | undefined): string;
+    icon(format?: string): string;
     /**
      * @param {string} [format="`"]
      * @returns {string}
      */
-    coverage(format?: string | undefined): string;
+    coverage(format?: string): string;
 }
 /**
  * Release Readiness Score (RRS) calculator.
@@ -192,7 +192,7 @@ declare class RRSRequired {
      * Creates a new RRSRequired instance with custom values.
      * @param {Partial<RRSCriteria>} [input] - Optional override values
      */
-    constructor(input?: Partial<RRSCriteria> | undefined);
+    constructor(input?: Partial<RRSCriteria>);
     /**
      * Score contribution if git repository exists.
      * @type {number}
@@ -242,7 +242,7 @@ declare class RRSOptional {
      * Creates a new RRSOptional instance with custom values.
      * @param {Partial<RRSOptionalCriteria>} [input] - Optional override values
      */
-    constructor(input?: Partial<RRSOptionalCriteria> | undefined);
+    constructor(input?: Partial<RRSOptionalCriteria>);
     /**
      * Score if src/README.md.js exists (documentation-driven testing).
      * @type {number}

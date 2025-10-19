@@ -4,7 +4,11 @@
 export class ParseCommandMessage extends CommandMessage {
     constructor(input?: {});
     /** @type {ParseCommandOptions} */
-    opts: ParseCommandOptions;
+    _opts: ParseCommandOptions;
+    /** @param {ParseCommandOptions} value */
+    set opts(value: ParseCommandOptions);
+    /** @returns {ParseCommandOptions} */
+    get opts(): ParseCommandOptions;
 }
 /**
  * @extends {Command}

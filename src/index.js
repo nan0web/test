@@ -2,7 +2,6 @@
  * @fileoverview Exporting mock fetch functionality.
  */
 
-import mockFetch from "./mock/fetch.js"
 import MemoryDB from "./mock/MemoryDB.js"
 import DocsParser from "./Parser/DocsParser.js"
 import TestNode from "./Parser/TestNode.js"
@@ -15,7 +14,6 @@ import runSpawn from "./exec/runSpawn.js"
 import Parser from "./Parser/index.js"
 
 export {
-	mockFetch,
 	MemoryDB,
 	TestPackage,
 	RRS,
@@ -29,8 +27,3 @@ export {
 	TapParser,
 	TestNode,
 }
-
-/**
- * Default export for mockFetch function.
- */
-export default mockFetch

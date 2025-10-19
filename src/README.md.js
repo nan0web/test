@@ -4,7 +4,6 @@ import DB from '@nan0web/db-fs'
 import { NoConsole } from "@nan0web/log"
 import { DocsParser, DatasetParser } from "@nan0web/test"
 import {
-	mockFetch,
 	MemoryDB,
 	TestPackage,
 	RRS,
@@ -90,48 +89,6 @@ function testRender() {
 	 * - 🧠 Built for cognitive clarity: each function has a clear purpose
 	 * - 🌱 Enables lightweight testing without side effects
 	 *
-	 * ## Usage: Mocked Utilities
-	 *
-	 * ### `mockFetch(routes)`
-	 * Utility to mock the global `fetch` object for tests.
-	 *
-	 * * **Parameters**
-	 *   * `routes` – an Array of `[pattern, response]` key-value pairs.
-	 *     - `pattern` is a string matching format `"METHOD PATH"` (e.g. `"GET /users"`).
-	 *     - `response` is either a value or an array `[status, body]`.
-	 *
-	 * * **Returns**
-	 *   * `function` – mimic of the standard `fetch(url, options)` API.
-	 *
-	 * * **Path Matching Rules**
-	 *   - exact match: `"GET /users"` matches only that
-	 *   - method wildcard: `"* /users"` matches any method for that path
-	 *   - path wildcard: `"GET /users/*"` matches `/users/123`
-	 *   - catch-all: `"* *"` or `"*"` matches everything
-	 *
-	 *   If the response is a `function`, it's called with `(method, url, options)` and its result is used:
-	 *   - if it returns an object with `.ok` and `.json()`, that becomes the mock
-	 *   - else, we treat it as `[status, data]` where status is 200 by default
-	 */
-	it("How to mock fetch API?", async () => {
-		//import { mockFetch } from "@nan0web/test"
-		/** @type {Array<[string, any | any[] | Function]>} */
-		const routes = [
-			['GET /users', { id: 1, name: 'John Doe' }],
-			['POST /users', [201, { id: 2, name: 'Jane Smith' }]],
-		]
-		const fetch = mockFetch(routes)
-		const res = await fetch('/users')
-		const data = await res.json()
-
-		console.info(data) // ← { id: 1, name: 'John Doe' }
-		assert.deepStrictEqual(console.output(), [
-			["info", { id: 1, name: 'John Doe' }],
-		])
-	})
-
-	/**
-	 * @docs
 	 * ### `MemoryDB(options)`
 	 * Utility to simulate a file system for tests.
 	 *
@@ -300,9 +257,8 @@ function testRender() {
 	 * ## API Components
 	 */
 	it("has multiple test components that can be imported separately", () => {
-		//import { mockFetch, MemoryDB, DocsParser, DatasetParser, runSpawn } from "@nan0web/test"
+		//import { MemoryDB, DocsParser, DatasetParser, runSpawn } from "@nan0web/test"
 
-		assert.ok(typeof mockFetch === 'function')
 		assert.ok(MemoryDB.prototype.constructor)
 		assert.ok(DocsParser.prototype.decode)
 		assert.ok(DatasetParser.parse)
@@ -333,7 +289,7 @@ function testRender() {
 	 * @docs
 	 * ## License
 	 */
-	it("ISC – [LICENSE]($pkgURL/blob/main/LICENSE)", async () => {
+	it("How to license? - [LICENSE]($pkgURL/blob/main/LICENSE)", async () => {
 		/** @docs */
 		const text = await fs.loadDocument('LICENSE')
 		assert.ok(String(text).includes('ISC'))

@@ -63,20 +63,16 @@
 		"happy-dom": "^18.0.1"
 	},
 	"devDependencies": {
-		"@nan0web/db": "workspace:*",
-		"@nan0web/db-fs": "workspace:*",
-		"@nan0web/http-node": "workspace:*",
-		"@nan0web/llimo": "workspace:*",
-		"@nan0web/markdown": "workspace:*",
-		"@nan0web/release": "workspace:*",
-		"@nan0web/types": "workspace:*",
-		"@nan0web/ui-cli": "workspace:*",
+		"@nan0web/db": "^1.0.0",
+		"@nan0web/db-fs": "^1.0.0",
+		"@nan0web/markdown": "^1.0.0",
+		"@nan0web/types": "^1.0.0",
+		"@nan0web/ui-cli": "^1.0.0",
 		"husky": "^9.1.7"
 	},
 	"peerDependencies": {
 		"@nan0web/db": "^1.0.0",
 		"@nan0web/db-fs": "^1.0.0",
-		"@nan0web/http-node": "^1.0.0",
 		"@nan0web/markdown": "^1.0.0",
 		"@nan0web/types": "^1.0.0"
 	}

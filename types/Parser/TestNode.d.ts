@@ -66,7 +66,7 @@ export default class TestNode extends Node {
      * @param {boolean} [recursively=false]
      * @returns {TestNode | null}
      */
-    find(filter: (v: any) => boolean, recursively?: boolean | undefined): TestNode | null;
+    find(filter: (v: any) => boolean, recursively?: boolean): TestNode | null;
     /**
      * Get the TAP version from the test output.
      * @type {number}
@@ -148,6 +148,6 @@ export default class TestNode extends Node {
      * @param {boolean} [recursively=false]
      * @returns {TestNode[]}
      */
-    filter(filter?: ((v: TestNode) => boolean) | undefined, recursively?: boolean | undefined): TestNode[];
+    filter(filter?: (v: TestNode) => boolean, recursively?: boolean): TestNode[];
 }
 import { Node } from "@nan0web/types";
