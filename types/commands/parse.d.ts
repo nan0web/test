@@ -6,7 +6,7 @@ export class ParseCommandMessage extends CommandMessage {
     /** @type {ParseCommandOptions} */
     _opts: ParseCommandOptions;
     /** @param {ParseCommandOptions} value */
-    set opts(value: ParseCommandOptions);
+    set opts(arg: ParseCommandOptions);
     /** @returns {ParseCommandOptions} */
     get opts(): ParseCommandOptions;
 }

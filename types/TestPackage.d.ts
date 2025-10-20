@@ -105,7 +105,7 @@ export default class TestPackage {
     run(rrs: RRS, cache?: any): AsyncGenerator<{
         name: string;
         value: any;
-    }>;
+    }, any, any>;
     /**
      * Spawns a child process and returns a promise that resolves when the process closes.
      *
@@ -120,10 +120,10 @@ export default class TestPackage {
      * @example
      * const { code, text } = await this.spawn('git', ['remote', 'get-url', 'origin']);
      */
-    spawn(cmd: string, args?: string[], opts?: {
+    spawn(cmd: string, args?: string[] | undefined, opts?: {
         onData?: ((chunk: Buffer) => void) | undefined;
         cwd?: string | undefined;
-    }): Promise<{
+    } | undefined): Promise<{
         code: number;
         text: string;
     }>;
@@ -145,7 +145,7 @@ export default class TestPackage {
         body?: boolean | undefined;
         refs?: boolean | undefined;
         t?: Function | undefined;
-    }): string;
+    } | undefined): string;
     /**
      * @param {RRS} rrs
      * @returns {MDHeading1}

@@ -6,7 +6,7 @@ export class StatusCommandMessage extends CommandMessage {
     /** @type {StatusCommandOptions} */
     _opts: StatusCommandOptions;
     /** @param {StatusCommandOptions} value */
-    set opts(value: StatusCommandOptions);
+    set opts(arg: StatusCommandOptions);
     /** @returns {StatusCommandOptions} */
     get opts(): StatusCommandOptions;
 }

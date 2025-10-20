@@ -1,15 +1,39 @@
 import { spawn } from 'node:child_process'
 
-/** @typedef {{ code: number; text: string, error: string }} SpawnResult */
+/**
+ * @typedef {{
+ *   code: number;
+ *   text: string;
+ *   error: string;
+ * }} SpawnResult
+ */
+
+/**
+ * @typedef {{
+ *   onData?: (chunk: Buffer) => void;
+ *   cwd?: string | URL;
+ *   env?: NodeJS.ProcessEnv;
+ *   argv0?: string;
+ *   stdio?: import('node:child_process').StdioOptions;
+ *   detached?: boolean;
+ *   shell?: boolean | string;
+ *   windowsVerbatimArguments?: boolean;
+ *   windowsHide?: boolean;
+ *   timeout?: number;
+ *   uid?: number;
+ *   gid?: number;
+ *   serialization?: import('node:child_process').SerializationType;
+ *   killSignal?: NodeJS.Signals | number;
+ *   signal?: AbortSignal;
+ * }} RunSpawnOptions
+ */
 
 /**
  * Spawns a child process and returns a promise that resolves when the process closes.
  *
  * @param {string} cmd - The command to run.
  * @param {string[]} [args=[]] - List of arguments to pass to the command.
- * @param {Object} [opts={}] - Options to pass to spawn.
- * @param {(chunk: Buffer) => void} [opts.onData] - Callback for handling data from stdout. Default is no-op.
- * @param {string} [opts.cwd] - Current working directory.
+ * @param {RunSpawnOptions} [opts={}] - Options to pass to spawn.
  *
  * @returns {Promise<SpawnResult>} A promise resolving with process exit code and stdout content.
  *
@@ -27,22 +51,22 @@ export default async function runSpawn(cmd, args = [], opts = {}) {
 		let text = ''
 		let error = ""
 
-		result.stderr.on('data', (data) => {
+		result.stderr?.on('data', (data) => {
 			error += data.toString()
 			onData(data)
 		})
 
-		result.stderr.on('error', (data) => {
+		result.stderr?.on('error', (data) => {
 			error += data.toString()
 			onData(Buffer.from(data.message))
 		})
 
-		result.stdout.on('data', (data) => {
+		result.stdout?.on('data', (data) => {
 			text += data.toString()
 			onData(data)
 		})
 
-		result.stdout.on('error', (data) => {
+		result.stdout?.on('error', (data) => {
 			error += data.toString()
 			// onData(data)
 		})
