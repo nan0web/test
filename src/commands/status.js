@@ -177,6 +177,7 @@ export default class StatusCommand extends Command {
 		}
 
 		this.logger.info("\n--- Required ---\n")
+		print("Git repository", rrs.required.git ? "✅ OK" : "✖️ fail")
 		print("Types d.ts no warnings", rrs.required.buildPass ? "✅ OK" : "✖️ fail")
 		print("Present system.md", rrs.required.systemMd ? "✅ OK" : "✖️ fail")
 		print("All tests passed", rrs.required.testPass ? "✅ OK" : "✖️ fail")

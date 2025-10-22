@@ -157,12 +157,12 @@ export default class VitestNode extends TestNode {
 	/**
 	 * Adds element to the container.
 	 * @param {any} element
-	 * @returns {VitestNode}
+	 * @returns {this}
 	 */
 	add(element) {
 		const node = VitestNode.from(super.add(element))
 		element._updateLevel()
-		return node
+		return /** @type {this} */ (node)
 	}
 	/**
 	 * Flattens the tree into an array.

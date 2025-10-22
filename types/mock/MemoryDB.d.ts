@@ -1,9 +1,8 @@
-export default MemoryDB;
 /**
  * MemoryDB class for testing as mock DB.
  * @deprecated Use basic @nan0web/db because it has already all memory functions.
  */
-declare class MemoryDB extends DB {
+export default class MemoryDB extends DB {
     /**
      * @example
      * ```js
@@ -42,15 +41,6 @@ declare class MemoryDB extends DB {
         uri: string;
         level: string;
     }>;
-    /**
-     * Relative path resolver for file systems.
-     * Must be implemented by platform specific code
-     * @throws Not implemented in base class
-     * @param {string} from Base directory path
-     * @param {string} to Target directory path
-     * @returns {string} Relative path
-     */
-    relative(from: string, to: string): string;
 }
 import DB from "@nan0web/db";
 import { DocumentStat } from "@nan0web/db";

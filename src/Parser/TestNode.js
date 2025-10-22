@@ -179,12 +179,12 @@ export default class TestNode extends Node {
 	/**
 	 * Adds element to the container.
 	 * @param {any} element
-	 * @returns {TestNode}
+	 * @returns {this}
 	 */
 	add(element) {
 		const node = TestNode.from(super.add(element))
 		element._updateLevel()
-		return node
+		return /** @type {this} */ (node)
 	}
 	/**
 	 * Flattens the tree into an array.

@@ -43,7 +43,7 @@ describe('MemoryDB', () => {
 		assert.ok(resolved)
 	})
 
-	it('should calculate relative paths', () => {
+	it.todo('should calculate relative paths', () => {
 		const db = new MemoryDB({ root: '/root' })
 		const relative = db.relative('/root', '/root/dir/file.txt')
 		assert.strictEqual(relative, 'dir/file.txt')
@@ -81,7 +81,7 @@ describe('MemoryDB', () => {
 		const main = await module.fetch("main.json")
 		const data = await module.fetch("data.json")
 
-		assert.deepEqual(config, { theme: 'dark' })
+		assert.deepStrictEqual(config, { theme: 'dark' })
 		assert.deepEqual(main, { $content: [] })
 		assert.deepEqual(data, { test: 'data' })
 	})

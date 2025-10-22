@@ -246,10 +246,10 @@ function testRender() {
 		 * git clone https://github.com/nan0web/test.git
 		 * cd test
 		 * npm install
-		 * npm run playground
+		 * npm run play
 		 * ```
 		 */
-		assert.ok(String(pkg.scripts?.playground).includes("node playground"))
+		assert.ok(String(pkg.scripts?.play).includes("node play"))
 	})
 
 	/**

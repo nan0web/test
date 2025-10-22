@@ -2,7 +2,7 @@
 
 |[Статус](https://github.com/nan0web/monorepo/blob/main/system.md#написання-сценаріїв)|Документація|Тестове покриття|Функції|Версія Npm|
 |---|---|---|---|---|
- |🟢 `97.4%` |🧪 [English 🏴󠁧󠁢󠁥󠁮󠁧󠁿](https://github.com/nan0web/test/blob/main/README.md)<br />[Українською 🇺🇦](https://github.com/nan0web/test/blob/main/docs/uk/README.md) |🟡 `84.9%` |✅ d.ts 📜 system.md 🕹️ playground |1.0.0 |
+|🟢 `96.0%` |🧪 [English 🏴󠁧󠁢󠁥󠁮󠁧󠁿](https://github.com/nan0web/test/blob/main/README.md)<br />[Українською 🇺🇦](https://github.com/nan0web/test/blob/main/docs/uk/README.md) |🟡 `86.2%` |✅ d.ts 📜 system.md |1.0.0 |
 
 Тестовий пакет із простими утилітами для тестування в середовищі node.js.
 Розроблено відповідно до [філософії nan0web](https://github.com/nan0web/monorepo/blob/main/system.md#%D0%BD%D0%B0%D0%BF%D0%B8%D1%81%D0%B0%D0%BD%D0%BD%D1%8F-%D1%81%D1%86%D0%B5%D0%BD%D0%B0%D1%80%D1%96%D1%97%D0%B2),
@@ -179,7 +179,7 @@ console.info(dataset[0].instruction) // ← "Як зробити X?"
 git clone https://github.com/nan0web/test.git
 cd test
 npm install
-npm run playground
+npm run play
 ```
 
 ## Компоненти API

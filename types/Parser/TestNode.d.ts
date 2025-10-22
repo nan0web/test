@@ -128,9 +128,9 @@ export default class TestNode extends Node {
     /**
      * Adds element to the container.
      * @param {any} element
-     * @returns {TestNode}
+     * @returns {this}
      */
-    add(element: any): TestNode;
+    add(element: any): this;
     /**
      * Flattens the tree into an array.
      *

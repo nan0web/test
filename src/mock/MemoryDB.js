@@ -1,10 +1,10 @@
-import DB, { DocumentEntry, DocumentStat } from "@nan0web/db"
+import DB, { DocumentStat } from "@nan0web/db"
 
 /**
  * MemoryDB class for testing as mock DB.
  * @deprecated Use basic @nan0web/db because it has already all memory functions.
  */
-class MemoryDB extends DB {
+export default class MemoryDB extends DB {
 	/** @type {Array<{ uri: string, level: string }>} */
 	accessLogs = []
 	/**
@@ -46,57 +46,6 @@ class MemoryDB extends DB {
 	 */
 	async ensureAccess(uri, level = 'r') {
 		this.accessLogs.push({ uri, level })
-		if (!['r', 'w', 'd'].includes(level)) {
-			throw new TypeError([
-				"Access level must be one of [r, w, d]",
-				"r = read",
-				"w = write",
-				"d = delete",
-			].join("\n"))
-		}
+		return await super.ensureAccess(uri, level)
 	}
-
-	/**
-	 * @param {string} uri
-	 * @returns {Promise<DocumentEntry[]>}
-	 */
-	async listDir(uri) {
-		const prefix = uri === '.' ? '' : uri.endsWith("/") ? uri : uri + '/'
-		const keys = Array.from(this.data.keys())
-		const filtered = keys.filter(
-			key => key.startsWith(prefix) && key.indexOf('/', prefix.length) === -1
-		)
-		return filtered.map(key => {
-			const name = key.substring(prefix.length)
-			const stat = this.meta.get(key) || new DocumentStat({ isFile: true, mtimeMs: Date.now() })
-			return new DocumentEntry({ name, stat })
-		})
-	}
-
-	/**
-	 * Resolves path segments to absolute path synchronously
-	 * @param  {...string} paths - Path segments
-	 * @returns {Promise<string>} Resolved absolute path
-	 */
-	async resolve(...paths) {
-		return Promise.resolve(this.resolveSync(...paths))
-	}
-
-	/**
-	 * Relative path resolver for file systems.
-	 * Must be implemented by platform specific code
-	 * @throws Not implemented in base class
-	 * @param {string} from Base directory path
-	 * @param {string} to Target directory path
-	 * @returns {string} Relative path
-	 */
-	relative(from, to) {
-		if (from === this.root) {
-			return to.startsWith(from + "/") ? to.substring(from.length + 1) : to
-		}
-		return to
-	}
-
 }
-
-export default MemoryDB
