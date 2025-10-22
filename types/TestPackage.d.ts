@@ -13,7 +13,7 @@ export default class TestPackage {
         build: string;
         clean: string;
         "clean:modules": string;
-        playground: string;
+        play: string;
         release: string;
         test: string;
         "test:docs": string;
@@ -78,7 +78,7 @@ export default class TestPackage {
         build: string;
         clean: string;
         "clean:modules": string;
-        playground: string;
+        play: string;
         release: string;
         test: string;
         "test:docs": string;

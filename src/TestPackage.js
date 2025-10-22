@@ -21,7 +21,7 @@ export default class TestPackage {
 		"CONTRIBUTING.md",
 		"docs/uk/README.md",
 		"LICENSE",
-		"playground/main.js",
+		"play/main.js",
 		"README.md",
 		"system.md",
 		"tsconfig.json",
@@ -30,7 +30,7 @@ export default class TestPackage {
 		"build": "tsc",
 		"clean": "rm -rf .cache/ && rm -rf dist/",
 		"clean:modules": "rm -rf node_modules",
-		"playground": "node playground/main.js",
+		"play": "node play/main.js",
 		"release": "nan0release publish",
 		"test": 'node --test "src/**/*.test.js"',
 		"test:docs": "node --test src/README.md.js",
@@ -222,7 +222,7 @@ export default class TestPackage {
 		name = "pnpm playground"
 		yield { name, value: "" }
 		if (!cache) {
-			if (!pkg?.scripts?.playground) {
+			if (!pkg?.scripts?.playground && !pkg?.scripts?.play) {
 				rrs.optional.playground = 0
 			}
 		}
