@@ -1,0 +1,231 @@
+Debugger listening on ws://127.0.0.1:50062/8c66926e-2c1f-4c9e-9f8a-6e57331b65e5
+For help, see: https://nodejs.org/en/docs/inspector
+Debugger attached.
+▶ DatasetParser
+  ✔ should parse a markdown text into dataset entries (30.177459ms)
+  ✔ should return empty array for markdown without instructions (0.948542ms)
+✔ DatasetParser (32.204375ms)
+Waiting for the debugger to disconnect...
+Debugger listening on ws://127.0.0.1:50061/92b61607-a8f4-4f6c-b041-4a1aa54b7860
+For help, see: https://nodejs.org/en/docs/inspector
+Debugger attached.
+▶ DocsParser
+  ✔ should parse a function (3.091416ms)
+✔ DocsParser (6.041583ms)
+Waiting for the debugger to disconnect...
+Debugger listening on ws://127.0.0.1:50067/f39b6f5f-a0d3-42e9-8815-5409884efb03
+For help, see: https://nodejs.org/en/docs/inspector
+Debugger attached.
+▶ TapParser
+  ✔ should decode a simple TAP output correctly (1.599875ms)
+  ✔ should encode a simple tree back to TAP output (0.406584ms)
+  ✔ should decode subtests correctly (0.307708ms)
+  ✔ should encode subtests correctly (2.383875ms)
+  ✔ should parse file node:test-output.txt (3.366125ms)
+  ✔ should handle empty lines in TAP output (1.158625ms)
+✔ TapParser (10.52225ms)
+Waiting for the debugger to disconnect...
+Debugger listening on ws://127.0.0.1:50066/f8bd248b-c9a2-40d8-87f0-8cc4febc60e8
+For help, see: https://nodejs.org/en/docs/inspector
+Debugger attached.
+▶ TestNode
+  ✔ should correctly parse TAP version (1.395583ms)
+  ✔ should return 0 for missing TAP version (0.443041ms)
+  ✔ should correctly parse test counts (1.008792ms)
+  ✔ should calculate duration in seconds correctly (0.215333ms)
+  ✔ should handle missing duration_ms gracefully (0.17175ms)
+  ✔ should find prefixed content correctly (0.381666ms)
+✔ TestNode (6.125584ms)
+Waiting for the debugger to disconnect...
+Debugger listening on ws://127.0.0.1:50064/488546dd-a91d-4b79-b19c-a5cbdf164333
+For help, see: https://nodejs.org/en/docs/inspector
+Debugger attached.
+﹣ VitestParser (0.487584ms) # SKIP
+Waiting for the debugger to disconnect...
+Debugger listening on ws://127.0.0.1:50063/1148b83d-86c4-45ca-8d1d-2326c8c0fb4c
+For help, see: https://nodejs.org/en/docs/inspector
+Debugger attached.
+▶ RRS
+  ✔ should create an RRS instance with default values (1.86175ms)
+  ✔ should create an RRS instance with custom values (0.169292ms)
+  ✔ should calculate percentage correctly (0.203542ms)
+  ✔ should return missing properties with icons (0.271583ms)
+  ✔ should return status icon based on percentage (0.221833ms)
+  ✔ should return coverage status with icon (0.205ms)
+  ✔ should create RRS instance from existing RRS instance (0.097125ms)
+  ✔ should create new RRS instance from plain object (0.21275ms)
+✔ RRS (4.010375ms)
+▶ RRSRequired
+  ✔ should create an RRSRequired instance with default values (0.678166ms)
+  ✔ should create an RRSRequired instance with custom values (0.2325ms)
+  ✔ should return icons for required fields (0.062417ms)
+  ✔ should create RRSRequired instance from existing instance (0.066125ms)
+  ✔ should create new RRSRequired instance from plain object (0.05875ms)
+✔ RRSRequired (1.236291ms)
+▶ RRSOptional
+  ✔ should create an RRSOptional instance with default values (0.559625ms)
+  ✔ should create an RRSOptional instance with custom values (0.066ms)
+  ✔ should return icons for optional fields (0.0465ms)
+  ✔ should create RRSOptional instance from existing instance (0.039041ms)
+  ✔ should create new RRSOptional instance from plain object (0.045583ms)
+✔ RRSOptional (0.819709ms)
+Waiting for the debugger to disconnect...
+Debugger listening on ws://127.0.0.1:50065/96714d68-b38f-4271-8643-8d967fad884b
+For help, see: https://nodejs.org/en/docs/inspector
+Debugger attached.
+▶ TestPackage
+  ✔ How to use TestPackage.run(rrs, cache) to verify package status? (8.644583ms)
+  ✔ How to use TestPackage.render(rrs, options) to generate markdown table? (0.56175ms)
+  ✔ should create TestPackage instance with default values (0.148583ms)
+  ✔ should create TestPackage instance from existing TestPackage instance (0.313375ms)
+  ✔ should create new TestPackage instance from plain object (0.382833ms)
+  ✔ should render table header if head option is true (0.24975ms)
+  ✔ should render table body if body option is true (0.18225ms)
+  ✔ should render only specified columns (0.277ms)
+  ✔ should render documentation links correctly (0.2275ms)
+  ✔ should render documentation links correctly without test (0.248125ms)
+  ✔ should render npm info correctly (0.077917ms)
+  ✔ should return plain object representation with toObject() (0.114792ms)
+✔ TestPackage (12.428209ms)
+Waiting for the debugger to disconnect...
+Debugger listening on ws://127.0.0.1:50082/0e485fac-9095-41d4-85e4-c8e7de0ee6e1
+For help, see: https://nodejs.org/en/docs/inspector
+Debugger attached.
+▶ CoverageCommand
+  ✔ should parse CoverageCommandMessage with default options (0.565833ms)
+  ✔ should parse CoverageCommandMessage with custom options (1.378792ms)
+✔ CoverageCommand (3.84725ms)
+Waiting for the debugger to disconnect...
+Debugger listening on ws://127.0.0.1:50083/b6bd1323-baaf-4b5f-81c1-c0401cc31fed
+For help, see: https://nodejs.org/en/docs/inspector
+Debugger attached.
+▶ ParseCommand
+  ✔ should parse ParseCommandMessage with default options (1.215792ms)
+  ✔ should map alias options correctly (0.215542ms)
+  ✔ should accept format option and validate it (0.175417ms)
+  ✔ should reject invalid format option (0.237542ms) # TODO
+  ✔ should filter only fail messages (0.063792ms)
+✔ ParseCommand (2.709ms)
+Waiting for the debugger to disconnect...
+Debugger listening on ws://127.0.0.1:50084/e9791b29-e583-4046-a11a-c045a4276da4
+For help, see: https://nodejs.org/en/docs/inspector
+Debugger attached.
+📦 Package: @nan0web/test
+Starting tests
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+💾 Results saved to ./me.md
+📦 Package: @nan0web/test
+Starting tests
+
+
+
+
+
+
+
+
+
+
+
+💾 Results saved to ./me.md
+▶ RunCommand
+  ✔ should import RunCommand (0.595666ms)
+  ✔ should run all test scripts and save to me.md (5.6855ms)
+  ✔ should handle missing package name (0.960875ms)
+  ✔ should only run existing scripts (1.435917ms)
+✔ RunCommand (9.691958ms)
+Waiting for the debugger to disconnect...
+Debugger listening on ws://127.0.0.1:50085/d918845c-33fd-4f00-ae8c-2cd34ef8fa10
+For help, see: https://nodejs.org/en/docs/inspector
+Debugger attached.
+▶ StatusCommand
+  ✔ should parse StatusCommandMessage with default options (2.57375ms)
+  ✔ should map alias options correctly (0.214708ms)
+  ✔ should accept format option and validate it (1.218459ms)
+  ✔ should reject invalid format option (1.980875ms)
+✔ StatusCommand (7.364875ms)
+Waiting for the debugger to disconnect...
+Debugger listening on ws://127.0.0.1:50086/405e1358-beb5-48a9-b458-105361ef9119
+For help, see: https://nodejs.org/en/docs/inspector
+Debugger attached.
+▶ runSpawn
+  ✔ should spawn a process and resolve with output and exit code (22.617708ms)
+  ✔ should handle custom onData callback (6.801083ms)
+  ✔ should resolve even if process fails (6.540916ms)
+✔ runSpawn (38.564583ms)
+Waiting for the debugger to disconnect...
+Debugger listening on ws://127.0.0.1:50087/5255a2fc-800b-4727-8895-3048f3aa6088
+For help, see: https://nodejs.org/en/docs/inspector
+Debugger attached.
+▶ jsdom
+  ✔ should setup DOM environment and localStorage mock (331.812917ms)
+  ✔ should not override existing DOM globals (0.946208ms)
+✔ jsdom (333.779917ms)
+Waiting for the debugger to disconnect...
+Debugger listening on ws://127.0.0.1:50088/62e6bf80-d305-4cc3-8233-5175a2c79692
+For help, see: https://nodejs.org/en/docs/inspector
+Debugger attached.
+▶ MemoryDB
+  ✔ should initialize with predefined data (1.696916ms)
+  ✔ should list directory contents correctly (1.030542ms)
+  ✔ should resolve paths synchronously (0.317417ms)
+  ✖ should calculate relative paths (0.805958ms) # TODO
+  ✔ should log access requests (1.192792ms)
+  ✔ should reject invalid access levels (0.374584ms)
+  ✔ should properly extract db (3.670875ms)
+✔ MemoryDB (10.429459ms)
+Waiting for the debugger to disconnect...
+ℹ tests 72
+ℹ suites 16
+ℹ pass 70
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 2
+ℹ duration_ms 2020.836792
+
+✖ failing tests:
+
+test at src/mock/MemoryDB.test.js:46:5
+✖ should calculate relative paths (0.805958ms) # TODO
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  actual expected
+
+  '/root/dir/file.txt/'
+
+      at TestContext.<anonymous> (file:///Users/i/src/nan.web/packages/test/src/mock/MemoryDB.test.js:49:10)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1047:25)
+      at Suite.processPendingSubtests (node:internal/test_runner/test:744:18)
+      at Test.postRun (node:internal/test_runner/test:1173:19)
+      at Test.run (node:internal/test_runner/test:1101:12)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:744:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '/root/dir/file.txt/',
+    expected: 'dir/file.txt',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

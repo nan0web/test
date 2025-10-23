@@ -9,14 +9,14 @@ export default class TestNode extends Node {
 		version: "TAP version ",
 	}
 	static FOOTER = {
-		tests: "# tests ",
-		suites: "# suites ",
-		pass: "# pass ",
-		fail: "# fail ",
-		cancelled: "# cancelled ",
-		skipped: "# skipped ",
-		todo: "# todo ",
-		duration: "# duration_ms ",
+		tests: ["# tests ", "ℹ tests "],
+		suites: ["# suites ", "ℹ suites"],
+		pass: ["# pass ", "ℹ pass"],
+		fail: ["# fail ", "ℹ fail"],
+		cancelled: ["# cancelled ", "ℹ cancelled"],
+		skipped: ["# skipped ", "ℹ skipped"],
+		todo: ["# todo ", "ℹ todo"],
+		duration: ["# duration_ms ", "ℹ duration_ms"],
 	}
 	/** @type {TestNode[]} */
 	children = []
@@ -50,12 +50,18 @@ export default class TestNode extends Node {
 	/**
 	 * Find a child node whose content starts with the given prefix and return the
 	 * remaining part of the content after the prefix.
-	 * @param {string} prefix - The prefix to search for in child node contents.
+	 * @param {string | string[]} prefix - The prefix to search for in child node contents.
 	 * @returns {string} The substring after the prefix, or an empty string if not found.
 	 */
 	findPrefix(prefix) {
-		const v = this.find(c => c.content.startsWith(prefix))
-		return v ? v.content.slice(prefix.length) : ""
+		const prefixes = Array.isArray(prefix) ? prefix : [prefix]
+		for (const p of prefixes) {
+			const v = this.find(c => c.content.startsWith(p))
+			if (v) {
+				return v.content.slice(p.length)
+			}
+		}
+		return ""
 	}
 
 	/**
@@ -157,7 +163,8 @@ export default class TestNode extends Node {
 
 	/** @returns {boolean} */
 	get isFail() {
-		return this.content.startsWith("not ok ")
+		if (this.isSkip || this.isTodo) return false
+		return this.content.startsWith("not ok ") || this.content.startsWith("✖ ")
 	}
 
 	/** @returns {boolean} */
@@ -173,7 +180,12 @@ export default class TestNode extends Node {
 	/** @returns {boolean} */
 	get isFooter() {
 		if (this.children.length > 0) return false
-		return Object.values(this.FOOTER).some(pre => this.content.startsWith(pre))
+
+		return Object.values(this.FOOTER).some(
+			pre => (Array.isArray(pre) ? pre : [pre]).some(
+				prefix => this.content.startsWith(prefix)
+			)
+		)
 	}
 
 	/**

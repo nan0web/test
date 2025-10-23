@@ -1,5 +1,4 @@
 import process from "node:process"
-import FS from "@nan0web/db-fs"
 import { Command, CommandMessage } from "@nan0web/co"
 import { Enum } from "@nan0web/types"
 import TapParser from "../Parser/TapParser.js"
@@ -60,6 +59,15 @@ class ParseCommandOptions {
 export class ParseCommandMessage extends CommandMessage {
 	/** @type {ParseCommandOptions} */
 	_opts = new ParseCommandOptions()
+	/**
+	 * Create a new ParseCommandMessage instance
+	 * @param {object} input - Command message properties
+	 * @param {*} [input.body] - Message body, used only to store original input if it is string
+	 * @param {string} [input.name] - Command name
+	 * @param {string[]} [input.argv] - Command arguments
+	 * @param {object} [input.opts] - Command options
+	 * @param {object[]} [input.children] - Subcommands in their messages, usually it is only one or zero.
+	 */
 	constructor(input = {}) {
 		const {
 			body,
@@ -103,6 +111,10 @@ export default class ParseCommand extends Command {
 		this.addOption("format", String, "txt", "Output format, one of: txt, md")
 	}
 
+	write(str) {
+		process.stdout.write(str)
+	}
+
 	/**
 	 * Possible arguments:
 	 * --fail
@@ -141,14 +153,14 @@ export default class ParseCommand extends Command {
 				break
 			case "txt":
 				output = root.toString({ tab: "  " })
-				// @todo colorize the output:
+				// @todo colorize the output if not TTY:
 				// red for the name of the test startsWith "not ok "
 				// yellow for the +
 			default:
 				break
 		}
-
-		process.stdout.write(output + "\n")
+		this.write(output + "\n")
+		return output
 	}
 
 	async readInput() {

@@ -1,7 +1,10 @@
-import { describe, it } from "node:test"
-import { strict as assert } from "node:assert"
+import { describe, it, todo } from "node:test"
+import { strict as assert, fail } from "node:assert"
+import DBFS from "@nan0web/db-fs"
 
-import { ParseCommandMessage } from "./parse.js"
+import ParseCommand, { ParseCommandMessage } from "./parse.js"
+
+const fs = new DBFS({ root: "src/commands" })
 
 describe("ParseCommand", () => {
 	it("should parse ParseCommandMessage with default options", () => {
@@ -29,5 +32,23 @@ describe("ParseCommand", () => {
 		assert.throws(() => {
 			new ParseCommandMessage({ opts: { format: "invalid" } })
 		}, /Error/)
+	})
+
+	it("should filter only fail messages", async () => {
+		class TestParseCommand extends ParseCommand {
+			async readInput() {
+				return await fs.loadDocument("parse.test.context.txt", "")
+			}
+		}
+		const cmd = new TestParseCommand()
+		const msg1 = new ParseCommandMessage({ opts: { fail: true } })
+		const r1 = await cmd.run(msg1)
+		assert.ok(r1.includes("\n✖ failing tests:"))
+		assert.equal(r1.trim().split("\n").length, 9)
+
+		const msg2 = new ParseCommandMessage({ opts: { fail: true, todo: true } })
+		const r2 = await cmd.run(msg2)
+		assert.equal(r2.includes("should calculate relative paths"), true)
+		assert.equal(r2.trim().split("\n").length, 29)
 	})
 })
