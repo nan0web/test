@@ -7,14 +7,14 @@ export default class TestNode extends Node {
         version: string;
     };
     static FOOTER: {
-        tests: string;
-        suites: string;
-        pass: string;
-        fail: string;
-        cancelled: string;
-        skipped: string;
-        todo: string;
-        duration: string;
+        tests: string[];
+        suites: string[];
+        pass: string[];
+        fail: string[];
+        cancelled: string[];
+        skipped: string[];
+        todo: string[];
+        duration: string[];
     };
     /**
      * Create a TestNode from input data.
@@ -43,22 +43,22 @@ export default class TestNode extends Node {
         version: string;
     };
     get FOOTER(): {
-        tests: string;
-        suites: string;
-        pass: string;
-        fail: string;
-        cancelled: string;
-        skipped: string;
-        todo: string;
-        duration: string;
+        tests: string[];
+        suites: string[];
+        pass: string[];
+        fail: string[];
+        cancelled: string[];
+        skipped: string[];
+        todo: string[];
+        duration: string[];
     };
     /**
      * Find a child node whose content starts with the given prefix and return the
      * remaining part of the content after the prefix.
-     * @param {string} prefix - The prefix to search for in child node contents.
+     * @param {string | string[]} prefix - The prefix to search for in child node contents.
      * @returns {string} The substring after the prefix, or an empty string if not found.
      */
-    findPrefix(prefix: string): string;
+    findPrefix(prefix: string | string[]): string;
     /**
      * Finds an element by filter.
      *

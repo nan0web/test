@@ -2,7 +2,22 @@
  * @extends {CommandMessage}
  */
 export class ParseCommandMessage extends CommandMessage {
-    constructor(input?: {});
+    /**
+     * Create a new ParseCommandMessage instance
+     * @param {object} input - Command message properties
+     * @param {*} [input.body] - Message body, used only to store original input if it is string
+     * @param {string} [input.name] - Command name
+     * @param {string[]} [input.argv] - Command arguments
+     * @param {object} [input.opts] - Command options
+     * @param {object[]} [input.children] - Subcommands in their messages, usually it is only one or zero.
+     */
+    constructor(input?: {
+        body?: any;
+        name?: string | undefined;
+        argv?: string[] | undefined;
+        opts?: object;
+        children?: any[] | undefined;
+    });
     /** @type {ParseCommandOptions} */
     _opts: ParseCommandOptions;
     /** @param {ParseCommandOptions} value */
@@ -16,6 +31,7 @@ export class ParseCommandMessage extends CommandMessage {
 export default class ParseCommand extends Command {
     static Message: typeof ParseCommandMessage;
     constructor();
+    write(str: any): void;
     /**
      * Possible arguments:
      * --fail
@@ -24,7 +40,7 @@ export default class ParseCommand extends Command {
      * --format {md|txt}
      * @param {ParseCommandMessage} msg
      */
-    run(msg: ParseCommandMessage): Promise<void>;
+    run(msg: ParseCommandMessage): Promise<string>;
     readInput(): Promise<any>;
     toMarkdown(output: any): string;
     toHTML(output: any): string;

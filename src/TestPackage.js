@@ -136,6 +136,7 @@ export default class TestPackage {
 			const stat = await this.db.statDocument(file)
 			this.hash += file + ":" + stat.mtimeMs + ";"
 		}
+		const pkgName = this.name
 		const pkg = await this.db.loadDocument("package.json", {})
 		cache = cache?.pkg?.hash === this.hash
 
@@ -190,7 +191,6 @@ export default class TestPackage {
 		yield { name, value: "" }
 		if (!cache) {
 			const result = await this.spawn("pnpm", ["test:coverage"], { cwd })
-			const coverage = await this.db.loadDocument(".coverage/test.json")
 			rrs.optional.testCoverage = 0
 			if (0 === result.code) {
 				const rows = result.text.split("\n")
@@ -255,7 +255,7 @@ export default class TestPackage {
 		name = "npm info " + this.name
 		yield { name, value: "" }
 		if (!cache) {
-			const result = await this.spawn("npm", ["info", this.name, "--json"], { cwd })
+			const result = await this.spawn("npm", ["info", pkgName, "--json"], { cwd })
 			if (0 !== result.code) {
 				rrs.optional.npmPublished = 0
 			} else {
