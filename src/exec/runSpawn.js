@@ -42,7 +42,7 @@ import { spawn } from 'node:child_process'
  */
 export default async function runSpawn(cmd, args = [], opts = {}) {
 	// Spawn process to check git remote URL
-	return new Promise((resolve) => {
+	return new Promise((resolve, reject) => {
 		const {
 			onData = () => 1,
 			...spawnOptions
@@ -50,6 +50,11 @@ export default async function runSpawn(cmd, args = [], opts = {}) {
 		const result = spawn(cmd, args, spawnOptions)
 		let text = ''
 		let error = ""
+
+		result.on('error', (err) => {
+			reject(err)
+			return
+		})
 
 		result.stderr?.on('data', (data) => {
 			error += data.toString()
