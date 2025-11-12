@@ -1,10 +1,11 @@
 import process from "node:process"
 
 import FS from "@nan0web/db-fs"
-import { Command, CommandMessage } from "@nan0web/co"
+import { Message, OutputMessage } from "@nan0web/co"
+import { CLI } from "@nan0web/ui-cli"
 import runSpawn from "../exec/runSpawn.js"
 
-class CoverageCommandOptions {
+class CoverageBody {
 	help
 	constructor(input = {}) {
 		const {
@@ -12,47 +13,28 @@ class CoverageCommandOptions {
 		} = input
 		this.help = Boolean(help)
 	}
-	/**
-	 * @param {*} input
-	 * @returns {CoverageCommandOptions}
-	 */
-	static from(input) {
-		if (input instanceof CoverageCommandOptions) return input
-		return new CoverageCommandOptions(input)
-	}
 }
 
 /**
- * @extends {CommandMessage}
+ * @extends {Message}
  */
-export class CoverageCommandMessage extends CommandMessage {
-	/** @type {CoverageCommandOptions} */
-	_opts = new CoverageCommandOptions()
+export class Coverage extends Message {
+	static Body = CoverageBody
+	/** @type {CoverageBody} */
+	body
 	constructor(input) {
 		super(input)
-		this.opts = input.opts ?? {}
-	}
-	/** @returns {CoverageCommandOptions} */
-	get opts() {
-		return this._opts
-	}
-	/** @param {CoverageCommandOptions} value */
-	set opts(value) {
-		this._opts = CoverageCommandOptions.from(value)
+		this.body = new CoverageBody(input.body ?? {})
 	}
 }
 
 /**
- * @extends {Command}
+ * @extends {CLI}
  */
-export default class CoverageCommand extends Command {
-	static Message = CoverageCommandMessage
-	constructor() {
-		super({
-			name: "coverage",
-			help: "Run test coverage and save structured report to `.coverage/test.json`",
-		})
-	}
+export default class CoverageCommand extends CLI {
+	static name = "coverage"
+	static help = "Run test coverage and save structured report to `.coverage/test.json`"
+	static Message = Coverage
 
 	/**
 	 * @docs
@@ -69,9 +51,9 @@ export default class CoverageCommand extends Command {
 	 * ```bash
 	 * nan0test coverage
 	 * ```
-	 * @param {CoverageCommandMessage} msg
+	 * @param {Coverage} msg
 	 */
-	async run(msg) {
+	async * run(msg = new Coverage()) {
 		const fs = new FS()
 
 		// Load package.json
@@ -84,8 +66,8 @@ export default class CoverageCommand extends Command {
 
 		const isSelfPackage = name === "@nan0web/test"
 
-		this.logger.info(`📦 Package: ${name}`)
-		this.logger.info(`🔍 Mode: ${isSelfPackage ? "Direct Node Coverage" : "Spawned Test Runner"}\n`)
+		yield new OutputMessage(`📦 Package: ${name}`)
+		yield new OutputMessage(`🔍 Mode: ${isSelfPackage ? "Direct Node Coverage" : "Spawned Test Runner"}\n`)
 
 		const chunks = []
 		const suites = { ok: 0, notOk: 0 }
@@ -103,12 +85,12 @@ export default class CoverageCommand extends Command {
 				chunks.push([row, Date.now() - checkpoint])
 			})
 			checkpoint = Date.now()
-			this.logger.cursorUp(7, true)
-			const fail = tests.notOk ? `❗️ failed tests (${suites.notOk} suites)` : ""
-			this.logger.info(`${tests.ok} ✅ passed tests (${suites.ok} suites) : ${tests.notOk} ${fail}`)
-			const tail = chunks.filter(([s]) => Boolean(s)).slice(-5)
-			while (tail.length < 5) tail.push(["", 0])
-			tail.forEach(([t]) => this.logger.info(this.logger.cut("  " + t)))
+			// this.logger.cursorUp(7, true)
+			// const fail = tests.notOk ? `❗️ failed tests (${suites.notOk} suites)` : ""
+			// yield new OutputMessage(`${tests.ok} ✅ passed tests (${suites.ok} suites) : ${tests.notOk} ${fail}`)
+			// const tail = chunks.filter(([s]) => Boolean(s)).slice(-5)
+			// while (tail.length < 5) tail.push(["", 0])
+			// tail.forEach(([t]) => yield new OutputMessage(this.logger.cut("  " + t)))
 		}
 
 		let result, args, cmd
@@ -124,7 +106,7 @@ export default class CoverageCommand extends Command {
 				'"src/**/*.test.js"',
 			]
 			cmd = "node"
-			this.logger.info("🚀 Running direct coverage:")
+			yield new OutputMessage("🚀 Running direct coverage:")
 		} else {
 			// External package: use `node --test` or delegate safely
 			if (!scripts["test:coverage"] && !scripts.test) {
@@ -152,10 +134,10 @@ export default class CoverageCommand extends Command {
 				cmd = "node"
 			}
 
-			this.logger.info("🕹️ Running spawned coverage:")
+			yield new OutputMessage("🕹️ Running spawned coverage:")
 		}
 		result = await runSpawn(cmd, args, { onData, cwd: process.cwd() })
-		this.logger.info(cmd + " " + args.join(" ") + "\n".repeat(7))
+		yield new OutputMessage(cmd + " " + args.join(" ") + "\n".repeat(7))
 
 		if (result.code !== 0) {
 			this.logger.error("❌ Coverage run failed with exit code:", result.code)
@@ -168,7 +150,7 @@ export default class CoverageCommand extends Command {
 		}
 		// Save to .coverage/test.json
 		await fs.saveDocument(".coverage/test.json", map)
-		this.logger.info(`💾 Coverage saved to ./.coverage/test.json (${map.size} files)`)
+		yield new OutputMessage(`💾 Coverage saved to ./.coverage/test.json (${map.size} files)`)
 	}
 
 	/**

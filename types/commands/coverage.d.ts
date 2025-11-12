@@ -1,21 +1,19 @@
 /**
- * @extends {CommandMessage}
+ * @extends {Message}
  */
-export class CoverageCommandMessage extends CommandMessage {
+export class Coverage extends Message {
+    static Body: typeof CoverageBody;
     constructor(input: any);
-    /** @type {CoverageCommandOptions} */
-    _opts: CoverageCommandOptions;
-    /** @param {CoverageCommandOptions} value */
-    set opts(arg: CoverageCommandOptions);
-    /** @returns {CoverageCommandOptions} */
-    get opts(): CoverageCommandOptions;
+    /** @type {CoverageBody} */
+    body: CoverageBody;
 }
 /**
- * @extends {Command}
+ * @extends {CLI}
  */
-export default class CoverageCommand extends Command {
-    static Message: typeof CoverageCommandMessage;
-    constructor();
+export default class CoverageCommand extends CLI {
+    static name: string;
+    static help: string;
+    static Message: typeof Coverage;
     /**
      * @docs
      * # `nan0test coverage`
@@ -31,9 +29,9 @@ export default class CoverageCommand extends Command {
      * ```bash
      * nan0test coverage
      * ```
-     * @param {CoverageCommandMessage} msg
+     * @param {Coverage} msg
      */
-    run(msg: CoverageCommandMessage): Promise<void>;
+    run(msg?: Coverage): AsyncGenerator<OutputMessage, void, unknown>;
     /**
      * Parses coverage lines formatted like:
      *  src/README.md.js | 100 | 100 | 100 |
@@ -48,15 +46,11 @@ export default class CoverageCommand extends Command {
         uncovered;
     }>;
 }
-import { CommandMessage } from "@nan0web/co";
-declare class CoverageCommandOptions {
-    /**
-     * @param {*} input
-     * @returns {CoverageCommandOptions}
-     */
-    static from(input: any): CoverageCommandOptions;
+import { Message } from "@nan0web/co";
+declare class CoverageBody {
     constructor(input?: {});
     help: boolean;
 }
-import { Command } from "@nan0web/co";
+import { CLI } from "@nan0web/ui-cli";
+import { OutputMessage } from "@nan0web/co";
 export {};

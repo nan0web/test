@@ -41,7 +41,7 @@ export default class MemoryDB extends DB {
 	 * Ensures access for given URI and level, if not @throws an error.
 	 * @note Must be overwritten by platform specific application
 	 * @param {string} uri - Document URI
-	 * @param {string} [level='r'] Access level
+	 * @param {"r" | "w" | "d"} [level='r'] Access level
 	 * @returns {Promise<void>}
 	 */
 	async ensureAccess(uri, level = 'r') {

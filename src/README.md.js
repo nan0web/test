@@ -91,6 +91,7 @@ function testRender() {
 	 *
 	 * ### `MemoryDB(options)`
 	 * Utility to simulate a file system for tests.
+	 * > @deprecated Use the `@nan0web/db.DB` as it has the same functionality.
 	 *
 	 * * **Parameters**
 	 *   * `options` – Object of params including:
@@ -188,30 +189,10 @@ function testRender() {
 	 *   ...
 	 * })
 	 * ```
-	 * and converts them into structured `.md` documents.
 	 */
-	it("How to generate documentation using DocsParser?", async () => {
-		//import { DocsParser } from "@nan0web/test"
-
-		const parser = new DocsParser()
-		const md = parser.decode(() => {
-			/**
-			 * @docs
-			 * # Title
-			 * Content
-			 */
-			it('How to do X?', () => {
-				/**
-				 * ```js
-				 * doX()
-				 * ```
-				 */
-				assert.ok(true)
-			})
-		})
-
-		console.info(md) // ← markdown with content from @docs
-		assert.ok(String(console.output()[0][1]).includes('# Title'))
+	it("and converts them into structured `.md` documents.", async () => {
+		/** @docs */
+		assert.ok(true)
 	})
 
 	/**

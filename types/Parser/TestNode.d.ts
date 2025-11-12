@@ -127,10 +127,10 @@ export default class TestNode extends Node {
     get isFooter(): boolean;
     /**
      * Adds element to the container.
-     * @param {any} element
+     * @param {TestNode} element
      * @returns {this}
      */
-    add(element: any): this;
+    add(element: TestNode): this;
     /**
      * Flattens the tree into an array.
      *

@@ -57,17 +57,17 @@ function testRender() {
 	it("tDefault is just for example, usually there is no need to use it", () => {
 		//import tDefault, { createT } from '@nan0web/i18n'
 		//import uk from './src/uk.js'   // Ukrainian dictionary
-
+		//
 		// ✅ Default (English) translation function
 		console.info(tDefault('Welcome!', { name: 'Anna' }))
 		// → "Welcome, Anna!"
-
+		//
 		// ✅ Create a Ukrainian translation function
 		const t = createT(uk)
-
+		//
 		console.info(t('Welcome!', { name: 'Іван' }))
 		// → "Вітаємо у пісочниці, Іван!"
-
+		//
 		// ✅ Missing key falls back to the original key
 		console.info(t('NonExistingKey'))
 		// → "NonExistingKey"

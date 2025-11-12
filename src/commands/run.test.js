@@ -49,8 +49,9 @@ describe("RunCommand", () => {
 				"test:docs": "node --test src/README.md.js"
 			}
 		}
-		await command.run()
-		const content = command.results[0]
+		const output = []
+		for await (const out of command.run()) output.push(out)
+		const content = output.join("\n")
 		assert.ok(content.includes("tsc"))
 		assert.ok(content.includes("node --test src/*.test.js"))
 		assert.ok(content.includes("node --test src/README.md.js"))
@@ -62,7 +63,10 @@ describe("RunCommand", () => {
 		command.runSpawn = mockSpawn
 
 		await assert.rejects(
-			async () => await command.run(),
+			async () => {
+				const output = []
+				for await (const out of command.run()) output.push(out)
+			},
 			{
 				name: 'Error',
 				message: 'Missing package name in package.json'
@@ -79,7 +83,8 @@ describe("RunCommand", () => {
 			}
 		}
 		command.runSpawn = mockSpawn
-		await command.run()
+		const output = []
+		for await (const out of command.run()) output.push(out)
 
 		// Should only contain test script output
 		assert.ok(command.results[0].includes("node --test src/*.test.js"))

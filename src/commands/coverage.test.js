@@ -1,16 +1,16 @@
 import { describe, it } from "node:test"
 import { strict as assert } from "node:assert"
 
-import { CoverageCommandMessage } from "./coverage.js"
+import { Coverage } from "./coverage.js"
 
 describe("CoverageCommand", () => {
-	it("should parse CoverageCommandMessage with default options", () => {
-		const msg = new CoverageCommandMessage({})
-		assert.equal(msg.opts.help, false)
+	it("should parse Coverage with default options", () => {
+		const msg = new Coverage({})
+		assert.equal(msg.body.help, false)
 	})
 
-	it("should parse CoverageCommandMessage with custom options", () => {
-		const msg = new CoverageCommandMessage({ opts: { help: "true" } })
-		assert.equal(msg.opts.help, true)
+	it("should parse Coverage with custom options", () => {
+		const msg = new Coverage({ body: { help: "true" } })
+		assert.equal(msg.body.help, true)
 	})
 })

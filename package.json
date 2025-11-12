@@ -26,7 +26,8 @@
 		"build": "tsc",
 		"clean": "rm -rf .cache/ && rm -rf dist/",
 		"clean:modules": "rm -rf node_modules",
-		"test": "node --test \"src/**/*.test.js\" | node bin/nan0test.js parse --fail",
+		"test": "node --test \"src/**/*.test.js\"",
+		"test:nan0test": "node --test \"src/**/*.test.js\" | node bin/nan0test.js parse --fail",
 		"test:docs": "node --test src/README.md.js",
 		"test:coverage": "node --experimental-test-coverage --test-coverage-include=\"src/**/*.js\" --test-coverage-exclude=\"src/**/*.test.js\" --test \"src/**/*.test.js\"",
 		"test:coverage:collect": "node bin/nan0test.js coverage",
@@ -62,10 +63,11 @@
 		"url": "https://github.com/nan0web/test/issues"
 	},
 	"dependencies": {
-		"@nan0web/db": "^1.0.2",
+		"@nan0web/co": "^1.1.1",
+		"@nan0web/db": "^1.1.2",
 		"@nan0web/db-fs": "^1.0.0",
 		"@nan0web/markdown": "^1.0.2",
-		"@nan0web/types": "^1.0.0",
+		"@nan0web/types": "^1.1.0",
 		"happy-dom": "^18.0.1"
 	},
 	"devDependencies": {

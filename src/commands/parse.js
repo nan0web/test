@@ -1,23 +1,38 @@
 import process from "node:process"
-import { Command, CommandMessage } from "@nan0web/co"
-import { Enum } from "@nan0web/types"
+import { Message, OutputMessage } from "@nan0web/co"
+import { CLI } from "@nan0web/ui-cli"
 import TapParser from "../Parser/TapParser.js"
 import TestNode from "../Parser/TestNode.js"
 
-class ParseCommandOptions {
-	static ALIAS = {
-		"f": "fail",
-		"s": "skip",
-		"d": "todo",
+class ParseBody {
+	static help = {
+		help: "Show help"
 	}
 	/** @type {boolean} */
 	help = false
+	static fail = {
+		help: "Filter only failed tests",
+		alias: "f"
+	}
 	/** @type {boolean} */
 	fail = false
+	static skip = {
+		help: "Filter only skipped tests",
+		alias: "s"
+	}
 	/** @type {boolean} */
 	skip = false
+	static todo = {
+		help: "Filter only todo tests",
+		alias: "d"
+	}
 	/** @type {boolean} */
 	todo = false
+	static format = {
+		help: "Output format: txt, md, html",
+		options: ["txt", "md", "html"],
+		defaultValue: "txt"
+	}
 	/**
 	 * Todo output format.
 	 * One of txt, md, html.
@@ -25,91 +40,47 @@ class ParseCommandOptions {
 	 */
 	format = "txt"
 	constructor(input = {}) {
-		for (const [from, to] of Object.entries(ParseCommandOptions.ALIAS)) {
-			if (undefined !== input[from]) {
-				input[to] = input[from]
-			}
-		}
 		const {
 			help = this.help,
 			fail = this.fail,
 			skip = this.skip,
 			todo = this.todo,
 			format = this.format,
-		} = input
+		} = Message.parseBody(input, ParseBody)
 		this.help = Boolean(help)
 		this.fail = Boolean(fail)
 		this.skip = Boolean(skip)
 		this.todo = Boolean(todo)
-		this.format = Enum("txt", "md", "html")(format)
+		this.format = String(format)
+	}
+}
+
+/**
+ * @extends {Message}
+ */
+export class ParseMessage extends Message {
+	static Body = ParseBody
+	/** @type {ParseBody} */
+	body
+	constructor(input = {}) {
+		super(input)
+		this.body = new ParseBody(input.body ?? {})
 	}
 	/**
-	 * @param {*} input
-	 * @returns {ParseCommandOptions}
+	 * @param {any} input
+	 * @returns {ParseMessage}
 	 */
 	static from(input) {
-		if (input instanceof ParseCommandOptions) return input
-		return new ParseCommandOptions(input)
+		if (input instanceof ParseMessage) return input
+		return new ParseMessage(input)
 	}
 }
 
 /**
- * @extends {CommandMessage}
+ * @extends {CLI}
  */
-export class ParseCommandMessage extends CommandMessage {
-	/** @type {ParseCommandOptions} */
-	_opts = new ParseCommandOptions()
-	/**
-	 * Create a new ParseCommandMessage instance
-	 * @param {object} input - Command message properties
-	 * @param {*} [input.body] - Message body, used only to store original input if it is string
-	 * @param {string} [input.name] - Command name
-	 * @param {string[]} [input.argv] - Command arguments
-	 * @param {object} [input.opts] - Command options
-	 * @param {object[]} [input.children] - Subcommands in their messages, usually it is only one or zero.
-	 */
-	constructor(input = {}) {
-		const {
-			body,
-			name,
-			argv = [],
-			opts = {},
-			children = [],
-		} = input
-		super({ body, name, argv, opts, children })
-		this.opts = opts
-	}
-	/** @returns {ParseCommandOptions} */
-	get opts() {
-		return this._opts
-	}
-	/** @param {ParseCommandOptions} value */
-	set opts(value) {
-		this._opts = ParseCommandOptions.from(value)
-	}
-	/**
-	 * @param {any} msg
-	 */
-	add(msg) {
-		this.children.push(ParseCommandMessage.from(msg))
-	}
-}
-
-/**
- * @extends {Command}
- */
-export default class ParseCommand extends Command {
-	static Message = ParseCommandMessage
-	constructor() {
-		super({
-			name: "parse",
-			help: "Parse the output of the tap output, filter and print in the specific format",
-		})
-		this.addOption("fail", Boolean, false, "Show failed tests only")
-		this.addOption("skip", Boolean, false, "Show skipped tests only")
-		this.addOption("todo", Boolean, false, "Show todo tests only")
-		this.addOption("format", String, "txt", "Output format, one of: txt, md")
-	}
+export default class ParseCommand extends CLI {
+	static Message = ParseMessage
 
 	write(str) {
 		process.stdout.write(str)
@@ -121,13 +92,14 @@ export default class ParseCommand extends Command {
 	 * --skip
 	 * --todo
 	 * --format {md|txt}
-	 * @param {ParseCommandMessage} msg
+	 * @param {ParseMessage} msg
+	 * @returns {AsyncGenerator<OutputMessage>}
 	 */
-	async run(msg) {
+	async * run(msg) {
 		const input = await this.readInput()
 		const parser = new TapParser()
 		const result = parser.decode(input)
-		const opts = msg.opts
+		const opts = msg.body
 
 		// let output = result.toString()
 		/** @type {TestNode} */
@@ -159,8 +131,7 @@ export default class ParseCommand extends Command {
 			default:
 				break
 		}
-		this.write(output + "\n")
-		return output
+		yield new OutputMessage(output)
 	}
 
 	async readInput() {

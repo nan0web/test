@@ -1,37 +1,37 @@
 import { describe, it } from "node:test"
 import { strict as assert } from "node:assert"
 
-import { StatusCommandMessage } from "./status.js"
+import StatusCommand, { Status } from "./status.js"
 
 describe("StatusCommand", () => {
 
-	it("should parse StatusCommandMessage with default options", () => {
-		const msg = new StatusCommandMessage({})
-		assert.equal(msg.opts.help, false)
-		assert.equal(msg.opts.hide_name, false)
-		assert.equal(msg.opts.hide_status, false)
-		assert.equal(msg.opts.hide_docs, false)
-		assert.equal(msg.opts.hide_coverage, false)
-		assert.equal(msg.opts.hide_features, false)
-		assert.equal(msg.opts.hide_npm, false)
-		assert.equal(msg.opts.todo, false)
-		assert.equal(msg.opts.format, "txt")
+	it("should parse Status with default options", () => {
+		const msg = new Status({})
+		assert.equal(msg.body.help, false)
+		assert.equal(msg.body.hide_name, false)
+		assert.equal(msg.body.hide_status, false)
+		assert.equal(msg.body.hide_docs, false)
+		assert.equal(msg.body.hide_coverage, false)
+		assert.equal(msg.body.hide_features, false)
+		assert.equal(msg.body.hide_npm, false)
+		assert.equal(msg.body.todo, false)
+		assert.equal(msg.body.format, "txt")
 	})
 
 	it("should map alias options correctly", () => {
-		const msg = new StatusCommandMessage({ opts: { "hide-name": true, "hide-status": true } })
-		assert.equal(msg.opts.hide_name, true)
-		assert.equal(msg.opts.hide_status, true)
+		const msg = new Status({ body: { "hide-name": true, "hide-status": true } })
+		assert.equal(msg.body.hide_name, true)
+		assert.equal(msg.body.hide_status, true)
 	})
 
 	it("should accept format option and validate it", () => {
-		const msg = new StatusCommandMessage({ opts: { format: "md" } })
-		assert.equal(msg.opts.format, "md")
+		const msg = new Status({ body: { format: "md" } })
+		assert.equal(msg.body.format, "md")
 	})
 
 	it("should reject invalid format option", () => {
 		assert.throws(() => {
-			new StatusCommandMessage({ opts: { format: "invalid" } })
+			new Status({ body: { format: "invalid" } })
 		}, /Error/)
 	})
 

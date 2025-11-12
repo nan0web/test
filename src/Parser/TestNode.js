@@ -190,12 +190,11 @@ export default class TestNode extends Node {
 
 	/**
 	 * Adds element to the container.
-	 * @param {any} element
+	 * @param {TestNode} element
 	 * @returns {this}
 	 */
 	add(element) {
 		const node = TestNode.from(super.add(element))
-		element._updateLevel()
 		return /** @type {this} */ (node)
 	}
 	/**

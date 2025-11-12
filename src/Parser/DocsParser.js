@@ -41,6 +41,7 @@ class DocsParser extends Parser {
 		const result = []
 		super.decode(text) // result is not needed, everything is collected by this.#rows
 		let insideFn = false
+		let insideExample = false
 		let insideComment = false // local comment
 		let parentIndent = 0
 		this.#rows.map(({ row, indent, raw }, i) => {
@@ -78,9 +79,13 @@ class DocsParser extends Parser {
 				}
 			}
 			else if (["it('", 'it("', "it(`"].some(s => row.startsWith(s))) {
-				value = row.slice(4, row.indexOf(row[3], 4)) + "\n```js"
-				parentIndent = indent + 1
-				insideFn = true
+				if (insideFn) {
+					insideExample = true
+				} else {
+					value = row.slice(4, row.indexOf(row[3], 4)) + "\n```js"
+					parentIndent = indent + 1
+					insideFn = true
+				}
 			}
 			else if (row.startsWith("// ")) {
 				if (insideFn) {
@@ -91,11 +96,16 @@ class DocsParser extends Parser {
 				value = row.slice(2)
 			}
 			else if (this.stops.some(s => row.startsWith(s))) {
-				value = insideFn ? "```" : false
-				prefix = ""
-				insideFn = false
+				if (insideExample) {
+					// @todo it works only with one level of ({})
+					insideExample = false
+				} else {
+					value = insideFn ? "```" : false
+					prefix = ""
+					insideFn = false
+				}
 			}
-			else if (insideFn && value.startsWith("/**")) {
+			else if (insideFn && value.startsWith("/**") && !value.endsWith("*/")) {
 				const next = this.#rows[i + 1] || ""
 				insideComment = false
 				if (next.row.startsWith(" * ```")) {

@@ -1,36 +1,22 @@
 /**
- * @extends {CommandMessage}
+ * @extends {Message}
  */
-export class ParseCommandMessage extends CommandMessage {
+export class ParseMessage extends Message {
+    static Body: typeof ParseBody;
     /**
-     * Create a new ParseCommandMessage instance
-     * @param {object} input - Command message properties
-     * @param {*} [input.body] - Message body, used only to store original input if it is string
-     * @param {string} [input.name] - Command name
-     * @param {string[]} [input.argv] - Command arguments
-     * @param {object} [input.opts] - Command options
-     * @param {object[]} [input.children] - Subcommands in their messages, usually it is only one or zero.
+     * @param {any} input
+     * @returns {ParseMessage}
      */
-    constructor(input?: {
-        body?: any;
-        name?: string | undefined;
-        argv?: string[] | undefined;
-        opts?: object;
-        children?: any[] | undefined;
-    });
-    /** @type {ParseCommandOptions} */
-    _opts: ParseCommandOptions;
-    /** @param {ParseCommandOptions} value */
-    set opts(arg: ParseCommandOptions);
-    /** @returns {ParseCommandOptions} */
-    get opts(): ParseCommandOptions;
+    static from(input: any): ParseMessage;
+    constructor(input?: {});
+    /** @type {ParseBody} */
+    body: ParseBody;
 }
 /**
- * @extends {Command}
+ * @extends {CLI}
  */
-export default class ParseCommand extends Command {
-    static Message: typeof ParseCommandMessage;
-    constructor();
+export default class ParseCommand extends CLI {
+    static Message: typeof ParseMessage;
     write(str: any): void;
     /**
      * Possible arguments:
@@ -38,25 +24,36 @@ export default class ParseCommand extends Command {
      * --skip
      * --todo
      * --format {md|txt}
-     * @param {ParseCommandMessage} msg
+     * @param {ParseMessage} msg
+     * @returns {AsyncGenerator<OutputMessage>}
      */
-    run(msg: ParseCommandMessage): Promise<string>;
+    run(msg: ParseMessage): AsyncGenerator<OutputMessage>;
     readInput(): Promise<any>;
     toMarkdown(output: any): string;
     toHTML(output: any): string;
 }
-import { CommandMessage } from "@nan0web/co";
-declare class ParseCommandOptions {
-    static ALIAS: {
-        f: string;
-        s: string;
-        d: string;
+import { Message } from "@nan0web/co";
+declare class ParseBody {
+    static help: {
+        help: string;
     };
-    /**
-     * @param {*} input
-     * @returns {ParseCommandOptions}
-     */
-    static from(input: any): ParseCommandOptions;
+    static fail: {
+        help: string;
+        alias: string;
+    };
+    static skip: {
+        help: string;
+        alias: string;
+    };
+    static todo: {
+        help: string;
+        alias: string;
+    };
+    static format: {
+        help: string;
+        options: string[];
+        defaultValue: string;
+    };
     constructor(input?: {});
     /** @type {boolean} */
     help: boolean;
@@ -73,5 +70,6 @@ declare class ParseCommandOptions {
      */
     format: string;
 }
-import { Command } from "@nan0web/co";
+import { CLI } from "@nan0web/ui-cli";
+import { OutputMessage } from "@nan0web/co";
 export {};

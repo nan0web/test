@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import process from "node:process"
-import { Command } from "@nan0web/co"
+import { Command } from "@nan0web/ui-cli"
 import CoverageCommand from "../src/commands/coverage.js"
 import ParseCommand from "../src/commands/parse.js"
 import StatusCommand from "../src/commands/status.js"

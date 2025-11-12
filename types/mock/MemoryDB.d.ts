@@ -41,6 +41,14 @@ export default class MemoryDB extends DB {
         uri: string;
         level: string;
     }>;
+    /**
+     * Ensures access for given URI and level, if not @throws an error.
+     * @note Must be overwritten by platform specific application
+     * @param {string} uri - Document URI
+     * @param {"r" | "w" | "d"} [level='r'] Access level
+     * @returns {Promise<void>}
+     */
+    ensureAccess(uri: string, level?: "r" | "w" | "d" | undefined): Promise<void>;
 }
 import DB from "@nan0web/db";
 import { DocumentStat } from "@nan0web/db";

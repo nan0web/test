@@ -1,8 +1,6 @@
 # @nan0web/test
 
-|[Status](https://github.com/nan0web/monorepo/blob/main/system.md#написання-сценаріїв)|Documentation|Test coverage|Features|Npm version|
-|---|---|---|---|---|
- |🟢 `97.6%` |🧪 [English 🏴󠁧󠁢󠁥󠁮󠁧󠁿](https://github.com/nan0web/test/blob/main/README.md)<br />[Українською 🇺🇦](https://github.com/nan0web/test/blob/main/docs/uk/README.md) |🟡 `85.9%` |✅ d.ts 📜 system.md 🕹️ playground |1.0.1 |
+<!-- %PACKAGE_STATUS% -->
 
 A test package with simple utilities for testing in node.js runtime.
 Designed for [nan0web philosophy](https://github.com/nan0web/monorepo/blob/main/system.md#%D0%BD%D0%B0%D0%BF%D0%B8%D1%81%D0%B0%D0%BD%D0%BD%D1%8F-%D1%81%D1%86%D0%B5%D0%BD%D0%B0%D1%80%D1%96%D1%97%D0%B2),
@@ -38,6 +36,7 @@ This package is designed with zero external dependencies and maximum clarity:
 
 ### `MemoryDB(options)`
 Utility to simulate a file system for tests.
+> @deprecated Use the `@nan0web/db.DB` as it has the same functionality.
 
 * **Parameters**
   * `options` – Object of params including:
@@ -46,17 +45,14 @@ Utility to simulate a file system for tests.
 How to mock file system using MemoryDB?
 ```js
 import { MemoryDB } from "@nan0web/test"
-
 const db = new MemoryDB({
 	predefined: new Map([
 		['file1.txt', 'content1'],
 		['file2.txt', 'content2'],
 	]),
 })
-
 await db.connect()
 const content = await db.loadDocument('file1.txt')
-
 console.info(content) // 'content1'
 ```
 ### `runSpawn(cmd, args, options)`
@@ -73,12 +69,9 @@ Utility to mock and execute child processes (for CLI tools).
 How to use runSpawn as a CLI test tool?
 ```js
 import { runSpawn } from "@nan0web/test"
-
 const { code, text } = await runSpawn('echo', ['hello world'])
-
 console.info(code) // 0
 console.info(text.includes('hello world')) // true
-
 ```
 ### `TestPackage(options)`
 Class to automate package verification based on nan0web standards.
@@ -90,26 +83,21 @@ How to validate a package using TestPackage.run(rrs)?
 ```js
 import { TestPackage, RRS } from "@nan0web/test"
 const db = new MemoryDB()
-
 db.set("system.md", "# system.md")
 db.set("tsconfig.json", "{}")
 db.set("README.md", "# README.md")
 db.set("LICENSE", "ISC")
-
 const pkg = new TestPackage({
 	db,
 	cwd: ".",
 	name: "@nan0web/test",
 	baseURL: "https://github.com/nan0web/test"
 })
-
 const rrs = new RRS()
 const statuses = []
-
 for await (const s of pkg.run(rrs)) {
 	statuses.push(s.name + ':' + s.value)
 }
-
 console.info(statuses.join('\n'))
 ```
 ### `DocsParser`
@@ -121,23 +109,8 @@ it("How to do something?", () => {
   ...
 })
 ```
+
 and converts them into structured `.md` documents.
-
-How to generate documentation using DocsParser?
-```js
-import { DocsParser } from "@nan0web/test"
-
-const parser = new DocsParser()
-const md = parser.decode(() => {
-/**
-	 * @docs
-	 * # Title
-	 * Content
- */
-	How to do X?
-```js
-doX()
-```
 
 ### `DatasetParser`
 Parser that converts markdown docs (such as README.md) into structured `.jsonl` datasets.
@@ -152,7 +125,6 @@ How to generate dataset from markdown documentation?
 import { DatasetParser } from "@nan0web/test"
 const md = '# Title\n\nHow to do X?\n```js\ndoX()\n```'
 const dataset = DatasetParser.parse(md, '@nan0web/test')
-
 console.info(dataset[0].instruction) // ← "How to do X?"
 ```
 ## Playground
@@ -173,7 +145,6 @@ npm run play
 has multiple test components that can be imported separately
 ```js
 import { MemoryDB, DocsParser, DatasetParser, runSpawn } from "@nan0web/test"
-
 ```
 ## Java•Script types & Autocomplete
 Package is fully typed with jsdoc and d.ts.
@@ -182,8 +153,8 @@ How many d.ts files should cover the source?
 
 ## Contributing
 
-How to contribute? - [check here](https://github.com/nan0web/test/blob/main/CONTRIBUTING.md)
+How to contribute? - [check here]($pkgURL/blob/main/CONTRIBUTING.md)
 
 ## License
 
-How to license? - [LICENSE](https://github.com/nan0web/test/blob/main/LICENSE)
+How to license? - [LICENSE]($pkgURL/blob/main/LICENSE)
