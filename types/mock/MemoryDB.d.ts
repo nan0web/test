@@ -48,7 +48,7 @@ export default class MemoryDB extends DB {
      * @param {"r" | "w" | "d"} [level='r'] Access level
      * @returns {Promise<void>}
      */
-    ensureAccess(uri: string, level?: "r" | "w" | "d" | undefined): Promise<void>;
+    ensureAccess(uri: string, level?: "w" | "r" | "d" | undefined): Promise<void>;
 }
 import DB from "@nan0web/db";
 import { DocumentStat } from "@nan0web/db";

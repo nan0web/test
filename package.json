@@ -33,6 +33,8 @@
 		"test:coverage:collect": "node bin/nan0test.js coverage",
 		"test:release": "node --test \"releases/**/*.test.js\"",
 		"test:status": "node bin/nan0test.js status --hide-name",
+		"test:play": "node --test --test-timeout=3333 play/**/*.test.js",
+		"test:all": "npm run test && npm run test:play && npm run test:docs && npm run build",
 		"play": "node play/main.js",
 		"release": "nan0release publish",
 		"precommit": "npm test",
@@ -63,15 +65,17 @@
 		"url": "https://github.com/nan0web/test/issues"
 	},
 	"dependencies": {
-		"@nan0web/co": "^1.1.1",
+		"@nan0web/co": "^2.0.0",
 		"@nan0web/db": "^1.1.2",
 		"@nan0web/db-fs": "^1.0.0",
+		"@nan0web/i18n": "^1.0.1",
+		"@nan0web/log": "^1.1.0",
 		"@nan0web/markdown": "^1.0.2",
-		"@nan0web/types": "^1.1.0",
-		"happy-dom": "^18.0.1"
+		"@nan0web/types": "^1.2.0",
+		"happy-dom": "^20.0.11"
 	},
 	"devDependencies": {
-		"@nan0web/ui-cli": "^1.0.0",
+		"@nan0web/ui-cli": "1.0.2",
 		"husky": "^9.1.7"
 	}
 }
