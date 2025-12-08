@@ -2,8 +2,9 @@ import { describe, it, beforeEach } from "node:test"
 import assert from "node:assert"
 
 import FS from "@nan0web/db-fs"
-import BaseRunCommand from "./run.js"
 import { NoLogger } from "@nan0web/log"
+
+import BaseRunCommand from "./run.js"
 
 class RunCommand extends BaseRunCommand {
 	results = []

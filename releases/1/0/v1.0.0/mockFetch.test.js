@@ -1,6 +1,6 @@
-import { before, describe, it } from "node:test"
+import { describe, it } from "node:test"
 import assert from "node:assert"
-import mockFetch from "../../src/mock/fetch.js"
+import { mockFetch } from "@nan0web/http-node/test"
 
 describe("mockFetch", () => {
 	it("Support exact route matching, wildcards and catch-all patterns", async () => {
@@ -75,7 +75,7 @@ describe("mockFetch", () => {
 
 		const response = await fetch('/dynamic', { method: 'GET' })
 		const data = await response.json()
-		
+
 		assert.deepStrictEqual(data, { method: 'GET', url: '/dynamic' })
 	})
 
@@ -87,7 +87,7 @@ describe("mockFetch", () => {
 		const response = await fetch('/custom')
 		assert.strictEqual(response.status, 418)
 		assert.strictEqual(response.ok, false)
-		
+
 		const data = await response.json()
 		assert.deepStrictEqual(data, { message: 'I am a teapot' })
 	})
@@ -98,7 +98,7 @@ describe("mockFetch", () => {
 		const response = await fetch('/nonexistent')
 		assert.strictEqual(response.status, 404)
 		assert.strictEqual(response.ok, false)
-		
+
 		const data = await response.json()
 		assert.deepStrictEqual(data, { error: 'Not found' })
 	})

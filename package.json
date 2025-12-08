@@ -66,8 +66,8 @@
 	},
 	"dependencies": {
 		"@nan0web/co": "^2.0.0",
-		"@nan0web/db": "^1.1.2",
-		"@nan0web/db-fs": "^1.0.0",
+		"@nan0web/db": "^1.2.0",
+		"@nan0web/db-fs": "^1.1.0",
 		"@nan0web/i18n": "^1.0.1",
 		"@nan0web/log": "^1.1.0",
 		"@nan0web/markdown": "^1.0.2",
@@ -75,7 +75,8 @@
 		"happy-dom": "^20.0.11"
 	},
 	"devDependencies": {
-		"@nan0web/ui-cli": "1.0.2",
+		"@nan0web/http-node": "^1.0.1",
+		"@nan0web/ui-cli": "1.1.0",
 		"husky": "^9.1.7"
 	}
 }
