@@ -6,7 +6,7 @@ import TestPackage from "../TestPackage.js"
 import RRS from "../RRS.js"
 import Message, { OutputMessage } from "@nan0web/co"
 
-class ProgressMessage extends OutputMessage {}
+export class ProgressMessage extends OutputMessage {}
 
 class StatusBody {
 	/** @type {boolean} */

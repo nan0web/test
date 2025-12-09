@@ -1,3 +1,5 @@
+export class ProgressMessage extends OutputMessage {
+}
 /**
  * @extends {Message}
  */
@@ -30,6 +32,7 @@ export default class StatusCommand extends CLI {
      */
     run(msg: Status): AsyncGenerator<OutputMessage>;
 }
+import { OutputMessage } from "@nan0web/co";
 import Message from "@nan0web/co";
 declare class StatusBody {
     static hide_name: {
@@ -94,5 +97,4 @@ declare class StatusBody {
     format: string;
 }
 import { CLI } from "@nan0web/ui-cli";
-import { OutputMessage } from "@nan0web/co";
 export {};
